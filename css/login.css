@@ -4,17 +4,124 @@
 
 body {
     background-color: #d3d3d3;
-}
-
-.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
-    background-size: cover;
-    background-position: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: transparent;
+    border: 2px solid #696969; /* Reduzi a espessura da borda de 2px para 1px */
+    border-radius: 10px;
+    padding: 30px 40px;
+    width: 420px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+.login-container h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
     background-color: transparent;
     border: 2px solid #696969;
-    border-radius: 10px;
-    padding: 3px 4px;
+    outline: none;
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+    border-radius: 40px;
+
 }
+
+.input-box input::placeholder {
+    color: #696969;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    top: 10px;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: -15px 0 15px;
+    white-space: nowrap;
+    justify-content: center;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    
+}
+
+.remember-forgot a {
+    text-decoration: none;
+    color: white;
+    padding: 0px 10px;
+    margin-left: auto;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #696969;
+    font-weight: 600;
+    box-shadow: 0 0 10px;
+}
+
+.login:hover {
+    background-color: transparent;
+    border: 2px solid;
+    color: white;
+    transition: 0.5s;
+}
+
+.register-link {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 5px;
+    color: black;
+}
+
+.register-link a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500px;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
