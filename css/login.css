@@ -72,10 +72,10 @@ body {
 
 .remember-forgot a {
     text-decoration: none;
-    color: white;
+    color: #696969;
     padding: 0px 10px;
     margin-left: auto;
-    padding-left: 10px;
+    padding-left: 20px;
     white-space: nowrap;
 }
 
@@ -112,7 +112,7 @@ body {
 
 .register-link a {
     text-decoration: none;
-    color: white;
+    color: #696969;
     font-weight: 500px;
 }
 
