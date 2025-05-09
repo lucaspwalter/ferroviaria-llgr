@@ -109,7 +109,7 @@ body {
 .login:hover {
   background-color: transparent;
   border: 0.1cap solid;
-  color: rgb(49, 48, 48);
+
   transition: all;
 }
 
