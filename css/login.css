@@ -65,7 +65,7 @@ body {
 .remember-forgot {
   display: flex;
   margin: -15px 0 15px;
-  justify-content: 
+  justify-content: center;
   align-items: center;
   gap: 20px; 
 }

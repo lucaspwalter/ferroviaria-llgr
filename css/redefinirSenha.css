@@ -107,9 +107,9 @@ body {
 
 .login:hover {
     background-color: transparent;
-    border: 2px solid;
-    color: white;
-    transition: 0.5s;
+    border: 0.1cap solid;
+    color: rgb(49, 48, 48);
+    transition: all;
 }
 
 .register-link {
