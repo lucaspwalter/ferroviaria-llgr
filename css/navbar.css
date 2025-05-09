@@ -27,14 +27,16 @@
     text-decoration: none;
   }
   
-  nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    background: #000000;
-    height: 8vh;
-  }
+ nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  background: #000000;
+  height: 8vh;
+  position: relative; /* ou fixed se quiser que fique fixa no topo */
+  z-index: 1000; /* valor alto para garantir que fique no topo */
+}
   
   .nav-list {
     list-style: none;
