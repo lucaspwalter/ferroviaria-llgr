@@ -1,9 +1,10 @@
 * {
     padding: 0px;
+    font-family: "Poppins";
 }
 
 body {
-    background-color: #d3d3d3;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,16 +14,17 @@ body {
 
 .login-container {
     background-color: transparent;
-    border: 2px solid #696969; /* Reduzi a espessura da borda de 2px para 1px */
+    border: 2px solid #000000;
     border-radius: 10px;
-    padding: 30px 40px;
+    padding: 30px 30px;
     width: 420px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
+    margin: 10px;
 }
 
 .login-container h1 {
-    font-size: 36px;
+    font-size: 34px;
     text-align: center;
 }
 
@@ -37,7 +39,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 2px solid #696969;
+    border: 2px solid #000000;
     outline: none;
     font-size: 16px;
     color: white;
@@ -50,7 +52,7 @@ body {
     margin-top: 30px;}
     
 .input-box input::placeholder {
-    color: #696969;
+    color: #000000;
 }
 
 .input-box i {
@@ -79,7 +81,7 @@ body {
 
 .remember-forgot a {
     text-decoration: none;
-    color: #696969;
+    color: #000000;
     padding: 0px 10px;
     margin-left: auto;
     padding-left: 20px;
@@ -98,7 +100,7 @@ body {
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: #696969;
+    color: #000000;
     font-weight: 600;
     box-shadow: 0 0 10px;
 }
@@ -119,7 +121,7 @@ body {
 
 .register-link a {
     text-decoration: none;
-    color: #696969;
+    color: #000000;
     font-weight: 500px;
 }
 
@@ -129,11 +131,16 @@ body {
 
 .link-login {
     text-decoration: none;
-    color: #696969;
+    color: #000000;
 }
 
 h4 {
-    color: #3f3f3f;
+    color: #000000;
+    font-size: 16px;
+}
+
+.senha-vermelha {
+    color: red;
 }
 
 
