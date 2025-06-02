@@ -1,0 +1,383 @@
+/* Importação das fontes - Inter para texto geral, Poppins para títulos/destaque */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+:root {
+    --color-background-dark: #1A1A1A;
+    --color-card-background: #242424;
+    --color-text-light: #E0E0E0;
+    --color-text-muted: #888888;
+    --color-primary-red: #E50000;
+    --color-primary-red-hover: #CC0000;
+    --color-success-green: #28a745;
+    --color-warning-orange: #ffc107;
+    --color-critical-red: #DC3545;
+    --color-info-blue: #007bff;
+    --border-radius: 8px;
+    --spacing-unit: 20px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background-dark);
+    margin: 0;
+    padding: 0;
+    color: var(--color-text-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada no body */
+}
+
+/* Wrapper para o conteúdo principal, garantindo centralização e espaçamento para mobile */
+.main-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--spacing-unit) 15px; /* Padding ajustado para mobile */
+    margin-top: 8vh; /* Compensa a altura da navbar fixa */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.route-management-section {
+    width: 100%;
+    max-width: 500px; /* Largura máxima para focar em mobile */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em; /* Tamanho da fonte ajustado para mobile */
+    color: var(--color-text-light);
+    text-align: center;
+    margin-bottom: var(--spacing-unit);
+    letter-spacing: 1px;
+}
+
+/* Barra de Ações (anteriormente para operadores, agora não usada se vazia no HTML) */
+.actions-bar {
+    /* Estas regras agora não terão efeito se a div .actions-bar estiver vazia no HTML */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: var(--spacing-unit);
+}
+
+/* Botões de ícone (também não terão efeito se removidos do HTML) */
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    font-size: 0.95em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.icon-button img {
+    height: 20px;
+    width: 20px;
+}
+.icon-button.button-primary img {
+    filter: brightness(0) invert(1);
+}
+.icon-button.button-secondary img {
+    filter: none;
+}
+
+/* Cartões gerais (Detalhes, Horários, Incidentes) */
+.card {
+    background-color: var(--color-card-background);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-title {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-primary-red);
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-primary-red);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- ESTILOS PARA "STATUS DETALHADO DOS TRENS" (FORMATO DE CARD) --- */
+.train-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px; /* Mantido para espaçamento abaixo da lista de cards */
+}
+
+.train-status-item {
+    background-color: #2F2F2F;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.train-id-line, .train-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.train-id-line .label, .train-detail .label {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.train-id-line .value, .train-detail .value {
+    color: var(--color-text-light);
+    text-align: right;
+    flex-grow: 1;
+}
+
+.train-action {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Estilos de status */
+.status {
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    display: inline-block;
+    min-width: 70px;
+    text-align: center;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.status-on-time {
+    color: var(--color-success-green);
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.status-delayed {
+    color: var(--color-critical-red);
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.status-critical {
+    color: var(--color-critical-red);
+    background-color: rgba(220, 53, 69, 0.2);
+    border: 1px solid var(--color-critical-red);
+}
+
+/* Botões de Ação (ajustados para "Ver Detalhes") */
+.action-button {
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-text-muted);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 200px; /* Mantido para dar um limite ao botão, mesmo em 100% de largura */
+    box-sizing: border-box;
+}
+
+.action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-light);
+    border-color: var(--color-text-light);
+}
+
+/* A classe critical-action não será mais usada se todos os botões forem "Ver Detalhes" */
+.action-button.critical-action {
+    background-color: var(--color-critical-red);
+    color: white;
+    border-color: var(--color-critical-red);
+}
+.action-button.critical-action:hover {
+    background-color: var(--color-primary-red-hover);
+    border-color: var(--color-primary-red-hover);
+}
+
+
+/* --- ESTILOS PARA "HORÁRIOS DE TODAS AS LINHAS" (TABELA COM ROLAGEM HORIZONTAL) --- */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px; /* Mantido para espaçamento abaixo da tabela */
+}
+
+.full-schedules-card table {
+    width: 100%;
+    min-width: 450px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.full-schedules-card th, .full-schedules-card td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.85em;
+}
+
+.full-schedules-card th {
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.full-schedules-card td {
+    color: var(--color-text-light);
+    font-weight: 400;
+}
+
+/* Definindo larguras para as colunas na tabela de horários */
+.full-schedules-card th:nth-child(1), .full-schedules-card td:nth-child(1) { width: 20%; } /* LINHA */
+.full-schedules-card th:nth-child(2), .full-schedules-card td:nth-child(2) { width: 15%; } /* TREM */
+.full-schedules-card th:nth-child(3), .full-schedules-card td:nth-child(3) { width: 20%; } /* PARTIDA */
+.full-schedules-card th:nth-child(4), .full-schedules-card td:nth-child(4) { width: 20%; } /* CHEGADA */
+.full-schedules-card th:nth-child(5), .full-schedules-card td:nth-child(5) { width: 25%; } /* DURAÇÃO */
+
+
+/* Filtro de Horários */
+.schedule-filter {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.schedule-filter label {
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+.schedule-filter select {
+    background-color: #333;
+    color: var(--color-text-light);
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px 12px;
+    font-size: 0.95em;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+.schedule-filter select:focus {
+    outline: none;
+    border-color: var(--color-primary-red);
+    box-shadow: 0 0 0 2px rgba(229, 0, 0, 0.3);
+}
+
+
+/* Registro de Incidentes (Mantido como estava, sem botões de ação) */
+.incident-list {
+    margin-bottom: 15px;
+}
+
+.incident-item {
+    font-size: 1em;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.incident-item:last-child {
+    border-bottom: none;
+}
+
+.incident-time {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 5px;
+}
+.incident-details {
+    font-size: 0.9em;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.critical-incident {
+    color: var(--color-critical-red);
+}
+.warning-incident {
+    color: var(--color-warning-orange);
+}
+.info-incident {
+    color: var(--color-text-light);
+}
+
+
+/* Botões (regras gerais, mas os específicos de operador foram removidos do HTML) */
+.button-primary,
+.button-secondary {
+    border: none;
+    padding: 14px 25px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.button-primary {
+    background-color: var(--color-primary-red);
+    color: white;
+    box-shadow: 0 4px 10px rgba(229, 0, 0, 0.3);
+}
+
+.button-primary:hover {
+    background-color: var(--color-primary-red-hover);
+    box-shadow: 0 6px 15px rgba(229, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.button-secondary {
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-text-muted);
+    margin-top: 10px;
+}
+
+.button-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-light);
+    border-color: var(--color-text-light);
+}
+
+/* Não há necessidade de media queries extensas, foco em mobile-first */
+@media (min-width: 769px) {
+    .route-management-section {
+        max-width: 500px; /* Mantém a largura focada em mobile mesmo em desktop */
+    }
+    /* A actions-bar não terá efeito se estiver vazia no HTML */
+    .actions-bar {
+        flex-direction: column;
+    }
+}

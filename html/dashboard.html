@@ -1,130 +1,116 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - LLGR Logística Ferroviária</title>
-    <link rel="stylesheet" href="/css/dashboard.css" />
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LLGR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-  <body>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/dashboard.css"> </head>
+<body>
     <header>
-      <nav>
-        <a class="logo" href="/">LLGR</a>
-        <div class="mobile-menu">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-        <ul class="nav-list">
-          <li><a src="inicio.html" href="inicio.html">Início</a></li>
-          <li><a href="#sobre-nos">Sobre nós</a></li>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
-          <li><a href="monitoramento.html">Monitoramento</a></li>
-          <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
-          <li><a href="alertas.html">Alertas e Notificações</a></li>
-        </ul>
-      </nav>
+        <nav>
+            <a class="logo" href="/">LLGR</a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="#sobre-nos">Sobre nós</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
+                <li><a href="alertas.html">Alertas e Notificações</a></li>
+            </ul>
+        </nav>
     </header>
-    <main class="dashboard">
-      <section class="card status">
-        <h2>Status dos Trens</h2>
-        <ul>
-          <li>Trem 101 - <span class="ok">No horário</span></li>
-          <li>Trem 202 - <span class="alerta">Atrasado</span></li>
-          <li>Trem 303 - <span class="ok">No horário</span></li>
-        </ul>
-        <button class="btn-action">Ver Detalhes dos Trens</button>
-      </section>
-  
-      <section class="card horarios">
-        <h2>Horários</h2>
-        <table>
-          <thead>
-            <tr><th>Linha</th><th>Partida</th><th>Destino</th><th>Horário</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Linha A</td><td>Centro</td><td>Norte</td><td>14:30</td></tr>
-            <tr><td>Linha B</td><td>Oeste</td><td>Leste</td><td>14:45</td></tr>
-            <tr><td>Linha C</td><td>Centro</td><td>Sul</td><td>15:00</td></tr>
-          </tbody>
-        </table>
-        <button class="btn-action">Ver Todos os Horários</button>
-      </section>
-  
-      <section class="card alertas">
-        <h2>Alertas em Tempo Real</h2>
-        <ul>
-          <li><span class="alerta">Interrupção na Linha B - Problema técnico</span></li>
-          <li><span class="alerta">Atraso na Linha C - Manutenção na via</span></li>
-          <li><span class="ok">Alerta: Trem 404 - Chegada prevista em 30 min</span></li>
-        </ul>
-        <button class="btn-action">Gerenciar Alertas</button>
-      </section>
 
-      <section class="card performance-metrics">
-        <h2>Performance Geral</h2>
-        <div class="metrics-grid">
-            <div class="metric-item">
-                <p class="metric-value ok">92%</p>
-                <p class="metric-label">Pontualidade</p>
+    <main class="main-content-wrapper">
+        <section class="dashboard-overview">
+            <h1 class="page-title">Dashboard Operacional</h1>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">12</span>
+                    <span class="kpi-label">Trens Ativos</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value status-critical">2</span>
+                    <span class="kpi-label">Trens Parados</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">98%</span>
+                    <span class="kpi-label">Pontualidade Média</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value status-warning">3</span>
+                    <span class="kpi-label">Atrasos (Últimas 24h)</span>
+                </div>
             </div>
-            <div class="metric-item">
-                <p class="metric-value">15k km</p>
-                <p class="metric-label">Total Percorrido (mês)</p>
+
+            <div class="card alerts-summary-card">
+                <h2 class="card-title">ALERTAS RECENTES</h2>
+                <div class="alert-list">
+                    <div class="alert-item alert-critical">
+                        <span class="alert-time">10:45</span> - Interrupção na Linha B - Problema técnico
+                    </div>
+                    <div class="alert-item alert-warning">
+                        <span class="alert-time">10:30</span> - Atraso na Linha C - Manutenção na via
+                    </div>
+                    <div class="alert-item alert-info">
+                        <span class="alert-time">10:15</span> - Alerta: Trem 404 - Chegada prevista em 30 min
+                    </div>
+                </div>
+                <button class="button-primary">Ver Todos os Alertas</button>
             </div>
-            <div class="metric-item">
-                <p class="metric-value">12</p>
-                <p class="metric-label">Rotas Ativas</p>
+
+            <div class="card next-departures-card">
+                <h2 class="card-title">PRÓXIMAS PARTIDAS</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TREM</th>
+                            <th>LINHA</th>
+                            <th>HORÁRIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>105</td>
+                            <td>Linha A</td>
+                            <td>11:30</td>
+                        </tr>
+                        <tr>
+                            <td>208</td>
+                            <td>Linha B</td>
+                            <td>11:45</td>
+                        </tr>
+                        <tr>
+                            <td>310</td>
+                            <td>Linha C</td>
+                            <td>12:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="button-secondary">Ver Horários Completos</button>
             </div>
-        </div>
-        <button class="btn-action">Análise Detalhada</button>
-      </section>
 
-      <section class="card live-map">
-        <h2>Mapa de Monitoramento</h2>
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28613.854271132564!2d-48.83742720922347!3d-26.302793713068596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94deb163e53b3bc5%3A0x83bcc2104212ed02!2zRXN0YcOnw6NvIEZlcnJvdmnDoXJpYSBkZSBKb2ludmlsbGUg8J-agg!5e0!3m2!1spt-BR!2sbr!4v1747840590488!5m2!1spt-BR!2sbr" 
-                width="100%" 
-                height="auto" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-        </div>
-        <a href="https://www.google.com/maps?ll=-26.321846,-48.84644&z=12&t=m&hl=pt-BR&gl=BR&mapclient=embed&cid=9492675489673964802" target="_blank" class="btn-action btn-action-map">Abrir Mapa Completo</a>
-      </section>
+            <div class="card chart-placeholder">
+                <h2 class="card-title">PERFORMANCE POR LINHA</h2>
+                <p>Gráfico de performance de linhas (e.g., pontualidade, incidentes) viria aqui.</p>
+                <div class="chart-mock"></div>
+            </div>
 
-      <section class="card maintenance-schedule">
-        <h2>Próximas Manutenções</h2>
-        <ul>
-          <li><span class="alerta">Locomotiva #501 - Revisão (25/05)</span></li>
-          <li><span class="ok">Via Linha A - Inspeção rotineira (30/05)</span></li>
-          <li><span class="alerta">Vagão C-77 - Troca de peça (02/06)</span></li>
-        </ul>
-        <button class="btn-action">Ver Cronograma</button>
-      </section>
-
-      <section class="card user-activity">
-        <h2>Atividade Recente</h2>
-        <ul>
-          <li><span class="activity-info">Usuário "Admin" atualizou rota "SP-RJ"</span> - <span class="activity-time">há 5 min</span></li>
-          <li><span class="activity-info">Novo alerta crítico emitido</span> - <span class="activity-time">há 12 min</span></li>
-          <li><span class="activity-info">Relatório "Performance Maio" gerado</span> - <span class="activity-time">há 30 min</span></li>
-        </ul>
-        <button class="btn-action">Ver Log de Atividade</button>
-      </section>
-
+        </section>
     </main>
+
     <script src="/js/mobile-navbar.js"></script>
-  </body>
+    <script src="/js/dashboard.js"></script>
+</body>
 </html>

@@ -1,34 +1,202 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestão de Rotas</title>
-    <link rel="stylesheet" href="/css/navbar.css" />
-  </head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Rotas - LLGR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-  <body>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/gestaoderotas.css">
+</head>
+<body>
     <header>
-      <nav>
-        <a class="logo" href="/">LLGR</a>
-        <div class="mobile-menu">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-        <ul class="nav-list">
-          <li><a src=inicio.html href="inicio.html">Início</a></li>
-          <li><a href="sobrenos.html">Sobre nós</a></li>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
-          <li><a href="monitoramento.html">Monitoramento</a></li>
-          <li><a href="relatorioseanalise.html">Relatórios e Análises </a></li>
-          <li><a href="alertas.html">Alertas e Notificações </a></li>
-        </ul>
-      </nav>
+        <nav>
+            <a class="logo" href="/">LLGR</a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="#sobre-nos">Sobre nós</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
+                <li><a href="alertas.html">Alertas e Notificações</a></li>
+            </ul>
+        </nav>
     </header>
-    <main></main>
+
+    <main class="main-content-wrapper">
+        <section class="route-management-section">
+            <h1 class="page-title">Gestão de Rotas e Trens</h1>
+
+            <div class="card detailed-status-card">
+                <h2 class="card-title">STATUS DETALHADO DOS TRENS</h2>
+                <div class="train-status-list">
+                    <div class="train-status-item">
+                        <div class="train-id-line">
+                            <span class="label">Trem ID:</span> <span class="value">101</span>
+                        </div>
+                        <div class="train-id-line">
+                            <span class="label">Linha:</span> <span class="value">Linha A</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Próxima Parada:</span> <span class="value">Estação Centro</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Status:</span> <span class="status status-on-time">No horário</span>
+                        </div>
+                        <div class="train-action">
+                            <button class="action-button">Ver Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="train-status-item">
+                        <div class="train-id-line">
+                            <span class="label">Trem ID:</span> <span class="value">202</span>
+                        </div>
+                        <div class="train-id-line">
+                            <span class="label">Linha:</span> <span class="value">Linha B</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Próxima Parada:</span> <span class="value">Estação Leste</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Status:</span> <span class="status status-delayed">Atrasado (+15min)</span>
+                        </div>
+                        <div class="train-action">
+                            <button class="action-button">Ver Detalhes</button> </div>
+                    </div>
+
+                    <div class="train-status-item">
+                        <div class="train-id-line">
+                            <span class="label">Trem ID:</span> <span class="value">303</span>
+                        </div>
+                        <div class="train-id-line">
+                            <span class="label">Linha:</span> <span class="value">Linha C</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Próxima Parada:</span> <span class="value">Estação Sul</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Status:</span> <span class="status status-on-time">No horário</span>
+                        </div>
+                        <div class="train-action">
+                            <button class="action-button">Ver Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="train-status-item">
+                        <div class="train-id-line">
+                            <span class="label">Trem ID:</span> <span class="value">404</span>
+                        </div>
+                        <div class="train-id-line">
+                            <span class="label">Linha:</span> <span class="value">Linha D</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Próxima Parada:</span> <span class="value">Terminal Norte</span>
+                        </div>
+                        <div class="train-detail">
+                            <span class="label">Status:</span> <span class="status status-critical">Parado (Falha)</span>
+                        </div>
+                        <div class="train-action">
+                            <button class="action-button">Ver Detalhes</button> </div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="card full-schedules-card">
+                <h2 class="card-title">HORÁRIOS DE TODAS AS LINHAS</h2>
+                <div class="schedule-filter">
+                    <label for="line-select">Filtrar por Linha:</label>
+                    <select id="line-select">
+                        <option value="all">Todas as Linhas</option>
+                        <option value="A">Linha A</option>
+                        <option value="B">Linha B</option>
+                        <option value="C">Linha C</option>
+                        <option value="D">Linha D</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>LINHA</th>
+                                <th>TREM</th>
+                                <th>PARTIDA</th>
+                                <th>CHEGADA</th>
+                                <th>DURAÇÃO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Linha A</td>
+                                <td>101</td>
+                                <td>08:00</td>
+                                <td>09:30</td>
+                                <td>1h30m</td>
+                            </tr>
+                            <tr>
+                                <td>Linha B</td>
+                                <td>202</td>
+                                <td>08:15</td>
+                                <td>09:50</td>
+                                <td>1h35m</td>
+                            </tr>
+                            <tr>
+                                <td>Linha C</td>
+                                <td>303</td>
+                                <td>08:30</td>
+                                <td>10:00</td>
+                                <td>1h30m</td>
+                            </tr>
+                             <tr>
+                                <td>Linha A</td>
+                                <td>102</td>
+                                <td>09:45</td>
+                                <td>11:15</td>
+                                <td>1h30m</td>
+                            </tr>
+                             <tr>
+                                <td>Linha D</td>
+                                <td>404</td>
+                                <td>09:00</td>
+                                <td>10:40</td>
+                                <td>1h40m</td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                </div>
+
+            <div class="card incident-log-card">
+                <h2 class="card-title">REGISTRO DE INCIDENTES</h2>
+                <div class="incident-list">
+                    <div class="incident-item critical-incident">
+                        <span class="incident-time">2025-06-01 10:45</span> - Linha B: Falha Elétrica na Estação Central. <br>
+                        <span class="incident-details">Status: Em Andamento | Impacto: Interrupção Total.</span>
+                    </div>
+                    <div class="incident-item warning-incident">
+                        <span class="incident-time">2025-06-01 10:30</span> - Linha C: Manutenção programada estendida. <br>
+                        <span class="incident-details">Status: Resolvido | Impacto: Atraso de 30min.</span>
+                    </div>
+                     <div class="incident-item info-incident">
+                        <span class="incident-time">2025-05-31 18:00</span> - Linha A: Pequeno atraso devido a tráfego intenso. <br>
+                        <span class="incident-details">Status: Resolvido | Impacto: Atraso de 5min.</span>
+                    </div>
+                </div>
+                </div>
+
+        </section>
+    </main>
+
     <script src="/js/mobile-navbar.js"></script>
-  </body>
+    <script src="/js/gestaoderotas.js"></script>
+</body>
 </html>
