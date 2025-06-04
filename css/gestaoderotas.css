@@ -1,27 +1,11 @@
-/* Importação das fontes - Inter para texto geral, Poppins para títulos/destaque */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
-
-:root {
-    --color-background-dark: #1A1A1A;
-    --color-card-background: #242424;
-    --color-text-light: #E0E0E0;
-    --color-text-muted: #888888;
-    --color-primary-red: #E50000;
-    --color-primary-red-hover: #CC0000;
-    --color-success-green: #28a745;
-    --color-warning-orange: #ffc107;
-    --color-critical-red: #DC3545;
-    --color-info-blue: #007bff;
-    --border-radius: 8px;
-    --spacing-unit: 20px;
-}
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--color-background-dark);
+    background-color: #1A1A1A;
     margin: 0;
     padding: 0;
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -35,7 +19,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: var(--spacing-unit) 15px; /* Padding ajustado para mobile */
+    padding: 20px 15px; /* --spacing-unit */
     margin-top: 8vh; /* Compensa a altura da navbar fixa */
     box-sizing: border-box;
     width: 100%;
@@ -46,15 +30,15 @@ body {
     max-width: 500px; /* Largura máxima para focar em mobile */
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-unit);
+    gap: 20px; /* --spacing-unit */
 }
 
 .page-title {
     font-family: 'Poppins', sans-serif;
     font-size: 2em; /* Tamanho da fonte ajustado para mobile */
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
     text-align: center;
-    margin-bottom: var(--spacing-unit);
+    margin-bottom: 20px; /* --spacing-unit */
     letter-spacing: 1px;
 }
 
@@ -64,7 +48,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: var(--spacing-unit);
+    margin-bottom: 20px; /* --spacing-unit */
 }
 
 /* Botões de ícone (também não terão efeito se removidos do HTML) */
@@ -92,22 +76,22 @@ body {
 
 /* Cartões gerais (Detalhes, Horários, Incidentes) */
 .card {
-    background-color: var(--color-card-background);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-unit);
+    background-color: #242424; /* --color-card-background */
+    border-radius: 8px; /* --border-radius */
+    padding: 20px; /* --spacing-unit */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .card-title {
     font-family: 'Poppins', sans-serif;
-    color: var(--color-primary-red);
+    color: #E50000; /* --color-primary-red */
     font-size: 1.2em;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid var(--color-primary-red);
+    border-bottom: 2px solid #E50000; /* --color-primary-red */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -122,7 +106,7 @@ body {
 
 .train-status-item {
     background-color: #2F2F2F;
-    border-radius: var(--border-radius);
+    border-radius: 8px; /* --border-radius */
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -139,13 +123,13 @@ body {
 
 .train-id-line .label, .train-detail .label {
     font-weight: 600;
-    color: var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
     flex-shrink: 0;
     margin-right: 10px;
 }
 
 .train-id-line .value, .train-detail .value {
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
     text-align: right;
     flex-grow: 1;
 }
@@ -170,26 +154,26 @@ body {
 }
 
 .status-on-time {
-    color: var(--color-success-green);
+    color: #28a745; /* --color-success-green */
     background-color: rgba(40, 167, 69, 0.1);
 }
 
 .status-delayed {
-    color: var(--color-critical-red);
+    color: #DC3545; /* --color-critical-red */
     background-color: rgba(220, 53, 69, 0.1);
 }
 
 .status-critical {
-    color: var(--color-critical-red);
+    color: #DC3545; /* --color-critical-red */
     background-color: rgba(220, 53, 69, 0.2);
-    border: 1px solid var(--color-critical-red);
+    border: 1px solid #DC3545; /* --color-critical-red */
 }
 
 /* Botões de Ação (ajustados para "Ver Detalhes") */
 .action-button {
     background-color: transparent;
-    color: var(--color-text-muted);
-    border: 1px solid var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
+    border: 1px solid #888888; /* --color-text-muted */
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -203,19 +187,19 @@ body {
 
 .action-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: var(--color-text-light);
-    border-color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
+    border-color: #E0E0E0; /* --color-text-light */
 }
 
 /* A classe critical-action não será mais usada se todos os botões forem "Ver Detalhes" */
 .action-button.critical-action {
-    background-color: var(--color-critical-red);
+    background-color: #DC3545; /* --color-critical-red */
     color: white;
-    border-color: var(--color-critical-red);
+    border-color: #DC3545; /* --color-critical-red */
 }
 .action-button.critical-action:hover {
-    background-color: var(--color-primary-red-hover);
-    border-color: var(--color-primary-red-hover);
+    background-color: #CC0000; /* --color-primary-red-hover */
+    border-color: #CC0000; /* --color-primary-red-hover */
 }
 
 
@@ -244,14 +228,14 @@ body {
 }
 
 .full-schedules-card th {
-    color: var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .full-schedules-card td {
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
     font-weight: 400;
 }
 
@@ -272,11 +256,11 @@ body {
 }
 .schedule-filter label {
     font-weight: 500;
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
 }
 .schedule-filter select {
     background-color: #333;
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
     border: 1px solid #555;
     border-radius: 5px;
     padding: 10px 12px;
@@ -287,7 +271,7 @@ body {
 }
 .schedule-filter select:focus {
     outline: none;
-    border-color: var(--color-primary-red);
+    border-color: #E50000; /* --color-primary-red */
     box-shadow: 0 0 0 2px rgba(229, 0, 0, 0.3);
 }
 
@@ -309,24 +293,24 @@ body {
 
 .incident-time {
     font-weight: 600;
-    color: var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
     display: block;
     margin-bottom: 5px;
 }
 .incident-details {
     font-size: 0.9em;
-    color: var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
     font-style: italic;
 }
 
 .critical-incident {
-    color: var(--color-critical-red);
+    color: #DC3545; /* --color-critical-red */
 }
 .warning-incident {
-    color: var(--color-warning-orange);
+    color: #ffc107; /* --color-warning-orange */
 }
 .info-incident {
-    color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
 }
 
 
@@ -335,7 +319,7 @@ body {
 .button-secondary {
     border: none;
     padding: 14px 25px;
-    border-radius: var(--border-radius);
+    border-radius: 8px; /* --border-radius */
     cursor: pointer;
     font-size: 1.05em;
     font-weight: 600;
@@ -347,28 +331,28 @@ body {
 }
 
 .button-primary {
-    background-color: var(--color-primary-red);
+    background-color: #E50000; /* --color-primary-red */
     color: white;
     box-shadow: 0 4px 10px rgba(229, 0, 0, 0.3);
 }
 
 .button-primary:hover {
-    background-color: var(--color-primary-red-hover);
+    background-color: #CC0000; /* --color-primary-red-hover */
     box-shadow: 0 6px 15px rgba(229, 0, 0, 0.4);
     transform: translateY(-2px);
 }
 
 .button-secondary {
     background-color: transparent;
-    color: var(--color-text-muted);
-    border: 1px solid var(--color-text-muted);
+    color: #888888; /* --color-text-muted */
+    border: 1px solid #888888; /* --color-text-muted */
     margin-top: 10px;
 }
 
 .button-secondary:hover {
     background-color: rgba(255, 255, 255, 0.05);
-    color: var(--color-text-light);
-    border-color: var(--color-text-light);
+    color: #E0E0E0; /* --color-text-light */
+    border-color: #E0E0E0; /* --color-text-light */
 }
 
 /* Não há necessidade de media queries extensas, foco em mobile-first */

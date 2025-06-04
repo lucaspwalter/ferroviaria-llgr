@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/dashboard.css"> </head>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
 <body>
     <header>
         <nav>
@@ -32,8 +33,8 @@
     </header>
 
     <main class="main-content-wrapper">
-        <section class="dashboard-overview">
-            <h1 class="page-title">Dashboard Operacional</h1>
+        <section class="dashboard-section">
+            <h1 class="page-title">Dashboard de Desempenho e Visão Geral</h1>
 
             <div class="kpi-grid">
                 <div class="kpi-card">
@@ -54,63 +55,41 @@
                 </div>
             </div>
 
-            <div class="card alerts-summary-card">
-                <h2 class="card-title">ALERTAS RECENTES</h2>
-                <div class="alert-list">
-                    <div class="alert-item alert-critical">
-                        <span class="alert-time">10:45</span> - Interrupção na Linha B - Problema técnico
-                    </div>
-                    <div class="alert-item alert-warning">
-                        <span class="alert-time">10:30</span> - Atraso na Linha C - Manutenção na via
-                    </div>
-                    <div class="alert-item alert-info">
-                        <span class="alert-time">10:15</span> - Alerta: Trem 404 - Chegada prevista em 30 min
-                    </div>
+            <div class="card chart-card">
+                <h2 class="card-title">ÍNDICE DE PONTUALIDADE POR LINHA</h2>
+                <div class="chart-container">
+                    <p class="chart-placeholder-text">Gráfico de barras/pizza mostrando a pontualidade de cada linha.</p>
+                    <div class="chart-mock"></div>
                 </div>
-                <button class="button-primary">Ver Todos os Alertas</button>
             </div>
 
-            <div class="card next-departures-card">
-                <h2 class="card-title">PRÓXIMAS PARTIDAS</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>TREM</th>
-                            <th>LINHA</th>
-                            <th>HORÁRIO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>105</td>
-                            <td>Linha A</td>
-                            <td>11:30</td>
-                        </tr>
-                        <tr>
-                            <td>208</td>
-                            <td>Linha B</td>
-                            <td>11:45</td>
-                        </tr>
-                        <tr>
-                            <td>310</td>
-                            <td>Linha C</td>
-                            <td>12:00</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="button-secondary">Ver Horários Completos</button>
+            <div class="card chart-card">
+                <h2 class="card-title">OCUPAÇÃO MÉDIA POR TREM</h2>
+                <div class="chart-container">
+                    <p class="chart-placeholder-text">Gráfico de linhas/áreas mostrando a ocupação média ao longo do tempo.</p>
+                    <div class="chart-mock"></div>
+                </div>
             </div>
 
-            <div class="card chart-placeholder">
-                <h2 class="card-title">PERFORMANCE POR LINHA</h2>
-                <p>Gráfico de performance de linhas (e.g., pontualidade, incidentes) viria aqui.</p>
-                <div class="chart-mock"></div>
+            <div class="card chart-card">
+                <h2 class="card-title">HISTÓRICO DE INCIDENTES RECENTES</h2>
+                <div class="chart-container">
+                    <p class="chart-placeholder-text">Gráfico de colunas/pizza para os tipos e frequência de incidentes.</p>
+                    <div class="chart-mock"></div>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h2 class="card-title">FLUXO DE PASSAGEIROS (ÚLTIMAS 24H)</h2>
+                <div class="chart-container">
+                    <p class="chart-placeholder-text">Gráfico de linha mostrando o fluxo de passageiros por período.</p>
+                    <div class="chart-mock"></div>
+                </div>
             </div>
 
         </section>
     </main>
 
     <script src="/js/mobile-navbar.js"></script>
-    <script src="/js/dashboard.js"></script>
-</body>
+    </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - LLGR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/verperfil.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/navbar.css"> </head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">LLGR</a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="#sobre-nos">Sobre nós</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
+                <li><a href="alertas.html">Alertas e Notificações</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="profile-view-container">
+        <div class="profile-view-box">
+            <h2>Meu Perfil <span class="llgr-red">LLGR</span></h2>
+
+            <div class="profile-info-group">
+                <div class="info-label">Nome de Usuário:</div>
+                <div class="info-value">usuario_atual</div>
+            </div>
+
+            <div class="profile-info-group">
+                <div class="info-label">Email:</div>
+                <div class="info-value">email@example.com</div>
+            </div>
+
+            <div class="profile-info-group">
+                <div class="info-label">Status:</div>
+                <div class="info-value">Ativo</div>
+            </div>
+
+            <button type="button" class="btn-edit" onclick="location.href='editarPerfil.html'">Editar Perfil</button>
+            <div class="profile-links">
+                <a href="#">Voltar ao Painel</a>
+            </div>
+        </div>
+    </div>
+    <script src="/js/mobile-navbar.js"></script>
+</body>
+</html>
