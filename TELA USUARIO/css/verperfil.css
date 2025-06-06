@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1A1A1A; /* Fundo escuro */
+    display: flex;
+    flex-direction: column; /* Empilha header e container de perfil */
+    min-height: 100vh;     /* Garante que o body ocupe a altura total da viewport */
+    margin: 0;             /* Remove margens padrão do body */
+    padding: 0;            /* Remove paddings padrão do body */
+}
+
+/* Estilos para o cabeçalho (apenas para garantir que não ocupe espaço desnecessário) */
+header {
+    width: 100%;
+    background-color: #242424; /* Fundo do header, ajuste se tiver no navbar.css */
+    /* Exemplo: padding: 10px 0; */
+}
+
+.profile-view-container {
+    display: flex;
+    justify-content: center; /* Centraliza o profile-view-box horizontalmente */
+    align-items: center;   /* Centraliza o profile-view-box verticalmente no espaço restante */
+    width: 100%;
+    flex-grow: 1; /* Permite que este container ocupe todo o espaço vertical restante */
+    padding: 20px 0; /* Padding vertical para espaçamento */
+    box-sizing: border-box; /* Garante que o padding seja incluído na altura total */
+}
+
+.profile-view-box {
+    background-color: #242424; /* Fundo do card */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px; /* Largura máxima do card */
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #ffffff; /* Título em branco */
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.llgr-red {
+    color: #ff0000; /* Cor vermelha para "LLGR" */
+}
+
+.profile-info-group {
+    display: flex;
+    justify-content: space-between; /* Espaça label e value */
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha divisória suave */
+}
+
+.profile-info-group:last-of-type {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+.info-label {
+    font-weight: 600;
+    color: #E0E0E0; /* Cor para os rótulos (ex: "Nome de Usuário:") */
+    text-align: left;
+    flex-basis: 40%; /* Dá um tamanho base para o label */
+}
+
+.info-value {
+    color: #B0B0B0; /* Cor para os valores (ex: "usuario_atual") */
+    text-align: right;
+    flex-basis: 60%; /* Dá um tamanho base para o valor */
+    word-wrap: break-word; /* Quebra palavras longas */
+}
+
+.btn-edit {
+    background-color: #ff0000; /* Cor vermelha do botão */
+    color: #fff;
+    padding: 15px 0;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px; /* Espaçamento acima do botão */
+    margin-bottom: 20px;
+}
+
+.btn-edit:hover {
+    background-color: #cc0000; /* Vermelho mais escuro no hover */
+}
+
+.profile-links {
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.profile-links a {
+    color: #ff0000; /* Links em vermelho */
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.profile-links a:hover {
+    text-decoration: underline;
+}

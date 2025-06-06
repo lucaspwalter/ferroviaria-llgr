@@ -1,0 +1,159 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1A1A1A;
+    display: flex;
+    flex-direction: column; /* Organiza os filhos (header e profile-container) em coluna */
+    min-height: 100vh;     /* Garante que o body ocupe a altura total da viewport */
+    margin: 0;             /* Garante que não haja margens externas empurrando o conteúdo */
+    padding: 0;
+    align-items: center; /* Centraliza horizontalmente o conteúdo do body */
+    /* Removido justify-content: center aqui para permitir que o conteúdo se empilhe */
+}
+
+/* O profile-container será o elemento centralizado APÓS o header */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1; /* Permite que o container ocupe o espaço restante verticalmente */
+    padding: 20px 0; /* Adiciona um padding vertical para espaçamento, se necessário */
+    box-sizing: border-box; /* Inclui padding na largura/altura total */
+}
+
+/* Se você tiver um navbar.css, certifique-se de que ele não tenha margens ou paddings
+   muito grandes que empurrem o conteúdo para baixo. Um exemplo básico para o header: */
+header {
+    width: 100%;
+    background-color: #242424; /* Um fundo para o header, se não tiver no navbar.css */
+    padding: 10px 0; /* Ajuste conforme seu navbar.css */
+    box-sizing: border-box;
+}
+
+/* Restante do seu CSS para profile-box, inputs, etc., permanece o mesmo */
+.profile-box {
+    background-color: #242424;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.llgr-red {
+    color: #ff0000;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%; /* Agora ocupa 100% da largura do pai */
+    padding: 15px 20px 15px 40px; /* Padding para texto e ícone */
+    border-radius: 18px;
+    font-size: 16px;
+    background-color: #888888;
+    border: none;   /* REMOVE A BORDA */
+    outline: none;  /* REMOVE O OUTLINE PADRÃO AO CLICAR */
+    box-sizing: border-box; /* MUITO IMPORTANTE: Inclui padding e borda na largura total */
+}
+
+/* O resto do seu CSS permanece o mesmo */
+.input-group input:focus {
+    border-color: #ff0000;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px; /* Posição do ícone para ter espaço do padding esquerdo */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000000;
+    font-size: 18px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha à esquerda */
+    margin-bottom: 25px;
+    font-size: 15px;
+    color: #555;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    -webkit-appearance: none; /* Remove estilo padrão do navegador */
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.checkbox-group input[type="checkbox"]:checked::before {
+    content: '\2713'; /* Tick mark */
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-save {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 15px 0;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.btn-save:hover {
+    background-color: #cc0000;
+}
+
+.profile-links {
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.profile-links a {
+    color: #ff0000;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.profile-links a:hover {
+    text-decoration: underline;
+}
