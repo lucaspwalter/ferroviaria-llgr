@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página como um container flex para o sticky footer */
+html, body {
+    height: 100%; /* Garante que html e body ocupem 100% da altura da viewport */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Fundo branco leve */
+    color: #333;
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Previne rolagem horizontal indesejada */
+
+    display: flex; /* Transforma o body em um container flex */
+    flex-direction: column; /* Organiza os filhos em coluna */
+}
+
+.container {
+    width: 95%; /* Usa 95% da largura da tela */
+    max-width: 1200px; /* Limite para telas maiores, não removemos totalmente */
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+/* HEADER - Melhorias de design */
+.main-header {
+    background-color: #0a0a0a; /* Preto */
+    color: #fff;
+    padding: 12px 0; /* Padding ajustado para ser mais compacto */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3); /* Sombra mais pronunciada */
+    border-bottom: 3px solid #ff3434; /* LINHA VERMELHA NA PARTE INFERIOR */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo do header */
+    align-items: center;
+    flex-shrink: 0; /* Impede que o header encolha */
+}
+
+.main-header .header-content {
+    display: flex;
+    justify-content: center; /* Centraliza o logo dentro do container */
+    align-items: center;
+    width: 100%;
+    padding: 0 8px; /* Padding horizontal reduzido */
+}
+
+.main-header .logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3rem; /* TAMANHO DA FONTE DO LOGO MAIS REDUZIDO */
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px; /* Espaçamento ligeiramente reduzido */
+    display: flex;
+    align-items: center;
+    /* REMOVIDO white-space: nowrap; para permitir que o texto quebre a linha */
+    /* REMOVIDO overflow: hidden; e text-overflow: ellipsis; para não cortar o texto */
+    flex-wrap: wrap; /* PERMITE QUE O CONTEÚDO DO LOGO QUEBRE A LINHA */
+    justify-content: center; /* Centraliza ícone e texto se quebrar a linha */
+}
+
+.main-header .logo i {
+    font-size: 1.6rem; /* Tamanho do ícone ligeiramente menor */
+    margin-right: 8px; /* Espaço entre o ícone e o texto ajustado */
+    color: #ff3434; /* Cor vermelha para o ícone */
+}
+
+/* HERO SECTION - Otimizado para visual mobile */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1549887552-cb1071f6753a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8fDB8fHww') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 60px 15px;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Permite que a seção principal cresça para preencher o espaço */
+}
+
+.content-wrapper {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 90%;
+}
+
+.hero-section h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-section p {
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* OPÇÕES (CARDS) - Ajustado para Lado a Lado Sem Corte */
+.options-container {
+    display: flex;
+    flex-direction: row; /* LADO A LADO */
+    flex-wrap: wrap; /* Permite que quebrem a linha *se absolutamente necessário* */
+    justify-content: center; /* Centraliza os cards */
+    gap: 10px; /* Espaço entre os cards reduzido */
+    margin-top: 30px;
+}
+
+.option-card {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(50% - 15px);
+    background-color: #fff;
+    color: #333;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 150px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background-color: #f9f9f9;
+}
+
+.option-card i {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #ff3434; /* Vermelho */
+}
+
+.option-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    line-height: 1.2;
+    color: #0a0a0a; /* Preto */
+}
+
+.option-card p {
+    font-size: 0.7rem;
+    color: #555;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+/* Specific card colors for subtle details */
+.admin-card:hover .fa-cogs {
+    color: #e62e2e;
+}
+
+.user-card:hover .fa-user-circle {
+    color: #e62e2e;
+}
+
+/* FOOTER - Garantindo que ele fique no final */
+.main-footer {
+    background-color: #0a0a0a; /* Preto */
+    color: #bbb;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.8rem;
+    flex-shrink: 0; /* Impede que o footer encolha */
+    margin-top: auto; /* Empurra o footer para o final da página */
+}

@@ -15,7 +15,7 @@ body {
 .hero-banner {
   background:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/img/imagem\ trilho.jpg') no-repeat center center;
+    url('../img/imagem%20trilho.jpg') no-repeat center center; /* Caminho corrigido */
   background-size: cover;
   height: 90vh;
   max-height: 900px;
