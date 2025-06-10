@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Linhas Ferroviárias</title>
+    <link rel="stylesheet" href="../css/rotasUsuario.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">LLGR</a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="telainicialU.html">Início</a></li>
+                <li><a href="dashboardU.html">Dashboard</a></li>
+                <li><a href="alertasU.html">Alertas e Notificações</a></li>
+                <li><a href="verperfilU.html">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="rotas-selecao">
+            <h2>Escolha sua Rota</h2>
+            <div class="rota-opcoes">
+                <div class="rota-item">
+                    <input type="radio" id="rota1" name="rota" value="Rota A - Centro ao Sul" checked>
+                    <label for="rota1">Rota A - Centro ao Sul</label>
+                </div>
+                <div class="rota-item">
+                    <input type="radio" id="rota2" name="rota" value="Rota B - Leste ao Oeste">
+                    <label for="rota2">Rota B - Leste ao Oeste</label>
+                </div>
+                <div class="rota-item">
+                    <input type="radio" id="rota3" name="rota" value="Rota C - Linha da Montanha">
+                    <label for="rota3">Rota C - Linha da Montanha</label>
+                </div>
+                <div class="rota-item">
+                    <input type="radio" id="rota4" name="rota" value="Rota D - Circuito Urbano">
+                    <label for="rota4">Rota D - Circuito Urbano</label>
+                </div>
+            </div>
+            <button id="visualizarRota">Visualizar Rota no Mapa</button>
+        </section>
+
+        <section class="mapa-container">
+            <h2>Visualização da Rota</h2>
+            <div id="mapa" class="mapa-placeholder">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.143860547071!2d-48.84901522382929!3d-26.321840768776784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94deb163e53b3bc5%3A0x83bcc2104212ed02!2zRXN0YcOnw6NvIEZlcnJvdmnDoXJpYSBkZSBKb2ludmlsbGUg8J-agg!5e0!3m2!1spt-BR!2sbr!4v1749568790174!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+
+        <section class="detalhes-rota">
+            <h2>Detalhes da Rota</h2>
+            <p>Selecione uma rota para ver mais informações aqui.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 LLGR - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="/TELA USUARIO/js/mobile-navbar.js"></script>
+</body>
+</html>
