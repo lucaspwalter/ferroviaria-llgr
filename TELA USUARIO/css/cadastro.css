@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,143 +7,137 @@
     font-family: "Poppins", sans-serif;
 }
 
-body 
-{
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
+body {
+    background-color: #1a1a1a; /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #f0f0f0; /* Cor de texto padrão para o corpo */
 }
 
-.login-container 
-{
-  background-color: transparent;
-  border: 2px solid #000000; 
-  border-radius: 10px;
-  padding: 30px 30px;
-  width: 420px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 340px;
+/* Corrigido: Removido 'a' do seletor, pois .login-container é o formulário, não um link */
+.login-container {
+    background-color: transparent;
+    border: 1px solid rgba(240, 240, 240, 0.2); /* Borda sutil */
+    border-radius: 10px;
+    padding: 30px 30px;
+    width: 420px;
+    box-shadow: none; /* Sombra removida */
+    max-width: 340px;
 }
 
-.login-container h1 
-{
-  font-size: 36px;
-  text-align: center;
-}
-
-.input-box 
-{
-  position: relative;
-  width: 100%;
-  height: 50px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-.input-box input 
-{
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: 2px solid #000000;
-  outline: none;
-  font-size: 16px;
-  color: white;
-  padding: 20px 45px 20px 20px;
-  border-radius: 40px;
-}
-
-.input-box input::placeholder 
-{
-  color: #000000;
-}
-
-.input-box i 
-{
-  position: absolute;
-  right: 20px;
-  font-size: 20px;
-  top: 10px;
-}
-
-.input-box input 
-{
-  color: #000000;
-}
-
-.remember-forgot 
-{
-  display: flex;
-  margin: -15px 0 15px;
-  white-space: nowrap;
-  justify-content: center;
-}
-
-.remember-forgot label input 
-{
-  accent-color: #f50000;
-}
-
-.remember-forgot a 
-{
-  text-decoration: none;
-  color: #000000;
-  padding: 0px 10px;
-  margin-left: auto;
-  padding-left: 10px;
-  white-space: nowrap;
-}
-
-.remember-forgot a:hover 
-{
-  text-decoration: underline;
-}
-
-.login {
-  width: 100%;
-  height: 50px;
-  background-color: white;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #000000;
-  font-weight: 600;
-  box-shadow: 0 0 10px;
-}
-
-.login:hover {
-  background-color: transparent;
-  border: 0.1 cap solid;
-  color: rgb(49, 48, 48);
-  transition: all;
-}
-
-.register-link {
-  font-size: 14px;
-  text-align: center;
-  margin: 20px 0 5px;
-  color: black;
-}
-
-.register-link a {
-  text-decoration: none;
-  color: #ff0000;
-  font-weight: 500px;
-}
-
-.register-link a:hover {
-  text-decoration: underline;
-}
-
-.link-login {
-  text-decoration: none;
-  color: #000000;
+.login-container h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #f0f0f0; /* Título principal claro */
 }
 
 .conta-vermelho {
-  color: #ff0000;
+    color: #ff0000; /* Parte "conta" em vermelho */
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: 2px solid rgba(240, 240, 240, 0.5); /* Borda mais suave e clara */
+    outline: none;
+    font-size: 16px;
+    color: #f0f0f0; /* Texto de entrada claro */
+    padding: 20px 45px 20px 20px;
+    border-radius: 40px;
+}
+
+.input-box input::placeholder {
+    color: rgba(240, 240, 240, 0.7); /* Placeholder mais claro */
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajuste para centralizar */
+    color: #f0f0f0; /* Ícones claros */
+}
+
+/* Removido .input-box input { color: #000000; } duplicado e conflitante */
+
+/* .remember-forgot não existe no HTML de cadastro, então estes estilos não terão efeito */
+/* Se você planeja adicioná-lo, estes estilos serão aplicados: */
+.remember-forgot {
+    display: flex;
+    margin: -15px 0 15px;
+    white-space: nowrap;
+    justify-content: center;
+    color: #f0f0f0; /* Adicionado para caso haja texto direto neste div */
+}
+
+.remember-forgot label input {
+    accent-color: #ff0000; /* Corrigido de #f50000 para #ff0000 para consistência */
+}
+
+.remember-forgot a {
+    text-decoration: none;
+    color: #f0f0f0; /* Link claro */
+    padding: 0px 10px;
+    margin-left: auto; /* Pode não ser necessário se não houver label */
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    width: 100%;
+    height: 50px;
+    background-color: #b20000; /* Fundo do botão em vermelho mais forte */
+    border: none; /* Borda removida */
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff; /* Texto do botão branco */
+    font-weight: 600;
+    box-shadow: none; /* Sombra removida */
+    transition: background-color 0.3s ease; /* Transição para o hover */
+}
+
+.login:hover {
+    background-color: #ff0000; /* Vermelho puro no hover */
+    /* border: 0.1 cap solid;  Removido, sintaxe incorreta */
+    color: #ffffff; /* Cor do texto permanece branca no hover */
+}
+
+.register-link {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 5px;
+    color: #f0f0f0; /* Texto claro */
+}
+
+.register-link a {
+    text-decoration: none;
+    color: #ff0000; /* Link em vermelho */
+    font-weight: 500; /* Corrigido para número */
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.link-login { /* Este seletor não está no HTML fornecido, mas ajustado para consistência */
+    text-decoration: none;
+    color: #f0f0f0; /* Link claro */
 }

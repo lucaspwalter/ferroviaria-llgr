@@ -8,25 +8,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/TELA USUARIO/css/navbar.css" />
-    <link rel="stylesheet" href="/TELA USUARIO/css/dashboard.css">
+    <link rel="stylesheet" href="/TELA OPERADOR/css/navbar.css" />
+    <link rel="stylesheet" href="/TELA OPERADOR/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <nav>
-            <a class="logo" href="/">LLGR</a>
+            <a class="logo" href="/TELA OPERADOR/html/dashboard.html">LLGR</a>
             <div class="mobile-menu">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="telainicial.html">Início</a></li>
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
-                <li><a href="monitoramento.html">Monitoramento</a></li>
-                <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
                 <li><a href="alertas.html">Alertas e Notificações</a></li>
+                <li><a href="/TELA USUARIO/html/primeiratela.html">Sair</a></li>
             </ul>
         </nav>
     </header>
@@ -54,41 +53,33 @@
                 </div>
             </div>
 
-            <div class="card chart-card">
-                <h2 class="card-title">ÍNDICE DE PONTUALIDADE POR LINHA</h2>
-                <div class="chart-container">
-                    <p class="chart-placeholder-text">Gráfico de barras/pizza mostrando a pontualidade de cada linha.</p>
-                    <div class="chart-mock"></div>
-                </div>
-            </div>
-
-            <div class="card chart-card">
-                <h2 class="card-title">OCUPAÇÃO MÉDIA POR TREM</h2>
-                <div class="chart-container">
-                    <p class="chart-placeholder-text">Gráfico de linhas/áreas mostrando a ocupação média ao longo do tempo.</p>
-                    <div class="chart-mock"></div>
-                </div>
-            </div>
+            
 
             <div class="card chart-card">
                 <h2 class="card-title">HISTÓRICO DE INCIDENTES RECENTES</h2>
                 <div class="chart-container">
-                    <p class="chart-placeholder-text">Gráfico de colunas/pizza para os tipos e frequência de incidentes.</p>
-                    <div class="chart-mock"></div>
+                    <canvas id="graficoPizza"></canvas> <div class="legenda-chartjs">
+                        <ul>
+                            <li><span style="background:#b30000;"></span> Colisão</li>
+                            <li><span style="background:#cc3333;"></span> Descarrilamento</li>
+                            <li><span style="background:#e06666;"></span> Falha técnica</li>
+                            <li><span style="background:#f4aaaa;"></span> Outros</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="card chart-card">
-                <h2 class="card-title">FLUXO DE PASSAGEIROS (ÚLTIMAS 24H)</h2>
+                <h2 class="card-title">PASSAGEIROS POR CLASSE</h2>
                 <div class="chart-container">
-                    <p class="chart-placeholder-text">Gráfico de linha mostrando o fluxo de passageiros por período.</p>
-                    <div class="chart-mock"></div>
-                </div>
+                    <canvas id="barChart"></canvas> </div>
             </div>
 
         </section>
     </main>
 
     <script src="/TELA OPERADOR/js/mobile-navbar.js"></script>
-    </body>
+    <script src="/TELA OPERADOR/js/grafico-pizza.js"></script>
+    <script src="/TELA OPERADOR/js/passageiros-por-classe.js"></script>
+</body>
 </html>

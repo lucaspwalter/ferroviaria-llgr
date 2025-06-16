@@ -12,18 +12,91 @@ body {
 }
 
 header {
-    background-color: #b20000; /* vermelho mais forte */
+    background-color: #1a1a1a; /* Fundo do header como o do corpo */
     padding: 20px;
     text-align: center;
-    border-bottom: 3px solid #ff0000; /* vermelho puro */
+    border-bottom: none; /* Removido */
 }
 
 header h1 {
     margin: 0;
     color: #ffffff;
     font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Manter se desejar, ou remover para um visual mais flat */
 }
+
+/* Navbar adjustments - matching the dark style */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    color: #ff0000; /* Cor vermelha para o logo como na imagem de exemplo */
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li a {
+    color: #f0f0f0;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.nav-list li a:hover {
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.mobile-menu {
+    display: none; /* Hide by default */
+    cursor: pointer;
+}
+
+.mobile-menu div {
+    width: 32px;
+    height: 2px;
+    background: #f0f0f0;
+    margin: 8px;
+    transition: 0.3s;
+}
+
+/* Ensure mobile-navbar.js styles are respected */
+@media (max-width: 768px) {
+    .nav-list {
+        position: absolute;
+        top: 80px; /* Adjust based on header height */
+        right: 0;
+        width: 100%;
+        background: #2a2a2a; /* Same as main content background */
+        flex-direction: column;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in;
+        z-index: 1000;
+    }
+
+    .nav-list.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}
+
 
 main {
     flex: 1;
@@ -32,7 +105,7 @@ main {
     margin: 20px auto;
     background-color: #2a2a2a;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    box-shadow: none; /* Removido */
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto;
@@ -45,15 +118,16 @@ main {
 
 section {
     padding: 20px;
-    border: 1px solid #444;
+    border: none; /* Removido */
     border-radius: 5px;
-    background-color: #333;
+    background-color: #333; /* Mantido */
+    box-shadow: none; /* Removido */
 }
 
 section h2 {
     color: #ff0000; /* vermelho puro */
     margin-top: 0;
-    border-bottom: 1px solid #ff0000;
+    border-bottom: none; /* Removido */
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -75,12 +149,12 @@ section h2 {
     background-color: #444;
     padding: 10px 15px;
     border-radius: 5px;
-    border: 1px solid #b20000; /* vermelho mais forte */
+    border: none; /* Removido */
     transition: background-color 0.3s ease;
 }
 
 .rota-item:hover {
-    background-color: #b20000; /* vermelho mais forte */
+    background-color: #555; /* Um cinza um pouco mais claro no hover */
 }
 
 .rota-item input[type="radio"] {
@@ -99,7 +173,7 @@ section h2 {
 button#visualizarRota {
     background-color: #b20000; /* vermelho mais forte */
     color: #ffffff;
-    border: none;
+    border: none; /* Removido */
     padding: 12px 25px;
     border-radius: 5px;
     cursor: pointer;
@@ -111,6 +185,7 @@ button#visualizarRota {
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: none; /* Removido */
 }
 
 button#visualizarRota:hover {
@@ -131,11 +206,11 @@ button#visualizarRota:active {
     width: 450px;
     height: 450px;
     background-color: #111;
-    border: 3px solid #ff0000; /* borda sólida vermelha */
+    border: none; /* Removido */
     border-radius: 5px;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: 0 0 10px #ff0000aa;
+    box-shadow: none; /* Removido */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,9 +228,9 @@ button#visualizarRota:active {
 }
 
 .detalhes-rota p {
-    background-color: #444;
+    background-color: #444; /* Mantido */
     padding: 15px;
-    border-left: 5px solid #b20000; /* vermelho mais forte */
+    border-left: none; /* Removido */
     border-radius: 3px;
     font-size: 1.05em;
     line-height: 1.6;

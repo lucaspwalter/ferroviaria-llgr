@@ -134,9 +134,12 @@ body {
     flex-grow: 1;
 }
 
-.train-action {
+/* Novo estilo para o grupo de botões de ação do trem */
+.train-actions-group {
     margin-top: 10px;
-    text-align: center;
+    display: flex;
+    flex-direction: column; /* Empilha os botões verticalmente por padrão */
+    gap: 8px; /* Espaço entre os botões */
 }
 
 /* Estilos de status */
@@ -169,7 +172,7 @@ body {
     border: 1px solid #DC3545; /* --color-critical-red */
 }
 
-/* Botões de Ação (ajustados para "Ver Detalhes") */
+/* Botões de Ação (ajustados para "Ver Detalhes" e novos botões) */
 .action-button {
     background-color: transparent;
     color: #888888; /* --color-text-muted */
@@ -180,9 +183,10 @@ body {
     font-size: 0.9em;
     transition: all 0.2s ease;
     white-space: nowrap;
-    width: 100%;
-    max-width: 200px; /* Mantido para dar um limite ao botão, mesmo em 100% de largura */
+    width: 100%; /* Ocupa a largura total dentro do grupo */
+    max-width: none; /* Remove a largura máxima para que o 100% funcione */
     box-sizing: border-box;
+    text-align: center; /* Centraliza o texto */
 }
 
 .action-button:hover {
@@ -191,15 +195,49 @@ body {
     border-color: #E0E0E0; /* --color-text-light */
 }
 
-/* A classe critical-action não será mais usada se todos os botões forem "Ver Detalhes" */
-.action-button.critical-action {
-    background-color: #DC3545; /* --color-critical-red */
+/* Estilos para os novos botões de ação */
+.action-button.primary-action {
+    background-color: #E50000; /* Vermelho principal */
     color: white;
-    border-color: #DC3545; /* --color-critical-red */
+    border-color: #E50000;
+}
+.action-button.primary-action:hover {
+    background-color: #CC0000;
+    border-color: #CC0000;
+}
+
+.action-button.secondary-action {
+    background-color: #333333; /* Um tom de cinza mais escuro */
+    color: #E0E0E0;
+    border-color: #333333;
+}
+.action-button.secondary-action:hover {
+    background-color: #444444;
+    border-color: #444444;
+}
+
+.action-button.critical-action { /* Usado para o botão "Resolver Falha" */
+    background-color: #DC3545; /* Vermelho crítico */
+    color: white;
+    border-color: #DC3545;
 }
 .action-button.critical-action:hover {
-    background-color: #CC0000; /* --color-primary-red-hover */
-    border-color: #CC0000; /* --color-primary-red-hover */
+    background-color: #CC0000;
+    border-color: #CC0000;
+}
+
+/* Estilo para o botão "Editar" na tabela */
+.action-button.table-action {
+    width: auto; /* Permite que o botão se ajuste ao conteúdo */
+    padding: 6px 12px; /* Padding menor */
+    font-size: 0.8em; /* Fonte menor */
+    color: #E50000;
+    border-color: #E50000;
+    background-color: transparent;
+}
+
+.action-button.table-action:hover {
+    background-color: rgba(229, 0, 0, 0.1);
 }
 
 
@@ -212,7 +250,7 @@ body {
 
 .full-schedules-card table {
     width: 100%;
-    min-width: 450px;
+    min-width: 500px; /* Aumentei o min-width para acomodar a nova coluna de ações */
     border-collapse: collapse;
     table-layout: fixed;
 }
@@ -240,11 +278,12 @@ body {
 }
 
 /* Definindo larguras para as colunas na tabela de horários */
-.full-schedules-card th:nth-child(1), .full-schedules-card td:nth-child(1) { width: 20%; } /* LINHA */
-.full-schedules-card th:nth-child(2), .full-schedules-card td:nth-child(2) { width: 15%; } /* TREM */
-.full-schedules-card th:nth-child(3), .full-schedules-card td:nth-child(3) { width: 20%; } /* PARTIDA */
-.full-schedules-card th:nth-child(4), .full-schedules-card td:nth-child(4) { width: 20%; } /* CHEGADA */
-.full-schedules-card th:nth-child(5), .full-schedules-card td:nth-child(5) { width: 25%; } /* DURAÇÃO */
+.full-schedules-card th:nth-child(1), .full-schedules-card td:nth-child(1) { width: 18%; } /* LINHA */
+.full-schedules-card th:nth-child(2), .full-schedules-card td:nth-child(2) { width: 12%; } /* TREM */
+.full-schedules-card th:nth-child(3), .full-schedules-card td:nth-child(3) { width: 18%; } /* PARTIDA */
+.full-schedules-card th:nth-child(4), .full-schedules-card td:nth-child(4) { width: 18%; } /* CHEGADA */
+.full-schedules-card th:nth-child(5), .full-schedules-card td:nth-child(5) { width: 17%; } /* DURAÇÃO */
+.full-schedules-card th:nth-child(6), .full-schedules-card td:nth-child(6) { width: 17%; } /* AÇÕES */
 
 
 /* Filtro de Horários */
@@ -355,13 +394,65 @@ body {
     border-color: #E0E0E0; /* --color-text-light */
 }
 
-/* Não há necessidade de media queries extensas, foco em mobile-first */
+/* Media query para telas maiores para alinhar os botões lado a lado */
+@media (min-width: 550px) { /* Ajustado para quando houver espaço suficiente */
+    .train-actions-group {
+        flex-direction: row; /* Alinha os botões horizontalmente */
+        flex-wrap: wrap; /* Permite que os botões quebrem a linha se não houver espaço */
+        justify-content: center; /* Centraliza os botões */
+        gap: 10px; /* Espaço entre eles */
+    }
+
+    .train-actions-group .action-button {
+        flex-grow: 1; /* Permite que os botões cresçam para preencher o espaço */
+        width: auto; /* Volta para largura automática */
+        max-width: 150px; /* Define uma largura máxima para não ficarem muito grandes */
+    }
+}
+
 @media (min-width: 769px) {
     .route-management-section {
-        max-width: 500px; /* Mantém a largura focada em mobile mesmo em desktop */
+        max-width: 960px; /* Largura maior para desktop */
     }
-    /* A actions-bar não terá efeito se estiver vazia no HTML */
-    .actions-bar {
-        flex-direction: column;
+    .detailed-status-card,
+    .full-schedules-card,
+    .incident-log-card {
+        width: 100%; /* Ocupa a largura total da seção */
+    }
+
+    /* Ajusta o layout dos cards para exibir lado a lado em telas maiores */
+    .route-management-section {
+        flex-direction: row; /* Alinha os cards horizontalmente */
+        flex-wrap: wrap; /* Permite que os cards quebrem a linha */
+        justify-content: space-between; /* Espaça os cards */
+    }
+
+    .detailed-status-card,
+    .full-schedules-card,
+    .incident-log-card {
+        flex: 1 1 calc(50% - 10px); /* Dois cards por linha com gap de 20px */
+        max-width: calc(50% - 10px);
+    }
+
+    /* Garante que o registro de incidentes ocupe a largura total se for o último */
+    .incident-log-card {
+        flex: 1 1 100%; /* Ocupa a largura total abaixo dos outros dois */
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .route-management-section {
+        max-width: 1200px; /* Ainda maior para telas muito grandes */
+    }
+    .detailed-status-card,
+    .full-schedules-card,
+    .incident-log-card {
+        flex: 1 1 calc(33.333% - 14px); /* Três cards por linha com gap de 20px */
+        max-width: calc(33.333% - 14px);
+    }
+     .incident-log-card {
+        flex: 1 1 calc(33.333% - 14px); /* Também em 3 colunas */
+        max-width: calc(33.333% - 14px);
     }
 }

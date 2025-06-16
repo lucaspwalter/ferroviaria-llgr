@@ -12,22 +12,19 @@
     <link rel="stylesheet" href="/TELA OPERADOR/css/gestaoderotas.css">
 </head>
 <body>
-    <header>
+   <header>
         <nav>
-            <a class="logo" href="/">LLGR</a>
+            <a class="logo" href="/TELA OPERADOR/html/dashboard.html">LLGR</a>
             <div class="mobile-menu">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="inicio.html">Início</a></li>
-                <li><a href="#sobre-nos">Sobre nós</a></li>
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
-                <li><a href="monitoramento.html">Monitoramento</a></li>
-                <li><a href="relatorioseanalise.html">Relatórios e Análises</a></li>
                 <li><a href="alertas.html">Alertas e Notificações</a></li>
+                <li><a href="/TELA USUARIO/html/primeiratela.html">Sair</a></li>
             </ul>
         </nav>
     </header>
@@ -52,8 +49,10 @@
                         <div class="train-detail">
                             <span class="label">Status:</span> <span class="status status-on-time">No horário</span>
                         </div>
-                        <div class="train-action">
-                            <button class="action-button">Ver Detalhes</button>
+                        <div class="train-actions-group"> <button class="action-button">Ver Detalhes</button>
+                            <button class="action-button primary-action">Editar Status</button>
+                            <button class="action-button secondary-action">Modificar Rota</button>
+                            <button class="action-button secondary-action">Gerenciar Vagões</button>
                         </div>
                     </div>
 
@@ -70,8 +69,11 @@
                         <div class="train-detail">
                             <span class="label">Status:</span> <span class="status status-delayed">Atrasado (+15min)</span>
                         </div>
-                        <div class="train-action">
-                            <button class="action-button">Ver Detalhes</button> </div>
+                        <div class="train-actions-group"> <button class="action-button">Ver Detalhes</button>
+                            <button class="action-button primary-action">Editar Status</button>
+                            <button class="action-button secondary-action">Modificar Rota</button>
+                            <button class="action-button secondary-action">Gerenciar Vagões</button>
+                        </div>
                     </div>
 
                     <div class="train-status-item">
@@ -87,8 +89,10 @@
                         <div class="train-detail">
                             <span class="label">Status:</span> <span class="status status-on-time">No horário</span>
                         </div>
-                        <div class="train-action">
-                            <button class="action-button">Ver Detalhes</button>
+                        <div class="train-actions-group"> <button class="action-button">Ver Detalhes</button>
+                            <button class="action-button primary-action">Editar Status</button>
+                            <button class="action-button secondary-action">Modificar Rota</button>
+                            <button class="action-button secondary-action">Gerenciar Vagões</button>
                         </div>
                     </div>
 
@@ -105,11 +109,13 @@
                         <div class="train-detail">
                             <span class="label">Status:</span> <span class="status status-critical">Parado (Falha)</span>
                         </div>
-                        <div class="train-action">
-                            <button class="action-button">Ver Detalhes</button> </div>
+                        <div class="train-actions-group"> <button class="action-button critical-action">Resolver Falha</button> <button class="action-button primary-action">Editar Status</button>
+                            <button class="action-button secondary-action">Modificar Rota</button>
+                            <button class="action-button secondary-action">Gerenciar Vagões</button>
+                        </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
             <div class="card full-schedules-card">
                 <h2 class="card-title">HORÁRIOS DE TODAS AS LINHAS</h2>
@@ -132,7 +138,7 @@
                                 <th>PARTIDA</th>
                                 <th>CHEGADA</th>
                                 <th>DURAÇÃO</th>
-                            </tr>
+                                <th>AÇÕES</th> </tr>
                         </thead>
                         <tbody>
                             <tr>
@@ -141,13 +147,14 @@
                                 <td>08:00</td>
                                 <td>09:30</td>
                                 <td>1h30m</td>
-                            </tr>
+                                <td><button class="action-button table-action">Editar</button></td> </tr>
                             <tr>
                                 <td>Linha B</td>
                                 <td>202</td>
                                 <td>08:15</td>
                                 <td>09:50</td>
                                 <td>1h35m</td>
+                                <td><button class="action-button table-action">Editar</button></td>
                             </tr>
                             <tr>
                                 <td>Linha C</td>
@@ -155,6 +162,7 @@
                                 <td>08:30</td>
                                 <td>10:00</td>
                                 <td>1h30m</td>
+                                <td><button class="action-button table-action">Editar</button></td>
                             </tr>
                              <tr>
                                 <td>Linha A</td>
@@ -162,6 +170,7 @@
                                 <td>09:45</td>
                                 <td>11:15</td>
                                 <td>1h30m</td>
+                                <td><button class="action-button table-action">Editar</button></td>
                             </tr>
                              <tr>
                                 <td>Linha D</td>
@@ -169,11 +178,12 @@
                                 <td>09:00</td>
                                 <td>10:40</td>
                                 <td>1h40m</td>
+                                <td><button class="action-button table-action">Editar</button></td>
                             </tr>
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
-                </div>
+            </div>
 
             <div class="card incident-log-card">
                 <h2 class="card-title">REGISTRO DE INCIDENTES</h2>
@@ -186,12 +196,12 @@
                         <span class="incident-time">2025-06-01 10:30</span> - Linha C: Manutenção programada estendida. <br>
                         <span class="incident-details">Status: Resolvido | Impacto: Atraso de 30min.</span>
                     </div>
-                     <div class="incident-item info-incident">
+                   <div class="incident-item info-incident">
                         <span class="incident-time">2025-05-31 18:00</span> - Linha A: Pequeno atraso devido a tráfego intenso. <br>
                         <span class="incident-details">Status: Resolvido | Impacto: Atraso de 5min.</span>
                     </div>
                 </div>
-                </div>
+            </div>
 
         </section>
     </main>
