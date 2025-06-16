@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat de Reclamações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/TELA USUARIO/css/chatU.css">
+    <link rel="stylesheet" href="/TELA USUARIO/css/navbar.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header>
+            <nav>
+                <a class="logo" href="/">LLGR</a>
+                <div class="mobile-menu">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <ul class="nav-list">
+                    <li><a href="telainicialU.html">Início</a></li>
+                    <li><a href="rotasUsuario.html">Rotas</a></li>
+                    <li><a href="/TELA USUARIO/html/notificaçõesU.html">Alertas e Notificações</a></li>
+                    <li><a href="chatU.html">Reclame Aqui</a></li>
+                    <li><a href="verperfilU.html">Perfil</a></li>
+                    <li><a href="primeiratela.html">Sair</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="chat-messages" id="chat-messages"></div>
+        <form class="chat-input-area" id="chat-form" autocomplete="off">
+            <input type="text" id="chat-input" placeholder="Digite sua reclamação..." required />
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <script src="/TELA USUARIO/js/chat.js"></script>
+     <script src="/TELA USUARIO/js/mobile-navbar.js"></script>
+</body>
+</html>

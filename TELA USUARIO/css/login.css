@@ -8,33 +8,33 @@
 }
 
 body {
-    background-color: #1a1a1a; /* Fundo escuro */
+    background-color: #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #f0f0f0; /* Cor de texto padrão para o corpo */
+    color: #f0f0f0;
 }
 
 .login-container {
-    background-color: transparent; /* Mantido transparente para integrar com o fundo */
-    border: 1px solid rgba(240, 240, 240, 0.2); /* Borda sutil de cinza claro com transparência */
+    background-color: transparent;
+    border: 1px solid rgba(240, 240, 240, 0.2);
     border-radius: 10px;
     padding: 30px 30px;
     width: 420px;
-    box-shadow: none; /* Sombra removida */
+    box-shadow: none;
     max-width: 370px;
 }
 
 .login-container h1 {
     font-size: 36px;
     text-align: center;
-    color: #f0f0f0; /* Título principal claro */
+    color: #f0f0f0;
 }
 
 .llgr-login-inicial {
-    color: #ff0000; /* Parte LLGR em vermelho */
+    color: #ff0000;
 }
 
 .input-box {
@@ -49,38 +49,38 @@ body {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 2px solid rgba(240, 240, 240, 0.5); /* Borda mais suave e clara */
+    border: 2px solid rgba(240, 240, 240, 0.5);
     outline: none;
     font-size: 16px;
-    color: #f0f0f0; /* Texto de entrada claro */
+    color: #f0f0f0;
     padding: 20px 45px 20px 20px;
     border-radius: 40px;
 }
 
 .input-box input::placeholder {
-    color: rgba(240, 240, 240, 0.7); /* Placeholder mais claro */
+    color: rgba(240, 240, 240, 0.7);
 }
 
 .input-box i {
     position: absolute;
     right: 20px;
     font-size: 20px;
-    top: 50%; /* Centraliza verticalmente */
-    transform: translateY(-50%); /* Ajuste para centralizar */
-    color: #f0f0f0; /* Ícones claros */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f0f0f0;
 }
 
 .remember-forgot {
     display: flex;
     margin: -15px 0 15px;
-    justify-content: center; /* Mantido centralizado */
+    justify-content: center;
     align-items: center;
-    gap: 20px; 
+    gap: 20px;
 }
 
 .remember-forgot label {
     font-size: 13px;
-    color: #f0f0f0; /* Texto da label claro */
+    color: #f0f0f0;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -91,46 +91,46 @@ body {
 .remember-forgot a {
     font-size: 13px;
     text-decoration: none;
-    color: #f0f0f0; /* Link "Esqueci a senha" claro */
+    color: #f0f0f0;
     font-weight: 600;
 }
 
 .remember-forgot label input {
     width: 14px;
     height: 14px;
-    accent-color: #ff0000; /* Checkbox em vermelho */
+    accent-color: #ff0000;
 }
 
 .login {
     width: 100%;
     height: 50px;
-    background-color: #b20000; /* Fundo do botão em vermelho mais forte */
-    border: none; /* Borda removida */
+    background-color: #b20000;
+    border: none;
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: #ffffff; /* Texto do botão branco */
+    color: #ffffff;
     font-weight: 600;
-    box-shadow: none; /* Sombra removida */
-    transition: background-color 0.3s ease; /* Adicionada transição para o hover */
+    box-shadow: none;
+    transition: background-color 0.3s ease;
 }
 
 .login:hover {
-    background-color: #ff0000; /* Vermelho puro no hover */
-    border: none; /* Certifica que não aparece borda no hover */
+    background-color: #ff0000;
+    border: none;
 }
 
 .register-link {
     font-size: 14px;
     text-align: center;
     margin: 20px 0 5px;
-    color: #f0f0f0; /* Texto do "Não tem uma conta?" claro */
+    color: #f0f0f0;
     font-weight: 500;
 }
 
 .register-link a {
     text-decoration: none;
-    color: #ff0000; /* Link "Cadastre-se Aqui!" em vermelho */
+    color: #ff0000;
     font-weight: 500;
 }
 

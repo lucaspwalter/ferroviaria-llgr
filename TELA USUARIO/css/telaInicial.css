@@ -115,8 +115,8 @@ body {
   }
 
   .logo-sobre {
-    height: 70px; /* Altura ajustada para telas até 768px */
-    width: auto; /* Largura automática para manter a proporção */
+    height: 70px;
+    width: auto;
   }
 }
 
@@ -171,13 +171,12 @@ body {
   flex: 1;
 }
 
-/* Estilo específico para o parágrafo de introdução */
 .sobre-texto p:first-child {
-  font-size: 1.2rem; /* Aumentar um pouco a fonte */
-  line-height: 1.7; /* Melhorar a legibilidade */
-  color: #555; /* Um tom de cinza mais suave */
-  margin-bottom: 30px; /* Aumentar o espaçamento inferior para separá-lo dos próximos elementos */
-  font-weight: 400; /* Tornar a fonte um pouco menos pesada */
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 30px;
+  font-weight: 400;
 }
 
 .sobre-texto h3 {
@@ -224,8 +223,8 @@ body {
 }
 
 .logo-sobre {
-  width: 150px; /* Largura base para telas maiores */
-  height: auto; /* Altura automática para manter a proporção */
+  width: 150px;
+  height: auto;
   border-radius: 10px;
 }
 

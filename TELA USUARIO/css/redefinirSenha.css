@@ -1,29 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    padding: 0; /* Ajustado de 0px para 0 */
-    margin: 0; /* Adicionado margin: 0; */
-    box-sizing: border-box; /* Adicionado box-sizing: border-box; */
-    font-family: "Poppins", sans-serif; /* Ajustado para incluir sans-serif */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    background-color: #1a1a1a; /* Fundo escuro */
+    background-color: #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #f0f0f0; /* Cor de texto padrão para o corpo */
+    color: #f0f0f0;
 }
 
 .login-container {
     background-color: transparent;
-    border: 1px solid rgba(240, 240, 240, 0.2); /* Borda sutil */
+    border: 1px solid rgba(240, 240, 240, 0.2);
     border-radius: 10px;
     padding: 30px 30px;
     width: 420px;
-    box-shadow: none; /* Sombra removida */
+    box-shadow: none;
     max-width: 400px;
     margin: 10px;
 }
@@ -31,19 +31,19 @@ body {
 .login-container h1 {
     font-size: 34px;
     text-align: center;
-    color: #f0f0f0; /* Título principal claro */
+    color: #f0f0f0;
 }
 
 .senha-vermelha {
-    color: #ff0000; /* Corrigido de 'red' para o vermelho padrão */
+    color: #ff0000;
 }
 
 h4 {
-    color: #f0f0f0; /* Cor do texto claro */
+    color: #f0f0f0;
     font-size: 16px;
-    text-align: center; /* Centralizar o texto do h4 */
-    margin-bottom: 20px; /* Adicionar espaço abaixo do h4 */
-    line-height: 1.5; /* Melhorar legibilidade em múltiplas linhas */
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 .input-box {
@@ -53,54 +53,46 @@ h4 {
     margin: 20px 0;
 }
 
-/* Removido input-box:first-child pois não é mais necessário */
-
 .input-box input {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 2px solid rgba(240, 240, 240, 0.5); /* Borda mais suave e clara */
+    border: 2px solid rgba(240, 240, 240, 0.5);
     outline: none;
     font-size: 16px;
-    color: #f0f0f0; /* Texto de entrada claro */
+    color: #f0f0f0;
     padding: 20px 45px 20px 20px;
     border-radius: 40px;
 }
 
 .input-box input::placeholder {
-    color: rgba(240, 240, 240, 0.7); /* Placeholder mais claro */
+    color: rgba(240, 240, 240, 0.7);
 }
 
 .input-box i {
     position: absolute;
     right: 20px;
     font-size: 20px;
-    top: 50%; /* Centraliza verticalmente */
-    transform: translateY(-50%); /* Ajuste para centralizar */
-    color: #f0f0f0; /* Ícones claros */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f0f0f0;
 }
 
-/* Removido o input-box input { color: #000000; } duplicado e conflitante */
-
-/* Os estilos .remember-forgot, .remember-forgot label input, .remember-forgot a,
-   .remember-forgot a:hover não estão presentes no HTML deste arquivo,
-   mas estão sendo mantidos/ajustados caso você adicione esses elementos futuramente,
-   para manter a consistência de estilo. */
 .remember-forgot {
     display: flex;
-    justify-content: center; /* Ajustado para apenas centralizar */
+    justify-content: center;
     margin: -15px 0 15px;
     white-space: nowrap;
-    color: #f0f0f0; /* Cor de texto padrão para esta seção */
+    color: #f0f0f0;
 }
 
 .remember-forgot label input {
-    accent-color: #ff0000; /* Checkbox em vermelho */
+    accent-color: #ff0000;
 }
 
 .remember-forgot a {
     text-decoration: none;
-    color: #f0f0f0; /* Cor do link padrão para esta seção */
+    color: #f0f0f0;
     padding: 0px 10px;
     margin-left: auto;
     padding-left: 20px;
@@ -114,42 +106,40 @@ h4 {
 .login {
     width: 100%;
     height: 50px;
-    background-color: #b20000; /* Fundo do botão em vermelho mais forte */
-    border: none; /* Borda removida */
+    background-color: #b20000;
+    border: none;
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: #ffffff; /* Texto do botão branco */
+    color: #ffffff;
     font-weight: 600;
-    box-shadow: none; /* Sombra removida */
-    transition: background-color 0.3s ease; /* Adicionada transição para o hover */
+    box-shadow: none;
+    transition: background-color 0.3s ease;
 }
 
 .login:hover {
-    background-color: #ff0000; /* Vermelho puro no hover */
-    /* border: 0.1cap solid; Removido, sintaxe incorreta */
-    color: #ffffff; /* Cor do texto permanece branca no hover */
-    /* transition: all; Removido, já há transição específica de background-color */
+    background-color: #ff0000;
+    color: #ffffff;
 }
 
 .register-link {
     font-size: 14px;
     text-align: center;
     margin: 20px 0 5px;
-    color: #f0f0f0; /* Texto claro */
+    color: #f0f0f0;
 }
 
 .register-link a {
     text-decoration: none;
-    color: #ff0000; /* Link em vermelho */
-    font-weight: 500; /* Corrigido para número */
+    color: #ff0000;
+    font-weight: 500;
 }
 
 .register-link a:hover {
     text-decoration: underline;
 }
 
-.link-login { /* Este seletor não está no HTML fornecido, mas ajustado para consistência */
+.link-login {
     text-decoration: none;
-    color: #f0f0f0; /* Link claro */
+    color: #f0f0f0;
 }

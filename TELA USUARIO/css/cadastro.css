@@ -8,34 +8,33 @@
 }
 
 body {
-    background-color: #1a1a1a; /* Fundo escuro */
+    background-color: #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #f0f0f0; /* Cor de texto padrão para o corpo */
+    color: #f0f0f0;
 }
 
-/* Corrigido: Removido 'a' do seletor, pois .login-container é o formulário, não um link */
 .login-container {
     background-color: transparent;
-    border: 1px solid rgba(240, 240, 240, 0.2); /* Borda sutil */
+    border: 1px solid rgba(240, 240, 240, 0.2);
     border-radius: 10px;
     padding: 30px 30px;
     width: 420px;
-    box-shadow: none; /* Sombra removida */
+    box-shadow: none;
     max-width: 340px;
 }
 
 .login-container h1 {
     font-size: 36px;
     text-align: center;
-    color: #f0f0f0; /* Título principal claro */
+    color: #f0f0f0;
 }
 
 .conta-vermelho {
-    color: #ff0000; /* Parte "conta" em vermelho */
+    color: #ff0000;
 }
 
 .input-box {
@@ -50,48 +49,44 @@ body {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 2px solid rgba(240, 240, 240, 0.5); /* Borda mais suave e clara */
+    border: 2px solid rgba(240, 240, 240, 0.5);
     outline: none;
     font-size: 16px;
-    color: #f0f0f0; /* Texto de entrada claro */
+    color: #f0f0f0;
     padding: 20px 45px 20px 20px;
     border-radius: 40px;
 }
 
 .input-box input::placeholder {
-    color: rgba(240, 240, 240, 0.7); /* Placeholder mais claro */
+    color: rgba(240, 240, 240, 0.7);
 }
 
 .input-box i {
     position: absolute;
     right: 20px;
     font-size: 20px;
-    top: 50%; /* Centraliza verticalmente */
-    transform: translateY(-50%); /* Ajuste para centralizar */
-    color: #f0f0f0; /* Ícones claros */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f0f0f0;
 }
 
-/* Removido .input-box input { color: #000000; } duplicado e conflitante */
-
-/* .remember-forgot não existe no HTML de cadastro, então estes estilos não terão efeito */
-/* Se você planeja adicioná-lo, estes estilos serão aplicados: */
 .remember-forgot {
     display: flex;
     margin: -15px 0 15px;
     white-space: nowrap;
     justify-content: center;
-    color: #f0f0f0; /* Adicionado para caso haja texto direto neste div */
+    color: #f0f0f0;
 }
 
 .remember-forgot label input {
-    accent-color: #ff0000; /* Corrigido de #f50000 para #ff0000 para consistência */
+    accent-color: #ff0000;
 }
 
 .remember-forgot a {
     text-decoration: none;
-    color: #f0f0f0; /* Link claro */
+    color: #f0f0f0;
     padding: 0px 10px;
-    margin-left: auto; /* Pode não ser necessário se não houver label */
+    margin-left: auto;
     padding-left: 10px;
     white-space: nowrap;
 }
@@ -103,41 +98,40 @@ body {
 .login {
     width: 100%;
     height: 50px;
-    background-color: #b20000; /* Fundo do botão em vermelho mais forte */
-    border: none; /* Borda removida */
+    background-color: #b20000;
+    border: none;
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: #ffffff; /* Texto do botão branco */
+    color: #ffffff;
     font-weight: 600;
-    box-shadow: none; /* Sombra removida */
-    transition: background-color 0.3s ease; /* Transição para o hover */
+    box-shadow: none;
+    transition: background-color 0.3s ease;
 }
 
 .login:hover {
-    background-color: #ff0000; /* Vermelho puro no hover */
-    /* border: 0.1 cap solid;  Removido, sintaxe incorreta */
-    color: #ffffff; /* Cor do texto permanece branca no hover */
+    background-color: #ff0000;
+    color: #ffffff;
 }
 
 .register-link {
     font-size: 14px;
     text-align: center;
     margin: 20px 0 5px;
-    color: #f0f0f0; /* Texto claro */
+    color: #f0f0f0;
 }
 
 .register-link a {
     text-decoration: none;
-    color: #ff0000; /* Link em vermelho */
-    font-weight: 500; /* Corrigido para número */
+    color: #ff0000;
+    font-weight: 500;
 }
 
 .register-link a:hover {
     text-decoration: underline;
 }
 
-.link-login { /* Este seletor não está no HTML fornecido, mas ajustado para consistência */
+.link-login {
     text-decoration: none;
-    color: #f0f0f0; /* Link claro */
+    color: #f0f0f0;
 }

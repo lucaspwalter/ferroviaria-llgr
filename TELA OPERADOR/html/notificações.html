@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alertas</title>
-    <link rel="stylesheet" href="/TELA OPERADOR/css/alertas.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/TELA OPERADOR/css/notificações.css">
     <link rel="stylesheet" href="/TELA OPERADOR/css/navbar.css">
-  </head>
-
-  <body>
-  <header>
+</head>
+<body>
+    <header>
         <nav>
             <a class="logo" href="/TELA OPERADOR/html/dashboard.html">LLGR</a>
             <div class="mobile-menu">
@@ -21,12 +19,19 @@
             <ul class="nav-list">
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="gestaoderotas.html">Gestão de Rotas</a></li>
-                <li><a href="alertas.html">Alertas e Notificações</a></li>
+                <li><a href="notificações.html">Alertas e Notificações</a></li>
                 <li><a href="/TELA USUARIO/html/primeiratela.html">Sair</a></li>
             </ul>
         </nav>
     </header>
-    <main></main>
-      <script src="/TELA OPERADOR/js/mobile-navbar.js"></script>
-  </body>
+
+    <div class="app-bg">
+        <div class="notificacoes-container">
+            <div class="notificacoes-lista" id="notificacoes-lista">
+                </div>
+        </div>
+    </div>
+    <script src="/TELA OPERADOR/js/notificações.js"></script>
+    <script src="/TELA USUARIO/js/mobile-navbar.js"></script>
+</body>
 </html>

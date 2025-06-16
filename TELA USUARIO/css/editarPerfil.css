@@ -2,35 +2,30 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #1A1A1A;
     display: flex;
-    flex-direction: column; /* Organiza os filhos (header e profile-container) em coluna */
-    min-height: 100vh;     /* Garante que o body ocupe a altura total da viewport */
-    margin: 0;             /* Garante que não haja margens externas empurrando o conteúdo */
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
     padding: 0;
-    align-items: center; /* Centraliza horizontalmente o conteúdo do body */
-    /* Removido justify-content: center aqui para permitir que o conteúdo se empilhe */
+    align-items: center;
 }
 
-/* O profile-container será o elemento centralizado APÓS o header */
 .profile-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    flex-grow: 1; /* Permite que o container ocupe o espaço restante verticalmente */
-    padding: 20px 0; /* Adiciona um padding vertical para espaçamento, se necessário */
-    box-sizing: border-box; /* Inclui padding na largura/altura total */
-}
-
-/* Se você tiver um navbar.css, certifique-se de que ele não tenha margens ou paddings
-   muito grandes que empurrem o conteúdo para baixo. Um exemplo básico para o header: */
-header {
-    width: 100%;
-    background-color: #242424; /* Um fundo para o header, se não tiver no navbar.css */
-    padding: 10px 0; /* Ajuste conforme seu navbar.css */
+    flex-grow: 1;
+    padding: 20px 0;
     box-sizing: border-box;
 }
 
-/* Restante do seu CSS para profile-box, inputs, etc., permanece o mesmo */
+header {
+    width: 100%;
+    background-color: #242424;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
 .profile-box {
     background-color: #242424;
     padding: 40px;
@@ -59,24 +54,23 @@ h2 {
 }
 
 .input-group input {
-    width: 100%; /* Agora ocupa 100% da largura do pai */
-    padding: 15px 20px 15px 40px; /* Padding para texto e ícone */
+    width: 100%;
+    padding: 15px 20px 15px 40px;
     border-radius: 18px;
     font-size: 16px;
     background-color: #888888;
-    border: none;   /* REMOVE A BORDA */
-    outline: none;  /* REMOVE O OUTLINE PADRÃO AO CLICAR */
-    box-sizing: border-box; /* MUITO IMPORTANTE: Inclui padding e borda na largura total */
+    border: none;
+    outline: none;
+    box-sizing: border-box;
 }
 
-/* O resto do seu CSS permanece o mesmo */
 .input-group input:focus {
     border-color: #ff0000;
 }
 
 .input-group i {
     position: absolute;
-    left: 15px; /* Posição do ícone para ter espaço do padding esquerdo */
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
     color: #000000;
@@ -86,7 +80,7 @@ h2 {
 .checkbox-group {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Alinha à esquerda */
+    justify-content: flex-start;
     margin-bottom: 25px;
     font-size: 15px;
     color: #555;
@@ -98,7 +92,7 @@ h2 {
     height: 18px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    -webkit-appearance: none; /* Remove estilo padrão do navegador */
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     cursor: pointer;
@@ -112,7 +106,7 @@ h2 {
 }
 
 .checkbox-group input[type="checkbox"]:checked::before {
-    content: '\2713'; /* Tick mark */
+    content: '\2713';
     display: block;
     color: #fff;
     font-size: 14px;

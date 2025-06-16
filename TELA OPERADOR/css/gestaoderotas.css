@@ -5,53 +5,49 @@ body {
     background-color: #1A1A1A;
     margin: 0;
     padding: 0;
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     line-height: 1.6;
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada no body */
+    overflow-x: hidden;
 }
 
-/* Wrapper para o conteúdo principal, garantindo centralização e espaçamento para mobile */
 .main-content-wrapper {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 20px 15px; /* --spacing-unit */
-    margin-top: 8vh; /* Compensa a altura da navbar fixa */
+    padding: 20px 15px;
+    margin-top: 8vh;
     box-sizing: border-box;
     width: 100%;
 }
 
 .route-management-section {
     width: 100%;
-    max-width: 500px; /* Largura máxima para focar em mobile */
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* --spacing-unit */
+    gap: 20px;
 }
 
 .page-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 2em; /* Tamanho da fonte ajustado para mobile */
-    color: #E0E0E0; /* --color-text-light */
+    font-size: 2em;
+    color: #E0E0E0;
     text-align: center;
-    margin-bottom: 20px; /* --spacing-unit */
+    margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-/* Barra de Ações (anteriormente para operadores, agora não usada se vazia no HTML) */
 .actions-bar {
-    /* Estas regras agora não terão efeito se a div .actions-bar estiver vazia no HTML */
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px; /* --spacing-unit */
+    margin-bottom: 20px;
 }
 
-/* Botões de ícone (também não terão efeito se removidos do HTML) */
 .icon-button {
     display: flex;
     align-items: center;
@@ -74,39 +70,37 @@ body {
     filter: none;
 }
 
-/* Cartões gerais (Detalhes, Horários, Incidentes) */
 .card {
-    background-color: #242424; /* --color-card-background */
-    border-radius: 8px; /* --border-radius */
-    padding: 20px; /* --spacing-unit */
+    background-color: #242424;
+    border-radius: 8px;
+    padding: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .card-title {
     font-family: 'Poppins', sans-serif;
-    color: #E50000; /* --color-primary-red */
+    color: #E50000;
     font-size: 1.2em;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #E50000; /* --color-primary-red */
+    border-bottom: 2px solid #E50000;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* --- ESTILOS PARA "STATUS DETALHADO DOS TRENS" (FORMATO DE CARD) --- */
 .train-status-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 20px; /* Mantido para espaçamento abaixo da lista de cards */
+    margin-bottom: 20px;
 }
 
 .train-status-item {
     background-color: #2F2F2F;
-    border-radius: 8px; /* --border-radius */
+    border-radius: 8px;
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -123,26 +117,24 @@ body {
 
 .train-id-line .label, .train-detail .label {
     font-weight: 600;
-    color: #888888; /* --color-text-muted */
+    color: #888888;
     flex-shrink: 0;
     margin-right: 10px;
 }
 
 .train-id-line .value, .train-detail .value {
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
     text-align: right;
     flex-grow: 1;
 }
 
-/* Novo estilo para o grupo de botões de ação do trem */
 .train-actions-group {
     margin-top: 10px;
     display: flex;
-    flex-direction: column; /* Empilha os botões verticalmente por padrão */
-    gap: 8px; /* Espaço entre os botões */
+    flex-direction: column;
+    gap: 8px;
 }
 
-/* Estilos de status */
 .status {
     font-weight: 600;
     padding: 4px 8px;
@@ -157,47 +149,45 @@ body {
 }
 
 .status-on-time {
-    color: #28a745; /* --color-success-green */
+    color: #28a745;
     background-color: rgba(40, 167, 69, 0.1);
 }
 
 .status-delayed {
-    color: #DC3545; /* --color-critical-red */
+    color: #DC3545;
     background-color: rgba(220, 53, 69, 0.1);
 }
 
 .status-critical {
-    color: #DC3545; /* --color-critical-red */
+    color: #DC3545;
     background-color: rgba(220, 53, 69, 0.2);
-    border: 1px solid #DC3545; /* --color-critical-red */
+    border: 1px solid #DC3545;
 }
 
-/* Botões de Ação (ajustados para "Ver Detalhes" e novos botões) */
 .action-button {
     background-color: transparent;
-    color: #888888; /* --color-text-muted */
-    border: 1px solid #888888; /* --color-text-muted */
+    color: #888888;
+    border: 1px solid #888888;
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
     transition: all 0.2s ease;
     white-space: nowrap;
-    width: 100%; /* Ocupa a largura total dentro do grupo */
-    max-width: none; /* Remove a largura máxima para que o 100% funcione */
+    width: 100%;
+    max-width: none;
     box-sizing: border-box;
-    text-align: center; /* Centraliza o texto */
+    text-align: center;
 }
 
 .action-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #E0E0E0; /* --color-text-light */
-    border-color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
+    border-color: #E0E0E0;
 }
 
-/* Estilos para os novos botões de ação */
 .action-button.primary-action {
-    background-color: #E50000; /* Vermelho principal */
+    background-color: #E50000;
     color: white;
     border-color: #E50000;
 }
@@ -207,7 +197,7 @@ body {
 }
 
 .action-button.secondary-action {
-    background-color: #333333; /* Um tom de cinza mais escuro */
+    background-color: #333333;
     color: #E0E0E0;
     border-color: #333333;
 }
@@ -216,8 +206,8 @@ body {
     border-color: #444444;
 }
 
-.action-button.critical-action { /* Usado para o botão "Resolver Falha" */
-    background-color: #DC3545; /* Vermelho crítico */
+.action-button.critical-action {
+    background-color: #DC3545;
     color: white;
     border-color: #DC3545;
 }
@@ -226,11 +216,10 @@ body {
     border-color: #CC0000;
 }
 
-/* Estilo para o botão "Editar" na tabela */
 .action-button.table-action {
-    width: auto; /* Permite que o botão se ajuste ao conteúdo */
-    padding: 6px 12px; /* Padding menor */
-    font-size: 0.8em; /* Fonte menor */
+    width: auto;
+    padding: 6px 12px;
+    font-size: 0.8em;
     color: #E50000;
     border-color: #E50000;
     background-color: transparent;
@@ -240,17 +229,15 @@ body {
     background-color: rgba(229, 0, 0, 0.1);
 }
 
-
-/* --- ESTILOS PARA "HORÁRIOS DE TODAS AS LINHAS" (TABELA COM ROLAGEM HORIZONTAL) --- */
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 20px; /* Mantido para espaçamento abaixo da tabela */
+    margin-bottom: 20px;
 }
 
 .full-schedules-card table {
     width: 100%;
-    min-width: 500px; /* Aumentei o min-width para acomodar a nova coluna de ações */
+    min-width: 500px;
     border-collapse: collapse;
     table-layout: fixed;
 }
@@ -266,27 +253,24 @@ body {
 }
 
 .full-schedules-card th {
-    color: #888888; /* --color-text-muted */
+    color: #888888;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .full-schedules-card td {
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
     font-weight: 400;
 }
 
-/* Definindo larguras para as colunas na tabela de horários */
-.full-schedules-card th:nth-child(1), .full-schedules-card td:nth-child(1) { width: 18%; } /* LINHA */
-.full-schedules-card th:nth-child(2), .full-schedules-card td:nth-child(2) { width: 12%; } /* TREM */
-.full-schedules-card th:nth-child(3), .full-schedules-card td:nth-child(3) { width: 18%; } /* PARTIDA */
-.full-schedules-card th:nth-child(4), .full-schedules-card td:nth-child(4) { width: 18%; } /* CHEGADA */
-.full-schedules-card th:nth-child(5), .full-schedules-card td:nth-child(5) { width: 17%; } /* DURAÇÃO */
-.full-schedules-card th:nth-child(6), .full-schedules-card td:nth-child(6) { width: 17%; } /* AÇÕES */
+.full-schedules-card th:nth-child(1), .full-schedules-card td:nth-child(1) { width: 18%; }
+.full-schedules-card th:nth-child(2), .full-schedules-card td:nth-child(2) { width: 12%; }
+.full-schedules-card th:nth-child(3), .full-schedules-card td:nth-child(3) { width: 18%; }
+.full-schedules-card th:nth-child(4), .full-schedules-card td:nth-child(4) { width: 18%; }
+.full-schedules-card th:nth-child(5), .full-schedules-card td:nth-child(5) { width: 17%; }
+.full-schedules-card th:nth-child(6), .full-schedules-card td:nth-child(6) { width: 17%; }
 
-
-/* Filtro de Horários */
 .schedule-filter {
     margin-bottom: 15px;
     display: flex;
@@ -295,11 +279,11 @@ body {
 }
 .schedule-filter label {
     font-weight: 500;
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
 }
 .schedule-filter select {
     background-color: #333;
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
     border: 1px solid #555;
     border-radius: 5px;
     padding: 10px 12px;
@@ -310,12 +294,10 @@ body {
 }
 .schedule-filter select:focus {
     outline: none;
-    border-color: #E50000; /* --color-primary-red */
+    border-color: #E50000;
     box-shadow: 0 0 0 2px rgba(229, 0, 0, 0.3);
 }
 
-
-/* Registro de Incidentes (Mantido como estava, sem botões de ação) */
 .incident-list {
     margin-bottom: 15px;
 }
@@ -332,33 +314,31 @@ body {
 
 .incident-time {
     font-weight: 600;
-    color: #888888; /* --color-text-muted */
+    color: #888888;
     display: block;
     margin-bottom: 5px;
 }
 .incident-details {
     font-size: 0.9em;
-    color: #888888; /* --color-text-muted */
+    color: #888888;
     font-style: italic;
 }
 
 .critical-incident {
-    color: #DC3545; /* --color-critical-red */
+    color: #DC3545;
 }
 .warning-incident {
-    color: #ffc107; /* --color-warning-orange */
+    color: #ffc107;
 }
 .info-incident {
-    color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
 }
 
-
-/* Botões (regras gerais, mas os específicos de operador foram removidos do HTML) */
 .button-primary,
 .button-secondary {
     border: none;
     padding: 14px 25px;
-    border-radius: 8px; /* --border-radius */
+    border-radius: 8px;
     cursor: pointer;
     font-size: 1.05em;
     font-weight: 600;
@@ -370,89 +350,86 @@ body {
 }
 
 .button-primary {
-    background-color: #E50000; /* --color-primary-red */
+    background-color: #E50000;
     color: white;
     box-shadow: 0 4px 10px rgba(229, 0, 0, 0.3);
 }
 
 .button-primary:hover {
-    background-color: #CC0000; /* --color-primary-red-hover */
+    background-color: #CC0000;
     box-shadow: 0 6px 15px rgba(229, 0, 0, 0.4);
     transform: translateY(-2px);
 }
 
 .button-secondary {
     background-color: transparent;
-    color: #888888; /* --color-text-muted */
-    border: 1px solid #888888; /* --color-text-muted */
+    color: #888888;
+    border: 1px solid #888888;
     margin-top: 10px;
 }
 
 .button-secondary:hover {
     background-color: rgba(255, 255, 255, 0.05);
-    color: #E0E0E0; /* --color-text-light */
-    border-color: #E0E0E0; /* --color-text-light */
+    color: #E0E0E0;
+    border-color: #E0E0E0;
 }
 
-/* Media query para telas maiores para alinhar os botões lado a lado */
-@media (min-width: 550px) { /* Ajustado para quando houver espaço suficiente */
+@media (min-width: 550px) {
     .train-actions-group {
-        flex-direction: row; /* Alinha os botões horizontalmente */
-        flex-wrap: wrap; /* Permite que os botões quebrem a linha se não houver espaço */
-        justify-content: center; /* Centraliza os botões */
-        gap: 10px; /* Espaço entre eles */
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
 
     .train-actions-group .action-button {
-        flex-grow: 1; /* Permite que os botões cresçam para preencher o espaço */
-        width: auto; /* Volta para largura automática */
-        max-width: 150px; /* Define uma largura máxima para não ficarem muito grandes */
+        flex-grow: 1;
+        width: auto;
+        max-width: 150px;
     }
 }
 
 @media (min-width: 769px) {
     .route-management-section {
-        max-width: 960px; /* Largura maior para desktop */
+        max-width: 960px;
     }
     .detailed-status-card,
     .full-schedules-card,
     .incident-log-card {
-        width: 100%; /* Ocupa a largura total da seção */
+        width: 100%;
     }
 
-    /* Ajusta o layout dos cards para exibir lado a lado em telas maiores */
     .route-management-section {
-        flex-direction: row; /* Alinha os cards horizontalmente */
-        flex-wrap: wrap; /* Permite que os cards quebrem a linha */
-        justify-content: space-between; /* Espaça os cards */
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .detailed-status-card,
     .full-schedules-card,
     .incident-log-card {
-        flex: 1 1 calc(50% - 10px); /* Dois cards por linha com gap de 20px */
+        flex: 1 1 calc(50% - 10px);
         max-width: calc(50% - 10px);
     }
 
-    /* Garante que o registro de incidentes ocupe a largura total se for o último */
     .incident-log-card {
-        flex: 1 1 100%; /* Ocupa a largura total abaixo dos outros dois */
+        flex: 1 1 100%;
         max-width: 100%;
     }
 }
 
 @media (min-width: 1024px) {
     .route-management-section {
-        max-width: 1200px; /* Ainda maior para telas muito grandes */
+        max-width: 1200px;
     }
     .detailed-status-card,
     .full-schedules-card,
     .incident-log-card {
-        flex: 1 1 calc(33.333% - 14px); /* Três cards por linha com gap de 20px */
+        flex: 1 1 calc(33.333% - 14px);
         max-width: calc(33.333% - 14px);
     }
-     .incident-log-card {
-        flex: 1 1 calc(33.333% - 14px); /* Também em 3 colunas */
+    .incident-log-card {
+        flex: 1 1 calc(33.333% - 14px);
         max-width: calc(33.333% - 14px);
     }
 }
