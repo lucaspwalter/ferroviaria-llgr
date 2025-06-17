@@ -173,6 +173,7 @@ footer {
     border-top: 1px solid #333;
 }
 
+/* RESPONSIVO PARA CELULAR */
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
@@ -194,5 +195,46 @@ footer {
         width: 100%;
         height: auto;
         aspect-ratio: 1 / 1;
+    }
+}
+
+/* RESPONSIVO PARA COMPUTADORES E TELAS MAIORES */
+@media (min-width: 1024px) {
+    main {
+        max-width: 1400px;
+        grid-template-columns: 2fr 3fr; /* Mais espaço para o mapa */
+        gap: 40px;
+    }
+
+    .mapa-placeholder {
+    width: 100%;
+    height: auto;
+    min-height: 450px;
+    aspect-ratio: 1 / 1;
+    background-color: #111;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    section h2 {
+        font-size: 1.6em;
+    }
+
+    .rota-item label {
+        font-size: 1.2em;
+    }
+
+    .detalhes-rota p {
+        font-size: 1.1em;
+    }
+
+    button#visualizarRota {
+        font-size: 1.2em;
+        padding: 14px 30px;
     }
 }
