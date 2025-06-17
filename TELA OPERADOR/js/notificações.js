@@ -1,14 +1,11 @@
 // seu_projeto/TELA USUARIO/js/notificacoes.js
 
-// Função para criar uma notificação com a opção de "editar (operador)"
-// O parâmetro 'temOpcaoEditar' controla se o botão de edição será mostrado.
 function criarNotificacao(app, tempo, titulo, mensagem, temOpcaoEditar = true) {
     const notificacaoDiv = document.createElement('div');
     notificacaoDiv.classList.add('notificacao');
 
     let editarOperadorHtml = '';
     if (temOpcaoEditar) {
-        // HTML para o botão "Editar (Operador)"
         editarOperadorHtml = `
             <div class="notificacao-acoes-operador">
                 <span class="btn-operador-editar">Editar (Operador)</span>
@@ -29,18 +26,16 @@ function criarNotificacao(app, tempo, titulo, mensagem, temOpcaoEditar = true) {
             </div>
             <div class="notificacao-titulo">${titulo}</div>
             <div class="notificacao-msg">${mensagem}</div>
-
+        </div>
+        ${editarOperadorHtml}
     `;
 
-    // Adiciona um evento de clique para a opção de editar (apenas estético, sem alert)
     if (temOpcaoEditar) {
         const btnEditar = notificacaoDiv.querySelector('.btn-operador-editar');
         if (btnEditar) {
             btnEditar.addEventListener('click', () => {
-                // Não faz nada ao clicar, mantendo apenas a estética
-                // Você pode adicionar efeitos visuais aqui se quiser, por exemplo:
-                // btnEditar.style.backgroundColor = '#666';
-                // setTimeout(() => btnEditar.style.backgroundColor = '#4a4a4a', 300);
+                // Lógica para o botão de editar (Operador) pode ser adicionada aqui
+                console.log(`Editar notificação: ${titulo}`);
             });
         }
     }
@@ -48,14 +43,11 @@ function criarNotificacao(app, tempo, titulo, mensagem, temOpcaoEditar = true) {
     return notificacaoDiv;
 }
 
-// --- LÓGICA PARA CARREGAR NOTIFICAÇÕES QUANDO A PÁGINA ESTIVER PRONTA ---
 document.addEventListener('DOMContentLoaded', () => {
     const notificacoesLista = document.getElementById('notificacoes-lista');
 
-    // Opcional: Limpa notificações existentes, útil para evitar duplicação em recargas ou desenvolvimento
     notificacoesLista.innerHTML = '';
 
-    // Adiciona algumas notificações de exemplo para demonstração
     notificacoesLista.appendChild(criarNotificacao(
         'Trem 9',
         'há 5 min',
@@ -84,12 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'Objeto identificado na via da Linha 11-Coral. Equipe de manutenção acionada para remoção imediata.'
     ));
 
-    // Exemplo de uma notificação SEM a opção de editar (se desejar variar as notificações)
     notificacoesLista.appendChild(criarNotificacao(
         'Trem 1',
         'há 3h',
         'Status: Operação Normal',
         'Todas as linhas operando normalmente, sem ocorrências no momento. Boa viagem!',
-        false // Define este parâmetro como 'false' para NÃO mostrar a opção de editar para esta notificação
+        false
     ));
 });

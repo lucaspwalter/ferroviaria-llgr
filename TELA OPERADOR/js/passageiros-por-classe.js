@@ -9,24 +9,24 @@ let chart = new Chart(ctxBar, {
             label: 'Nº de Passageiros',
             data: [80, 200, 40, 30],
             backgroundColor: [
-                '#990000', // Vermelho mais escuro
-                '#cc0000', // Vermelho médio
-                '#e06666', // Vermelho claro
-                '#f4cccc'  // Vermelho muito claro
+                '#990000',
+                '#cc0000',
+                '#e06666',
+                '#f4cccc'
             ],
             borderRadius: 8
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false, // Importante para o CSS controlar a altura
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 labels: {
-                    color: '#f0f0f0' // Cor do texto da legenda para o tema escuro
+                    color: '#f0f0f0'
                 }
             },
-            tooltip: { // Melhorias na tooltip
+            tooltip: {
                 callbacks: {
                     label: function(context) {
                         let label = context.dataset.label || '';
@@ -43,16 +43,16 @@ let chart = new Chart(ctxBar, {
         },
         scales: {
             x: {
-                ticks: { color: '#f0f0f0' }, // Cor dos rótulos do eixo X
+                ticks: { color: '#f0f0f0' },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)' // Cor da grade do eixo X
+                    color: 'rgba(255, 255, 255, 0.1)'
                 }
             },
             y: {
                 beginAtZero: true,
-                ticks: { color: '#f0f0f0' }, // Cor dos rótulos do eixo Y
+                ticks: { color: '#f0f0f0' },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)' // Cor da grade do eixo Y
+                    color: 'rgba(255, 255, 255, 0.1)'
                 }
             }
         }
@@ -70,7 +70,6 @@ function atualizarBarChart() {
     chart.update();
 }
 
-// Garante que o gráfico seja desenhado na carga inicial
 document.addEventListener('DOMContentLoaded', () => {
-    atualizarBarChart(); // Desenha o gráfico com os valores iniciais
+    atualizarBarChart();
 });
