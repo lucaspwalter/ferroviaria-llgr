@@ -29,7 +29,7 @@ function criarNotificacao(app, tempo, titulo, mensagem, temOpcaoEditar = true) {
             </div>
             <div class="notificacao-titulo">${titulo}</div>
             <div class="notificacao-msg">${mensagem}</div>
-            ${editarOperadorHtml} </div>
+
     `;
 
     // Adiciona um evento de clique para a opção de editar (apenas estético, sem alert)
