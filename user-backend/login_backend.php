@@ -1,34 +1,34 @@
 <?php
 session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $senha = $_POST["senha"];
 
-    $sql = "SELECT id, senha FROM usuarios WHERE email = ?";
+    $sql = "SELECT id, senha FROM usuarios WHERE LOWER(email) = LOWER(?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->store_result();
+    $resultado = $stmt->get_result();
 
-    if ($stmt->num_rows == 0) {
+    if ($resultado->num_rows === 0) {
         $_SESSION['erro'] = "E-mail ou senha incorretos.";
-        header("Location: ../TELA USUARIO/html/login.php");
+        header("Location: /sa/ferroviaria-llgr/user/php/login.php");
         exit();
     }
 
-    $stmt->bind_result($id, $senhaHash);
-    $stmt->fetch();
+    $usuario = $resultado->fetch_assoc();
 
-    if (password_verify($senha, $senhaHash)) {
-        $_SESSION['usuario_id'] = $id;
-        header("Location: ../TELA USUARIO/html/telainicialU.html"); 
-        exit();
-    } else {
-        $_SESSION['erro'] = "E-mail ou senha incorretos.";
-        header("Location: ../TELA USUARIO/html/login.php");
-        exit();
-    }
+    if (password_verify($senha, $usuario['senha'])) {
+    $_SESSION['usuario_id'] = $usuario['id'];
+    header("Location: /sa/ferroviaria-llgr/user/html/telainicialU.html"); 
+    exit();
+} else {
+    $_SESSION['erro'] = "E-mail ou senha incorretos.";
+    header("Location: /sa/ferroviaria-llgr/user/php/login.php");
+    exit();
+}
+
 }
 ?>
