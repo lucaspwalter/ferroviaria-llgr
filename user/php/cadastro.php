@@ -18,7 +18,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
 <body>
 <header></header>
 <main class="login-container">
-    <form action="/sa/ferroviaria-llgr/user-backend/cadastro_backend.php" method="POST">
+    <form action="../../user-backend/cadastro_backend.php" method="POST">
         <h1>Crie sua <span class="conta-vermelho">conta</span></h1>
 
         <div class="input-box">

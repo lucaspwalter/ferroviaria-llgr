@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows === 0) {
         $_SESSION['erro'] = "E-mail ou senha incorretos.";
-        header("Location: /sa/ferroviaria-llgr/user/php/login.php");
+        header("Location: /ferroviaria-llgr/user/php/login.php");
         exit();
     }
 
@@ -22,11 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (password_verify($senha, $usuario['senha'])) {
     $_SESSION['usuario_id'] = $usuario['id'];
-    header("Location: /sa/ferroviaria-llgr/user/html/telainicialU.html"); 
+    header("Location: /ferroviaria-llgr/user/html/telainicialU.html");
     exit();
 } else {
     $_SESSION['erro'] = "E-mail ou senha incorretos.";
-    header("Location: /sa/ferroviaria-llgr/user/php/login.php");
+    header("Location: /ferroviaria-llgr/user/php/login.php");
     exit();
 }
 

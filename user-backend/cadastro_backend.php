@@ -10,13 +10,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validações
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['erro'] = "E-mail inválido.";
-        header("Location: /sa/ferroviaria-llgr/user/php/cadastro.php");
+        header("Location: /ferroviaria-llgr/user/php/cadastro.php");
         exit();
     }
 
     if (strlen($senha) < 8 || !preg_match('/[A-Z]/', $senha) || !preg_match('/[0-9]/', $senha)) {
         $_SESSION['erro'] = "A senha deve ter no mínimo 8 caracteres, incluindo letra maiúscula e número.";
-        header("Location: /sa/ferroviaria-llgr/user/php/cadastro.php");
+        header("Location: /ferroviaria-llgr/user/php/cadastro.php");
         exit();
     }
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->num_rows > 0) {
         $_SESSION['erro'] = "E-mail já cadastrado.";
-        header("Location: /sa/ferroviaria-llgr/user/php/cadastro.php");
+        header("Location: /ferroviaria-llgr/user/php/cadastro.php");
         exit();
     }
 
@@ -41,11 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $_SESSION['sucesso'] = "Cadastro realizado com sucesso! Agora você pode entrar.";
-        header("Location: /sa/ferroviaria-llgr/user/php/cadastro.php");
+        header("Location: /ferroviaria-llgr/user/php/cadastro.php");
         exit();
     } else {
         $_SESSION['erro'] = "Erro ao cadastrar: " . $stmt->error;
-        header("Location: /sa/ferroviaria-llgr/user/php/cadastro.php");
+        header("Location: /ferroviaria-llgr/user/php/cadastro.php");
         exit();
     }
 }

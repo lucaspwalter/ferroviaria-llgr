@@ -10,15 +10,15 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Login Operador</title>
     <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/login.css" />
 </head>
 <body>
 <header></header>
 <main class="login-container">
-    <form action="../../user-backend/login_backend.php" method="POST">
-        <h1>Entre na sua conta</h1>
+    <form action="../../operator-backend/login-backend.php" method="POST">
+        <h1>Login do Operador</h1>
 
         <div class="input-box">
             <input name="email" placeholder="E-mail" type="email" required />
@@ -36,10 +36,6 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
         <?php endif; ?>
 
         <button type="submit" class="login">Entrar</button>
-
-        <div class="register-link">
-            <p>Não tem conta? <a href="cadastro.php">Cadastre-se</a></p>
-        </div>
     </form>
 </main>
 </body>
