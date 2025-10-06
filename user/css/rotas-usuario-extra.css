@@ -1,0 +1,178 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0a;
+    margin: 0;
+    padding: 0;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 100px auto 40px;
+    padding: 20px;
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.rotas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.rota-card {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.rota-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(229, 0, 0, 0.2);
+    border-color: #e50000;
+}
+
+.rota-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e50000;
+}
+
+.rota-codigo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    color: #e50000;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.rota-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-ativa {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.status-inativa {
+    background-color: rgba(108, 117, 125, 0.2);
+    color: #6c757d;
+}
+
+.rota-nome {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4em;
+    color: #ffffff;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+}
+
+.rota-trajeto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 1.1em;
+}
+
+.trajeto-origem, .trajeto-destino {
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.trajeto-arrow {
+    color: #e50000;
+    font-size: 1.5em;
+}
+
+.rota-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-item {
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.info-label {
+    font-size: 0.8em;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 1.1em;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.rota-paradas {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.paradas-label {
+    font-size: 0.85em;
+    color: #888888;
+    margin-bottom: 8px;
+}
+
+.paradas-lista {
+    font-size: 0.95em;
+    color: #c0c0c0;
+    line-height: 1.6;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888888;
+    font-size: 1.2em;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: #888888;
+}
+
+.empty-state p {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .rotas-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-title {
+        font-size: 1.8em;
+    }
+}

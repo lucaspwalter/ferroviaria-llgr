@@ -1,0 +1,41 @@
+/* Estilos extras para o Dashboard */
+
+.welcome-box {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.welcome-text {
+    margin: 0;
+    color: #e0e0e0;
+}
+
+.welcome-subtitle {
+    color: #888888;
+}
+
+.legenda-chartjs ul li span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 8px;
+}
+
+.legenda-color-critico {
+    background: #e74c3c !important;
+}
+
+.legenda-color-urgente {
+    background: #f39c12 !important;
+}
+
+.legenda-color-aviso {
+    background: #f1c40f !important;
+}
+
+.legenda-color-informativo {
+    background: #3498db !important;
+}

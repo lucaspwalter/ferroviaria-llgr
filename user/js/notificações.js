@@ -28,9 +28,7 @@ const notificacoes = [
         icone:  `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C7.03 2 3 6.03 3 11c0 4.97 4.03 9 9 9s9-4.03 9-9c0-4.97-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7 0-3.87 3.13-7 7-7s7 3.13 7 7c0 3.87-3.13 7-7 7zm-1-4h2v2h-2zm0-8h2v6h-2z" fill="currentColor"/></svg>`
     }
 ];
-
 const lista = document.getElementById('notificacoes-lista');
-
 notificacoes.forEach(n => {
     const div = document.createElement('div');
     div.className = 'notificacao';
@@ -47,7 +45,6 @@ notificacoes.forEach(n => {
     `;
     lista.appendChild(div);
 });
-
 const reclamacao = document.getElementById('reclamacao-link');
 if (reclamacao) {
     reclamacao.addEventListener('click', () => {

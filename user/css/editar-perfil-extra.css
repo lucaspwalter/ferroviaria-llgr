@@ -1,0 +1,21 @@
+.alert-box {
+    display: none;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.divisor-linha {
+    margin: 30px 0;
+    border-color: rgba(255,255,255,0.1);
+}
+
+.titulo-senha {
+    color: #E50000;
+    margin-bottom: 20px;
+}
+
+.small-hint {
+    color: #888;
+    font-size: 0.85em;
+}

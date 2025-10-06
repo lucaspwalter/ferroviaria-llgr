@@ -1,6 +1,4 @@
-// passageiros-por-classe.js
 const ctxBar = document.getElementById('barChart').getContext('2d');
-
 let chart = new Chart(ctxBar, {
     type: 'bar',
     data: {
@@ -58,7 +56,6 @@ let chart = new Chart(ctxBar, {
         }
     }
 });
-
 function atualizarBarChart() {
     const novaData = [
         parseInt(document.getElementById('classe1').value) || 0,
@@ -69,7 +66,6 @@ function atualizarBarChart() {
     chart.data.datasets[0].data = novaData;
     chart.update();
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     atualizarBarChart();
 });

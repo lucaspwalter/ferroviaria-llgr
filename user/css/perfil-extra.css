@@ -1,0 +1,13 @@
+.perfil-loading {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.perfil-container-hidden {
+    display: none;
+}
+
+.perfil-container-visible {
+    display: block;
+}

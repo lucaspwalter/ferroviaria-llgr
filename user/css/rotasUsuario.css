@@ -173,7 +173,7 @@ footer {
     border-top: 1px solid #333;
 }
 
-/* RESPONSIVO PARA CELULAR */
+
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
@@ -198,11 +198,11 @@ footer {
     }
 }
 
-/* RESPONSIVO PARA COMPUTADORES E TELAS MAIORES */
+
 @media (min-width: 1024px) {
     main {
         max-width: 1400px;
-        grid-template-columns: 2fr 3fr; /* Mais espaço para o mapa */
+        grid-template-columns: 2fr 3fr; 
         gap: 40px;
     }
 

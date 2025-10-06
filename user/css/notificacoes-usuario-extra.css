@@ -1,0 +1,105 @@
+/* Estilos extras para notificações do usuário */
+
+.loading-container {
+    text-align: center;
+    padding: 40px;
+    color: #888888;
+}
+
+.empty-notificacoes {
+    text-align: center;
+    padding: 60px;
+    color: #888888;
+}
+
+.empty-notificacoes p {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.error-notificacoes {
+    text-align: center;
+    padding: 60px;
+    color: #dc3545;
+}
+
+.notificacao-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid #e50000;
+    transition: all 0.3s ease;
+}
+
+.notificacao-header:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.notificacao-icone {
+    font-size: 1.8em;
+    min-width: 40px;
+    text-align: center;
+}
+
+.notificacao-info {
+    flex: 1;
+}
+
+.notificacao-titulo {
+    display: block;
+    color: #ffffff;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.notificacao-mensagem {
+    color: #b0b0b0;
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.notificacao-data {
+    color: #888888;
+    font-size: 0.85em;
+}
+
+.status-lida {
+    color: #28a745;
+    font-size: 1.2em;
+}
+
+.status-nova {
+    color: #e50000;
+    font-size: 1.5em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.notificacao-item.lida {
+    opacity: 0.7;
+}
+
+.prioridade-alta {
+    border-left-color: #dc3545;
+}
+
+.prioridade-media {
+    border-left-color: #ffc107;
+}
+
+.prioridade-baixa {
+    border-left-color: #28a745;
+}
