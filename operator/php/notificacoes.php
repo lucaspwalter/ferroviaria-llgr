@@ -11,9 +11,9 @@ if (!isset($_SESSION['operador_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Notificações - LLGR</title>
-    <link rel="preconnect" href="https:
-    <link rel="preconnect" href="https:
-    <link href="https:
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
 </head>
@@ -34,7 +34,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="itinerarios.php">Itinerários</a></li>
                 <li><a href="alertas.php">Alertas</a></li>
                 <li><a href="manutencoes.php">Manutenções</a></li>
-                <li><a href="../../index.html">Sair</a></li>
+                <li><a href="notificacoes.php">Notificações</a></li>
+                <li><a href="relatorios.php">Relatórios</a></li>
+                <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
     </header>

@@ -6,15 +6,17 @@ if (!isset($_SESSION['operador_id'])) {
 }
 require_once __DIR__ . '/../../user-backend/conexao.php';
 $filtro = $_GET['filtro'] ?? 'todas';
+
 $sql = "SELECT r.*, u.nome as usuario_nome, u.email as usuario_email 
         FROM reclamacoes r 
         INNER JOIN usuarios u ON r.usuario_id = u.id ";
+
 if ($filtro == 'pendentes') {
     $sql .= "WHERE r.status = 'pendente' ";
-} elseif ($filtro == 'respondidas') {
-    $sql .= "WHERE r.status = 'respondida' ";
 }
+
 $sql .= "ORDER BY r.created_at DESC";
+
 $result = $conn->query($sql);
 $reclamacoes = $result->fetch_all(MYSQLI_ASSOC);
 $erro = $_SESSION['erro'] ?? '';
@@ -27,9 +29,12 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Reclamações - LLGR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
-    <link rel="stylesheet" href="https:
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -42,8 +47,14 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             </div>
             <ul class="nav-list">
                 <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="sensores.php">Sensores</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
+                <li><a href="itinerarios.php">Itinerários</a></li>
+                <li><a href="alertas.php">Alertas</a></li>
+                <li><a href="manutencoes.php">Manutenções</a></li>
+                <li><a href="notificacoes.php">Notificações</a></li>
+                <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
@@ -74,9 +85,6 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             </a>
             <a href="?filtro=pendentes" class="filter-btn <?= $filtro == 'pendentes' ? 'active' : '' ?>">
                 Pendentes
-            </a>
-            <a href="?filtro=respondidas" class="filter-btn <?= $filtro == 'respondidas' ? 'active' : '' ?>">
-                Respondidas
             </a>
         </div>
         <div class="reclamacoes-grid">

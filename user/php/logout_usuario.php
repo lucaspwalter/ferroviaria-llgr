@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("Location: ../html/telainicialU.html");
+header("Location: ../../index.html");
 exit();
 ?>

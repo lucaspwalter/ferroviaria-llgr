@@ -137,6 +137,9 @@ body {
     transition: background 0.2s;
     border-top: 1px solid #b71c1c;
     flex-shrink: 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
 }
 
 .reclamacao:hover {

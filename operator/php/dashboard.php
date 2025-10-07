@@ -41,7 +41,8 @@ if (!isset($_SESSION['operador_id'])) {
           <li><a href="manutencoes.php">Manutenções</a></li>
           <li><a href="notificacoes.php">Notificações</a></li>
           <li><a href="relatorios.php">Relatórios</a></li>
-          <li><a href="logout.php">Sair</a></li>
+          <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="logout.php">Sair</a></li>
         </ul>
       </nav>
     </header>
