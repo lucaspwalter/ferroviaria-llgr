@@ -16,14 +16,13 @@ session_start();
       <div class="notificacoes-container">
         <header>
           <nav>
-            <a class="logo" href="../html/telainicialU.html">LLGR</a>
+            <a class="logo" href="rotas_usuario.php">LLGR</a>
             <div class="mobile-menu">
               <div class="line1"></div>
               <div class="line2"></div>
               <div class="line3"></div>
             </div>
             <ul class="nav-list">
-              <li><a href="../html/telainicialU.html">Início</a></li>
               <li><a href="rotas_usuario.php">Rotas</a></li>
               <li><a href="notificacoes_usuario.php">Notificações</a></li>
               <li><a href="../html/chatU.php">Reclame Aqui</a></li>
