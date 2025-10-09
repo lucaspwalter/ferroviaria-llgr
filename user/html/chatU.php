@@ -6,10 +6,10 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 require_once __DIR__ . '/../../user-backend/conexao.php';
 $usuario_id = $_SESSION['usuario_id'];
-$sql = "SELECT r.*, u.nome as usuario_nome 
-        FROM reclamacoes r 
-        INNER JOIN usuarios u ON r.usuario_id = u.id 
-        WHERE r.usuario_id = ? 
+$sql = "SELECT r.*, u.nome as usuario_nome
+        FROM reclamacoes r
+        INNER JOIN usuarios u ON r.usuario_id = u.id
+        WHERE r.usuario_id = ?
         ORDER BY r.created_at ASC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $usuario_id);
@@ -37,7 +37,6 @@ $reclamacoes = $result->fetch_all(MYSQLI_ASSOC);
                     <div class="line3"></div>
                 </div>
                 <ul class="nav-list">
-                    <li><a href="telainicialU.html">Início</a></li>
                     <li><a href="../php/rotas_usuario.php">Rotas</a></li>
                     <li><a href="../php/notificacoes_usuario.php">Notificações</a></li>
                     <li><a href="chatU.php">Reclame Aqui</a></li>

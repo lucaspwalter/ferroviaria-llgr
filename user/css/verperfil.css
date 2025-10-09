@@ -8,6 +8,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    padding-top: 4vh;
 }
 
 header {
@@ -21,7 +22,7 @@ header {
     align-items: center;
     width: 100%;
     flex-grow: 1;
-    padding: 20px 0;
+    padding: 40px 20px;
     box-sizing: border-box;
 }
 
@@ -38,7 +39,8 @@ header {
 
 h2 {
     color: #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    margin-top: 0;
     font-size: 28px;
     font-weight: 700;
 }
@@ -51,13 +53,21 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0;
+    padding: 15px 20px;
+    background-color: #2a2a2a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-info-group:first-of-type {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 .profile-info-group:last-of-type {
     border-bottom: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .info-label {
