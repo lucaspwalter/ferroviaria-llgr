@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Status](https://img.shields.io/badge/status-em%20andamento-yellow))
+![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
 ![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?logo=mysql)
 ![License](https://img.shields.io/badge/license-MIT-blue)
