@@ -63,7 +63,6 @@ O sistema foi desenvolvido para atender três tipos de usuários:
 - **Controle de Trens** - CRUD completo de locomotivas e vagões
 - **Gerenciamento de Rotas** - Cadastro e visualização de trajetos
 - **Itinerários** - Planejamento de horários e escalas
-- **Sensores IoT** - Monitoramento de temperatura, velocidade e pressão
 - **Sistema de Alertas** - Notificações de eventos críticos
 
 ### 🔧 Sistema de Manutenção
