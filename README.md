@@ -109,7 +109,3 @@ O sistema foi desenvolvido para atender três tipos de usuários:
 - **Git** - Versionamento de código
 - **GitHub** - Hospedagem do repositório
 
-
----
-
-## 🔒 Segurança Implementada
