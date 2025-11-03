@@ -46,8 +46,9 @@ if (!isset($_SESSION['operador_id'])) {
             <h1 class="page-title">Gerenciamento de Itinerários</h1>
             <div id="alert" class="alert"></div>
             <div class="card">
-                <h2 class="card-title">Cadastrar Novo Itinerário</h2>
+                <h2 class="card-title" id="formTitle">Cadastrar Novo Itinerário</h2>
                 <form id="itinerarioForm" onsubmit="return submitForm('itinerarioForm', '../../operator-backend/itinerarios-backend.php')">
+                    <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="codigo">Código <span class="required">*</span></label>
@@ -111,8 +112,8 @@ if (!isset($_SESSION['operador_id'])) {
                                   placeholder="Informações adicionais sobre o itinerário"></textarea>
                     </div>
                     <div class="button-group">
-                        <button type="submit" class="btn btn-primary">Salvar Itinerário</button>
-                        <button type="reset" class="btn btn-secondary">Limpar Formulário</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Salvar Itinerário</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -128,10 +129,11 @@ if (!isset($_SESSION['operador_id'])) {
                                 <th>Data</th>
                                 <th>Partida</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="itinerariosTableBody">
-                            <tr><td colspan="6" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -142,11 +144,13 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/gerenciamento.js"></script>
     <script>
         const backendUrl = '../../operator-backend/itinerarios-backend.php';
+        
         window.addEventListener('DOMContentLoaded', function() {
             loadSelect('../../operator-backend/rotas-backend.php', 'rota_id', 'id', 'nome');
             loadSelect('../../operator-backend/trens-backend.php', 'trem_id', 'id', 'codigo');
             loadDataTable();
         });
+        
         function createTableRow(itinerario) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -156,9 +160,72 @@ if (!isset($_SESSION['operador_id'])) {
                 <td>${formatDate(itinerario.data_partida)}</td>
                 <td>${itinerario.hora_partida}</td>
                 <td>${getStatusBadge(itinerario.status)}</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="editItinerario(${itinerario.id})" title="Editar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteItinerario(${itinerario.id})" title="Excluir">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </td>
             `;
             return tr;
         }
+        
+        async function editItinerario(id) {
+            try {
+                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    const itinerario = result.dados;
+                    document.getElementById('id').value = itinerario.id;
+                    document.getElementById('codigo').value = itinerario.codigo;
+                    document.getElementById('rota_id').value = itinerario.rota_id;
+                    document.getElementById('trem_id').value = itinerario.trem_id || '';
+                    document.getElementById('data_partida').value = itinerario.data_partida;
+                    document.getElementById('hora_partida').value = itinerario.hora_partida;
+                    document.getElementById('hora_chegada_prevista').value = itinerario.hora_chegada_prevista;
+                    document.getElementById('passageiros_embarcados').value = itinerario.passageiros_embarcados || 0;
+                    document.getElementById('status').value = itinerario.status;
+                    document.getElementById('observacoes').value = itinerario.observacoes || '';
+                    
+                    document.getElementById('formTitle').textContent = 'Editar Itinerário';
+                    document.getElementById('submitBtn').textContent = 'Atualizar Itinerário';
+                    document.getElementById('itinerarioForm').onsubmit = function() {
+                        return submitForm('itinerarioForm', backendUrl, 'atualizar');
+                    };
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    showAlert('Erro ao carregar dados do itinerário', 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao comunicar com o servidor', 'error');
+            }
+        }
+        
+        function deleteItinerario(id) {
+            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este itinerário?');
+        }
+        
+        function resetForm() {
+            document.getElementById('itinerarioForm').reset();
+            document.getElementById('id').value = '';
+            document.getElementById('formTitle').textContent = 'Cadastrar Novo Itinerário';
+            document.getElementById('submitBtn').textContent = 'Salvar Itinerário';
+            document.getElementById('itinerarioForm').onsubmit = function() {
+                return submitForm('itinerarioForm', backendUrl);
+            };
+        }
+        
         function loadDataTable() {
             loadData(backendUrl, 'itinerariosTableBody');
         }

@@ -45,8 +45,9 @@ if (!isset($_SESSION['operador_id'])) {
             <h1 class="page-title">Gerenciamento de Rotas</h1>
             <div id="alert" class="alert"></div>
             <div class="card">
-                <h2 class="card-title">Cadastrar Nova Rota</h2>
+                <h2 class="card-title" id="formTitle">Cadastrar Nova Rota</h2>
                 <form id="rotaForm" onsubmit="return submitForm('rotaForm', '../../operator-backend/rotas-backend.php')">
+                    <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="codigo">Código <span class="required">*</span></label>
@@ -122,8 +123,8 @@ if (!isset($_SESSION['operador_id'])) {
                                   placeholder="Informações adicionais sobre a rota"></textarea>
                     </div>
                     <div class="button-group">
-                        <button type="submit" class="btn btn-primary">Salvar Rota</button>
-                        <button type="reset" class="btn btn-secondary">Limpar Formulário</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Salvar Rota</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -139,10 +140,11 @@ if (!isset($_SESSION['operador_id'])) {
                                 <th>Distância</th>
                                 <th>Preço</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="rotasTableBody">
-                            <tr><td colspan="6" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -153,6 +155,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/gerenciamento.js"></script>
     <script>
         const backendUrl = '../../operator-backend/rotas-backend.php';
+        
         function createTableRow(rota) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -162,12 +165,78 @@ if (!isset($_SESSION['operador_id'])) {
                 <td>${rota.distancia_km} km</td>
                 <td>${rota.preco_base ? formatCurrency(rota.preco_base) : '-'}</td>
                 <td>${getStatusBadge(rota.status)}</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="editRota(${rota.id})" title="Editar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteRota(${rota.id})" title="Excluir">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </td>
             `;
             return tr;
         }
+        
+        async function editRota(id) {
+            try {
+                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    const rota = result.dados;
+                    document.getElementById('id').value = rota.id;
+                    document.getElementById('codigo').value = rota.codigo;
+                    document.getElementById('nome').value = rota.nome;
+                    document.getElementById('origem').value = rota.origem;
+                    document.getElementById('destino').value = rota.destino;
+                    document.getElementById('distancia_km').value = rota.distancia_km;
+                    document.getElementById('tempo_estimado').value = rota.tempo_estimado;
+                    document.getElementById('preco_base').value = rota.preco_base || '';
+                    document.getElementById('numero_paradas').value = rota.numero_paradas || 0;
+                    document.getElementById('status').value = rota.status;
+                    document.getElementById('paradas').value = rota.paradas || '';
+                    document.getElementById('observacoes').value = rota.observacoes || '';
+                    
+                    document.getElementById('formTitle').textContent = 'Editar Rota';
+                    document.getElementById('submitBtn').textContent = 'Atualizar Rota';
+                    document.getElementById('rotaForm').onsubmit = function() {
+                        return submitForm('rotaForm', backendUrl, 'atualizar');
+                    };
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    showAlert('Erro ao carregar dados da rota', 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao comunicar com o servidor', 'error');
+            }
+        }
+        
+        function deleteRota(id) {
+            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir esta rota?');
+        }
+        
+        function resetForm() {
+            document.getElementById('rotaForm').reset();
+            document.getElementById('id').value = '';
+            document.getElementById('formTitle').textContent = 'Cadastrar Nova Rota';
+            document.getElementById('submitBtn').textContent = 'Salvar Rota';
+            document.getElementById('rotaForm').onsubmit = function() {
+                return submitForm('rotaForm', backendUrl);
+            };
+        }
+        
         function loadDataTable() {
             loadData(backendUrl, 'rotasTableBody');
         }
+        
         window.addEventListener('DOMContentLoaded', loadDataTable);
     </script>
 </body>

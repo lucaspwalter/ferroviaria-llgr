@@ -72,8 +72,20 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
         if (result.sucesso) {
             showAlert(result.mensagem, 'success');
             form.reset();
-            if (typeof loadData === 'function') {
-                setTimeout(() => loadData(), 1000);
+            document.getElementById('id').value = '';
+            
+            // Reset form title and button
+            const formTitle = document.getElementById('formTitle');
+            const submitBtn = document.getElementById('submitBtn');
+            if (formTitle && action === 'atualizar') {
+                formTitle.textContent = formTitle.textContent.replace('Editar', 'Cadastrar Novo').replace('Atualizar', 'Cadastrar');
+            }
+            if (submitBtn && action === 'atualizar') {
+                submitBtn.textContent = submitBtn.textContent.replace('Atualizar', 'Salvar');
+            }
+            
+            if (typeof loadDataTable === 'function') {
+                setTimeout(() => loadDataTable(), 1000);
             }
         } else {
             showAlert(result.mensagem || 'Erro ao salvar', 'error');
@@ -99,14 +111,18 @@ async function loadData(backendUrl, tableBodyId) {
         const response = await fetch(`${backendUrl}?acao=listar`);
         const result = await response.json();
         
-        if (result.sucesso && result.dados.length > 0) {
-            tbody.innerHTML = '';
-            result.dados.forEach(item => {
-                const row = createTableRow(item);
-                tbody.appendChild(row);
-            });
+        if (result.sucesso) {
+            if (result.dados.length > 0) {
+                tbody.innerHTML = '';
+                result.dados.forEach(item => {
+                    const row = createTableRow(item);
+                    tbody.appendChild(row);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="100%" class="empty-state"><p>Nenhum registro encontrado</p></td></tr>';
+            }
         } else {
-            tbody.innerHTML = '<tr><td colspan="100%" class="empty-state"><p>Nenhum registro encontrado</p></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="100%" class="empty-state"><p>Erro ao carregar dados</p></td></tr>';
         }
     } catch (error) {
         console.error('Erro:', error);
@@ -177,8 +193,8 @@ async function deleteRecord(id, backendUrl, confirmMessage = 'Tem certeza que de
         
         if (result.sucesso) {
             showAlert(result.mensagem, 'success');
-            if (typeof loadData === 'function') {
-                setTimeout(() => loadData(), 1000);
+            if (typeof loadDataTable === 'function') {
+                setTimeout(() => loadDataTable(), 1000);
             }
         } else {
             showAlert(result.mensagem || 'Erro ao excluir', 'error');

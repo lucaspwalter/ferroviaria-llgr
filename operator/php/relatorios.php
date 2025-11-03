@@ -111,10 +111,11 @@ if (!isset($_SESSION['operador_id'])) {
                                 <th>Formato</th>
                                 <th>Gerado em</th>
                                 <th>Gerado por</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="relatoriosTableBody">
-                            <tr><td colspan="6" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -125,6 +126,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/gerenciamento.js"></script>
     <script>
         const backendUrl = '../../operator-backend/relatorios-backend.php';
+        
         function createTableRow(relatorio) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -134,12 +136,62 @@ if (!isset($_SESSION['operador_id'])) {
                 <td><span class="badge badge-secondary">${relatorio.formato.toUpperCase()}</span></td>
                 <td>${formatDateTime(relatorio.criado_em)}</td>
                 <td>${relatorio.operador_nome || '-'}</td>
+                <td>
+                    <button class="btn-action btn-view" onclick="viewRelatorio(${relatorio.id})" title="Visualizar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteRelatorio(${relatorio.id})" title="Excluir">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </td>
             `;
             return tr;
         }
+        
+        async function viewRelatorio(id) {
+            try {
+                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    const relatorio = result.dados;
+                    const dados = JSON.parse(relatorio.dados_json || '{}');
+                    
+                    let detalhes = `
+                        <h3>Detalhes do Relatório</h3>
+                        <p><strong>Título:</strong> ${relatorio.titulo}</p>
+                        <p><strong>Tipo:</strong> ${relatorio.tipo}</p>
+                        <p><strong>Período:</strong> ${formatDate(relatorio.periodo_inicio)} até ${formatDate(relatorio.periodo_fim)}</p>
+                        <p><strong>Descrição:</strong> ${relatorio.descricao || '-'}</p>
+                        <hr>
+                        <h4>Dados do Relatório:</h4>
+                        <pre>${JSON.stringify(dados, null, 2)}</pre>
+                    `;
+                    
+                    showAlert(detalhes, 'info');
+                } else {
+                    showAlert('Erro ao carregar relatório', 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao comunicar com o servidor', 'error');
+            }
+        }
+        
+        function deleteRelatorio(id) {
+            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este relatório?');
+        }
+        
         function loadDataTable() {
             loadData(backendUrl, 'relatoriosTableBody');
         }
+        
         window.addEventListener('DOMContentLoaded', loadDataTable);
     </script>
 </body>

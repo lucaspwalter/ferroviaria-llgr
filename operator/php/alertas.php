@@ -46,8 +46,9 @@ if (!isset($_SESSION['operador_id'])) {
             <h1 class="page-title">Gerenciamento de Alertas</h1>
             <div id="alert" class="alert"></div>
             <div class="card">
-                <h2 class="card-title">Cadastrar Novo Alerta</h2>
+                <h2 class="card-title" id="formTitle">Cadastrar Novo Alerta</h2>
                 <form id="alertaForm" onsubmit="return submitForm('alertaForm', '../../operator-backend/alertas-backend.php')">
+                    <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo">Tipo <span class="required">*</span></label>
@@ -106,9 +107,14 @@ if (!isset($_SESSION['operador_id'])) {
                         <input type="text" id="localizacao" name="localizacao" class="form-control" 
                                placeholder="Ex: Km 15 - Linha Principal" maxlength="200">
                     </div>
+                    <div class="form-group">
+                        <label for="acao_tomada">Ação Tomada</label>
+                        <textarea id="acao_tomada" name="acao_tomada" class="form-control" 
+                                  placeholder="Descreva as ações tomadas para resolver o alerta"></textarea>
+                    </div>
                     <div class="button-group">
-                        <button type="submit" class="btn btn-primary">Salvar Alerta</button>
-                        <button type="reset" class="btn btn-secondary">Limpar Formulário</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Salvar Alerta</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -124,10 +130,11 @@ if (!isset($_SESSION['operador_id'])) {
                                 <th>Prioridade</th>
                                 <th>Status</th>
                                 <th>Data</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="alertasTableBody">
-                            <tr><td colspan="6" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -138,6 +145,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/gerenciamento.js"></script>
     <script>
         const backendUrl = '../../operator-backend/alertas-backend.php';
+        
         function createTableRow(alerta) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -147,12 +155,75 @@ if (!isset($_SESSION['operador_id'])) {
                 <td><span class="badge badge-info">${alerta.prioridade}</span></td>
                 <td>${getStatusBadge(alerta.status)}</td>
                 <td>${formatDateTime(alerta.criado_em)}</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="editAlerta(${alerta.id})" title="Editar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteAlerta(${alerta.id})" title="Excluir">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </td>
             `;
             return tr;
         }
+        
+        async function editAlerta(id) {
+            try {
+                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    const alerta = result.dados;
+                    document.getElementById('id').value = alerta.id;
+                    document.getElementById('tipo').value = alerta.tipo;
+                    document.getElementById('origem').value = alerta.origem;
+                    document.getElementById('prioridade').value = alerta.prioridade;
+                    document.getElementById('status').value = alerta.status;
+                    document.getElementById('titulo').value = alerta.titulo;
+                    document.getElementById('descricao').value = alerta.descricao;
+                    document.getElementById('localizacao').value = alerta.localizacao || '';
+                    document.getElementById('acao_tomada').value = alerta.acao_tomada || '';
+                    
+                    document.getElementById('formTitle').textContent = 'Editar Alerta';
+                    document.getElementById('submitBtn').textContent = 'Atualizar Alerta';
+                    document.getElementById('alertaForm').onsubmit = function() {
+                        return submitForm('alertaForm', backendUrl, 'atualizar');
+                    };
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    showAlert('Erro ao carregar dados do alerta', 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao comunicar com o servidor', 'error');
+            }
+        }
+        
+        function deleteAlerta(id) {
+            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este alerta?');
+        }
+        
+        function resetForm() {
+            document.getElementById('alertaForm').reset();
+            document.getElementById('id').value = '';
+            document.getElementById('formTitle').textContent = 'Cadastrar Novo Alerta';
+            document.getElementById('submitBtn').textContent = 'Salvar Alerta';
+            document.getElementById('alertaForm').onsubmit = function() {
+                return submitForm('alertaForm', backendUrl);
+            };
+        }
+        
         function loadDataTable() {
             loadData(backendUrl, 'alertasTableBody');
         }
+        
         window.addEventListener('DOMContentLoaded', loadDataTable);
     </script>
 </body>
