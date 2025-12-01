@@ -47,7 +47,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Sensor</h2>
-                <form id="sensorForm" onsubmit="return submitForm('sensorForm', '../../operator-backend/sensores-backend.php')">
+                <form id="sensorForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -129,7 +129,7 @@ if (!isset($_SESSION['operador_id'])) {
                             </tr>
                         </thead>
                         <tbody id="sensoresTableBody">
-                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -137,9 +137,36 @@ if (!isset($_SESSION['operador_id'])) {
         </section>
     </main>
     <script src="../js/mobile-navbar.js"></script>
-    <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/sensores-backend.php';
+        // URL do backend - CAMINHO ABSOLUTO
+        const BACKEND_URL = '/ferroviaria-llgr/operator-backend/sensores-backend.php';
+        
+        // Função para mostrar alertas
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.getElementById('alert');
+            alertDiv.className = `alert alert-${type} show`;
+            alertDiv.textContent = message;
+            setTimeout(() => alertDiv.classList.remove('show'), 5000);
+        }
+        
+        // Função para formatar data
+        function formatDateTime(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            return date.toLocaleString('pt-BR');
+        }
+        
+        // Função para criar badge de status
+        function getStatusBadge(status) {
+            const colors = {
+                'ativo': 'success',
+                'inativo': 'secondary',
+                'manutencao': 'warning'
+            };
+            return `<span class="badge badge-${colors[status] || 'secondary'}">${status}</span>`;
+        }
+        
+        // Criar linha da tabela
         function createTableRow(sensor) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -150,26 +177,44 @@ if (!isset($_SESSION['operador_id'])) {
                 <td>${sensor.unidade_medida || '-'}</td>
                 <td>${formatDateTime(sensor.criado_em)}</td>
                 <td>
-                    <button class="btn-action btn-edit" onclick="editSensor(${sensor.id})" title="Editar">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                    </button>
-                    <button class="btn-action btn-delete" onclick="deleteSensor(${sensor.id})" title="Excluir">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                    </button>
+                    <button class="btn-action btn-edit" onclick="editSensor(${sensor.id})" title="Editar">✏️</button>
+                    <button class="btn-action btn-delete" onclick="deleteSensor(${sensor.id})" title="Excluir">🗑️</button>
                 </td>
             `;
             return tr;
         }
         
+        // Carregar sensores
+        async function loadSensores() {
+            const tbody = document.getElementById('sensoresTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" class="loading">Carregando...</td></tr>';
+            
+            try {
+                const response = await fetch(BACKEND_URL + '?acao=listar');
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    tbody.innerHTML = '';
+                    if (result.dados.length > 0) {
+                        result.dados.forEach(sensor => {
+                            tbody.appendChild(createTableRow(sensor));
+                        });
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum sensor cadastrado</td></tr>';
+                    }
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" class="error">Erro ao carregar: ' + result.mensagem + '</td></tr>';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                tbody.innerHTML = '<tr><td colspan="7" class="error">Erro ao carregar dados</td></tr>';
+            }
+        }
+        
+        // Editar sensor
         async function editSensor(id) {
             try {
-                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const response = await fetch(BACKEND_URL + '?acao=buscar&id=' + id);
                 const result = await response.json();
                 
                 if (result.sucesso) {
@@ -186,37 +231,87 @@ if (!isset($_SESSION['operador_id'])) {
                     
                     document.getElementById('formTitle').textContent = 'Editar Sensor';
                     document.getElementById('submitBtn').textContent = 'Atualizar Sensor';
-                    document.getElementById('sensorForm').onsubmit = function() {
-                        return submitForm('sensorForm', backendUrl, 'atualizar');
-                    };
-                    
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar dados do sensor', 'error');
+                    showAlert('Erro ao carregar sensor', 'error');
                 }
             } catch (error) {
-                console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showAlert('Erro ao comunicar com servidor', 'error');
             }
         }
         
-        function deleteSensor(id) {
-            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este sensor?');
+        // Deletar sensor
+        async function deleteSensor(id) {
+            if (!confirm('Tem certeza que deseja excluir este sensor?')) return;
+            
+            const formData = new FormData();
+            formData.append('acao', 'deletar');
+            formData.append('id', id);
+            
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    showAlert(result.mensagem, 'success');
+                    loadSensores();
+                } else {
+                    showAlert(result.mensagem, 'error');
+                }
+            } catch (error) {
+                showAlert('Erro ao excluir', 'error');
+            }
         }
         
+        // Resetar formulário
         function resetForm() {
             document.getElementById('sensorForm').reset();
             document.getElementById('id').value = '';
             document.getElementById('formTitle').textContent = 'Cadastrar Novo Sensor';
             document.getElementById('submitBtn').textContent = 'Salvar Sensor';
-            document.getElementById('sensorForm').onsubmit = function() {
-                return submitForm('sensorForm', backendUrl);
-            };
         }
-        function loadDataTable() {
-            loadData(backendUrl, 'sensoresTableBody');
-        }
-        window.addEventListener('DOMContentLoaded', loadDataTable);
+        
+        // Submit do formulário
+        document.getElementById('sensorForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const id = document.getElementById('id').value;
+            formData.append('acao', id ? 'atualizar' : 'cadastrar');
+            
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Salvando...';
+            
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    showAlert(result.mensagem, 'success');
+                    resetForm();
+                    loadSensores();
+                } else {
+                    showAlert(result.mensagem, 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao salvar: ' + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = id ? 'Atualizar Sensor' : 'Salvar Sensor';
+            }
+        });
+        
+        // Carregar ao iniciar
+        window.addEventListener('DOMContentLoaded', loadSensores);
     </script>
 </body>
 </html>

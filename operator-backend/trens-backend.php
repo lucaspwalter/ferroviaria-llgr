@@ -1,6 +1,9 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Não exibir erros no output JSON
+
 include __DIR__ . '/../user-backend/conexao.php';
 
 if (!isset($_SESSION['operador_id'])) {
@@ -103,12 +106,17 @@ function atualizarTrem($conn) {
     $codigo = trim($_POST['codigo'] ?? '');
     $modelo = trim($_POST['modelo'] ?? '');
     $fabricante = trim($_POST['fabricante'] ?? '');
-    $ano_fabricacao = $_POST['ano_fabricacao'] ?? null;
+    $ano_fabricacao = !empty($_POST['ano_fabricacao']) ? $_POST['ano_fabricacao'] : null;
     $capacidade_passageiros = $_POST['capacidade_passageiros'] ?? 0;
-    $velocidade_maxima = $_POST['velocidade_maxima'] ?? null;
+    $velocidade_maxima = !empty($_POST['velocidade_maxima']) ? $_POST['velocidade_maxima'] : null;
     $status = $_POST['status'] ?? 'operacional';
-    $km_rodados = $_POST['km_rodados'] ?? 0;
+    $km_rodados = !empty($_POST['km_rodados']) ? $_POST['km_rodados'] : 0;
     $observacoes = trim($_POST['observacoes'] ?? '');
+    
+    if (empty($id)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'ID não informado']);
+        return;
+    }
     
     if (empty($codigo) || empty($modelo) || $capacidade_passageiros <= 0) {
         echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios']);
@@ -117,16 +125,20 @@ function atualizarTrem($conn) {
     
     $sql = "UPDATE trens 
             SET codigo=?, modelo=?, fabricante=?, ano_fabricacao=?, capacidade_passageiros=?, 
-                velocidade_maxima=?, status=?, km_rodados=?, observacoes=? 
+                velocidade_maxima=?, status=?, km_rodados=?, observacoes=?, atualizado_em=NOW() 
             WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssiddsdsi", $codigo, $modelo, $fabricante, $ano_fabricacao, $capacidade_passageiros, 
                       $velocidade_maxima, $status, $km_rodados, $observacoes, $id);
     
     if ($stmt->execute()) {
-        echo json_encode(['sucesso' => true, 'mensagem' => 'Trem atualizado com sucesso!']);
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(['sucesso' => true, 'mensagem' => 'Trem atualizado com sucesso!']);
+        } else {
+            echo json_encode(['sucesso' => false, 'mensagem' => 'Nenhuma alteração foi feita']);
+        }
     } else {
-        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar trem']);
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar trem: ' . $stmt->error]);
     }
 }
 

@@ -23,11 +23,12 @@ session_start();
               <div class="line3"></div>
             </div>
             <ul class="nav-list">
-              <li><a href="rotas_usuario.php">Rotas</a></li>
-              <li><a href="notificacoes_usuario.php">Notificações</a></li>
-              <li><a href="../html/chatU.php">Reclame Aqui</a></li>
-              <li><a href="perfil.php">Perfil</a></li>
-              <li><a href="logout_usuario.php">Sair</a></li>
+            <li><a href="sobre.php">Sobre</a></li>
+            <li><a href="rotas_usuario.php">Rotas</a></li>
+            <li><a href="notificacoes_usuario.php">Notificações</a></li>
+            <li><a href="../html/chatU.php">Reclame Aqui</a></li>
+            <li><a href="perfil.php">Perfil</a></li>
+                <li><a href="logout_usuario.php">Sair</a></li>
             </ul>
           </nav>
         </header>

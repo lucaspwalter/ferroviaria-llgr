@@ -114,10 +114,18 @@ function atualizarRota($conn) {
     $preco_base = $_POST['preco_base'] ?? null;
     $observacoes = trim($_POST['observacoes'] ?? '');
     
+    if (empty($id)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'ID não informado']);
+        return;
+    }
+    
     if (empty($codigo) || empty($nome) || empty($origem) || empty($destino) || $distancia_km <= 0) {
         echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios']);
         return;
     }
+    
+    if (empty($preco_base)) $preco_base = null;
+    if (empty($numero_paradas)) $numero_paradas = 0;
     
     $sql = "UPDATE rotas 
             SET codigo=?, nome=?, origem=?, destino=?, distancia_km=?, tempo_estimado=?, 
@@ -128,9 +136,13 @@ function atualizarRota($conn) {
                       $status, $numero_paradas, $paradas, $preco_base, $observacoes, $id);
     
     if ($stmt->execute()) {
-        echo json_encode(['sucesso' => true, 'mensagem' => 'Rota atualizada com sucesso!']);
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(['sucesso' => true, 'mensagem' => 'Rota atualizada com sucesso!']);
+        } else {
+            echo json_encode(['sucesso' => false, 'mensagem' => 'Nenhuma alteração foi feita']);
+        }
     } else {
-        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar rota']);
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar rota: ' . $stmt->error]);
     }
 }
 

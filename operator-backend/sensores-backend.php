@@ -1,6 +1,9 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Não exibir erros no output JSON
+
 include __DIR__ . '/../user-backend/conexao.php';
 
 if (!isset($_SESSION['operador_id'])) {
@@ -105,11 +108,16 @@ function atualizarSensor($conn) {
     $codigo = trim($_POST['codigo'] ?? '');
     $tipo = $_POST['tipo'] ?? '';
     $localizacao = trim($_POST['localizacao'] ?? '');
-    $latitude = $_POST['latitude'] ?? null;
-    $longitude = $_POST['longitude'] ?? null;
+    $latitude = !empty($_POST['latitude']) ? $_POST['latitude'] : null;
+    $longitude = !empty($_POST['longitude']) ? $_POST['longitude'] : null;
     $status = $_POST['status'] ?? 'ativo';
     $unidade_medida = trim($_POST['unidade_medida'] ?? '');
     $observacoes = trim($_POST['observacoes'] ?? '');
+    
+    if (empty($id)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'ID não informado']);
+        return;
+    }
     
     if (empty($codigo) || empty($tipo) || empty($localizacao)) {
         echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios']);
@@ -117,15 +125,19 @@ function atualizarSensor($conn) {
     }
     
     $sql = "UPDATE sensores 
-            SET codigo=?, tipo=?, localizacao=?, latitude=?, longitude=?, status=?, unidade_medida=?, observacoes=? 
+            SET codigo=?, tipo=?, localizacao=?, latitude=?, longitude=?, status=?, unidade_medida=?, observacoes=?, atualizado_em=NOW() 
             WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssddsssi", $codigo, $tipo, $localizacao, $latitude, $longitude, $status, $unidade_medida, $observacoes, $id);
     
     if ($stmt->execute()) {
-        echo json_encode(['sucesso' => true, 'mensagem' => 'Sensor atualizado com sucesso!']);
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(['sucesso' => true, 'mensagem' => 'Sensor atualizado com sucesso!']);
+        } else {
+            echo json_encode(['sucesso' => false, 'mensagem' => 'Nenhuma alteração foi feita']);
+        }
     } else {
-        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar sensor']);
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar sensor: ' . $stmt->error]);
     }
 }
 

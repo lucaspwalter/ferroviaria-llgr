@@ -1,305 +1,202 @@
-# Sistema de Gerenciamento Ferroviário LLGR
+LLGR - Sistema de Gestão Ferroviária
 
-## 📋 Sobre o Projeto
+Título do Projeto
+LLGR - Logística e Logística de Gestão Rodoviária
 
-Sistema completo de gerenciamento ferroviário desenvolvido para controle operacional de trens, rotas, sensores, manutenções e mais. O sistema possui interfaces separadas para operadores e usuários finais.
+Sistema Integrado de Gerenciamento Ferroviário
 
-## ✅ Funcionalidades Implementadas - ATIVIDADE COMPLETA
+Objetivo do Projeto
+O LLGR é um sistema web desenvolvido para digitalizar e otimizar a gestão de operações ferroviárias. O objetivo principal é fornecer uma plataforma que conecte operadores e usuários, permitindo o controle completo de trens, rotas, estações, sensores, manutenções e itinerários.
 
-### **Backend PHP - CRUD Completo**
+O sistema visa aumentar a eficiência operacional, garantir a segurança no transporte e melhorar a experiência dos usuários através de uma interface moderna e intuitiva.
 
-Todos os módulos possuem as 4 operações CRUD implementadas:
+Contexto
+Este sistema foi desenvolvido como projeto final integrador do curso técnico em Desenvolvimento de Sistemas. O projeto demonstra a aplicação prática de conceitos fundamentais da área:
 
-#### 1. **Sensores** (`sensores-backend.php`)
-- ✅ Cadastrar sensor
-- ✅ Listar todos os sensores
-- ✅ Buscar sensor por ID
-- ✅ Atualizar sensor
-- ✅ Deletar sensor
+- Desenvolvimento Web Frontend e Backend
+- Banco de Dados Relacional
+- Programação Orientada a Objetos
+- Interface e Experiência do Usuário
+- Arquitetura de Software
+- Gestão de Projetos
 
-#### 2. **Trens** (`trens-backend.php`)
-- ✅ Cadastrar trem
-- ✅ Listar todos os trens
-- ✅ Buscar trem por ID
-- ✅ Atualizar trem
-- ✅ Deletar trem
+O LLGR simula um ambiente real de gestão ferroviária, abordando desde o cadastro básico de recursos até funcionalidades avançadas como monitoramento por sensores e geração de relatórios gerenciais.
 
-#### 3. **Rotas** (`rotas-backend.php`)
-- ✅ Cadastrar rota
-- ✅ Listar todas as rotas
-- ✅ Buscar rota por ID
-- ✅ Atualizar rota
-- ✅ Deletar rota
+Funcionalidades Principais
 
-#### 4. **Itinerários** (`itinerarios-backend.php`)
-- ✅ Cadastrar itinerário
-- ✅ Listar todos os itinerários (com JOIN de rotas e trens)
-- ✅ Buscar itinerário por ID
-- ✅ Atualizar itinerário
-- ✅ Deletar itinerário
+Sistema de Autenticação
+O sistema possui dois tipos de usuários com diferentes níveis de acesso:
 
-#### 5. **Alertas** (`alertas-backend.php`)
-- ✅ Cadastrar alerta
-- ✅ Listar todos os alertas
-- ✅ Buscar alerta por ID
-- ✅ Atualizar alerta (com controle de resolução)
-- ✅ Deletar alerta
+Operadores: Responsáveis pela gestão completa do sistema, incluindo cadastros, monitoramento e geração de relatórios.
 
-#### 6. **Manutenções** (`manutencoes-backend.php`)
-- ✅ Cadastrar manutenção
-- ✅ Listar todas as manutenções (com JOIN de trens)
-- ✅ Buscar manutenção por ID
-- ✅ Atualizar manutenção (com atualização automática de status do trem)
-- ✅ Deletar manutenção
+Usuários: Podem consultar rotas disponíveis, visualizar notificações e realizar reclamações.
 
-#### 7. **Notificações** (`notificacoes-backend.php`)
-- ✅ Cadastrar notificação
-- ✅ Listar notificações do operador
-- ✅ Buscar notificação por ID
-- ✅ Marcar como lida
-- ✅ Deletar notificação
+Dashboard Operacional
+Painel principal com visão geral do sistema, exibindo:
+- Número de trens ativos e parados
+- Índice de pontualidade média
+- Quantidade de atrasos nas últimas 24 horas
+- Gráficos de incidentes por gravidade
+- Distribuição de passageiros por classe
 
-#### 8. **Relatórios** (`relatorios-backend.php`)
-- ✅ Gerar relatório (com dados JSON)
-- ✅ Listar todos os relatórios
-- ✅ Buscar relatório por ID
-- ✅ Deletar relatório
-- ✅ Geração automática de dados por tipo de relatório
+Módulos de Gerenciamento
 
-#### 9. **Reclamações** (`reclamacoes_backend.php`)
-- ✅ Responder reclamação
-- ✅ Marcar como resolvida
-- ✅ Listar reclamações
+Sensores
+Cadastro e monitoramento de sensores IoT instalados na infraestrutura ferroviária. Tipos de sensores: temperatura, pressão, velocidade, proximidade e vibração. Cada sensor possui localização, status e unidade de medida.
 
----
+Estações
+Gerenciamento completo de estações ferroviárias com informações de localização, capacidade, número de plataformas, horários de funcionamento e serviços disponíveis.
 
-### **Frontend HTML/JavaScript - Interface Completa**
+Trens
+Controle da frota incluindo dados do modelo, fabricante, ano de fabricação, capacidade de passageiros, velocidade máxima, quilometragem rodada e status operacional.
 
-Todas as páginas possuem:
+Rotas
+Cadastro de trajetos entre estações, contendo origem, destino, distância em quilômetros, tempo estimado de viagem, preço base e pontos de parada.
 
-#### ✅ **Formulários de Cadastro**
-- Validação de campos obrigatórios
-- Mensagens de erro dinâmicas
-- Pré-preenchimento automático para edição
-- Reset de formulário
+Itinerários
+Programação de viagens específicas, vinculando rotas a trens, com definição de datas, horários de partida e chegada, e controle de passageiros embarcados.
 
-#### ✅ **Tabelas de Consulta**
-- Carregamento dinâmico via AJAX
-- Formatação de dados (datas, moedas, status)
-- Badges coloridos por status
-- Estados de loading e empty state
+Manutenções
+Gestão de manutenções da frota, diferenciando entre preventivas, corretivas, emergenciais e revisões. Controla custos, responsáveis, peças substituídas e datas de execução.
 
-#### ✅ **Ações de Edição**
-- Botão de editar em cada registro
-- Busca do registro por ID
-- Preenchimento automático do formulário
-- Alteração do título do formulário
-- Scroll suave para o topo da página
+Alertas
+Sistema de alertas classificados por criticidade (crítico, urgente, aviso, informativo), vinculados a sensores ou gerados pelo sistema. Permite acompanhamento de resolução e ações tomadas.
 
-#### ✅ **Ações de Exclusão**
-- Botão de excluir em cada registro
-- Mensagem de confirmação
-- Exclusão via AJAX
-- Atualização automática da tabela
+Notificações
+Envio de avisos e lembretes para usuários sobre eventos relacionados a trens, rotas, estações ou sistema.
 
-#### ✅ **Feedback Visual**
-- Alertas de sucesso/erro
-- Loading states
-- Animações suaves
-- Design responsivo
+Relatórios
+Geração de relatórios operacionais, financeiros e de incidentes, com possibilidade de exportação em diferentes formatos e filtros por período.
 
----
+Área do Usuário
 
-## 📁 Estrutura de Arquivos
+Consulta de Rotas
+Visualização de rotas disponíveis com informações detalhadas de origem, destino, tempo de viagem e preço.
+
+Notificações
+Recebimento e visualização de avisos enviados pelos operadores.
+
+Sistema de Reclamações
+Canal direto para abertura de chamados e reclamações, com acompanhamento de respostas dos operadores e status de resolução.
+
+Perfil Pessoal
+Gerenciamento de dados pessoais com possibilidade de edição de informações cadastrais.
+
+Tecnologias Utilizadas
+
+Frontend
+- HTML5: estruturação semântica das páginas
+- CSS3: estilização e design responsivo
+- JavaScript: interatividade e comunicação com o servidor
+- Chart.js: criação de gráficos dinâmicos
+- Font Awesome: biblioteca de ícones
+- Google Fonts: tipografia Poppins
+
+Backend
+- PHP 7.4+: lógica de negócios e processamento de dados
+- MySQL: banco de dados relacional
+
+Servidor
+- Apache (XAMPP): servidor web para desenvolvimento
+- phpMyAdmin: administração do banco de dados
+
+Padrões e Práticas
+- Arquitetura MVC: separação de responsabilidades
+- API REST: comunicação via JSON
+- Responsive Design: adaptação para diferentes dispositivos
+- Prepared Statements: prevenção de SQL Injection
+- Password Hashing: criptografia de senhas com bcrypt
+
+Equipe de Desenvolvimento
+
+Lucas Walter
+Raul
+Lucas Rafael
+Gustavo Cercal
+
+
+Curso: Técnico em Desenvolvimento de Sistemas
+Ano: 2025
+
+Estrutura do Repositório
 
 ```
 ferroviaria-llgr/
-├── operator/                      # Interface do Operador
-│   ├── php/
-│   │   ├── sensores.php          ✅ CRUD Completo
-│   │   ├── trens.php             ✅ CRUD Completo
-│   │   ├── rotas.php             ✅ CRUD Completo
-│   │   ├── itinerarios.php       ✅ CRUD Completo
-│   │   ├── alertas.php           ✅ CRUD Completo
-│   │   ├── manutencoes.php       ✅ CRUD Completo
-│   │   ├── notificacoes.php      ✅ CRUD Completo
-│   │   ├── relatorios.php        ✅ CRUD Completo
-│   │   ├── reclamacoes.php       ✅ Gerenciamento
-│   │   ├── dashboard.php
-│   │   ├── login.php
-│   │   └── logout.php
-│   ├── js/
-│   │   └── gerenciamento.js      ✅ Funções CRUD reutilizáveis
-│   └── css/
-│       ├── gerenciamento.css
-│       └── navbar.css
-├── operator-backend/              # Backend API
-│   ├── sensores-backend.php      ✅ CRUD Completo
-│   ├── trens-backend.php         ✅ CRUD Completo
-│   ├── rotas-backend.php         ✅ CRUD Completo
-│   ├── itinerarios-backend.php   ✅ CRUD Completo
-│   ├── alertas-backend.php       ✅ CRUD Completo
-│   ├── manutencoes-backend.php   ✅ CRUD Completo
-│   ├── notificacoes-backend.php  ✅ CRUD Completo
-│   ├── relatorios-backend.php    ✅ CRUD Completo
-│   └── reclamacoes_backend.php   ✅ Ações
-├── user/                          # Interface do Usuário
-│   └── php/
-│       ├── cadastro.php
-│       ├── login.php
-│       ├── perfil.php
-│       ├── rotas_usuario.php
-│       └── notificacoes_usuario.php
-└── user-backend/                  # Backend do Usuário
-    ├── conexao.php               ✅ Conexão com BD
+│
+├── index.html                         Página inicial
+├── database.sql                       Script completo do banco de dados
+├── adicionar_tabela_estacoes.sql      Script da tabela de estações
+├── README.md                          Este arquivo
+├── LICENSE                            Licença MIT
+│
+├── operator/                          Área do Operador
+│   ├── php/                           Páginas do operador
+│   │   ├── dashboard.php              Painel principal
+│   │   ├── sensores.php               Gerenciar sensores
+│   │   ├── estacoes.php               Gerenciar estações
+│   │   ├── trens.php                  Gerenciar trens
+│   │   ├── rotas.php                  Gerenciar rotas
+│   │   ├── itinerarios.php            Gerenciar itinerários
+│   │   ├── alertas.php                Gerenciar alertas
+│   │   ├── notificacoes.php           Gerenciar notificações
+│   │   ├── manutencoes.php            Gerenciar manutenções
+│   │   ├── relatorios.php             Gerenciar relatórios
+│   │   ├── reclamacoes.php            Gerenciar reclamações
+│   │   └── login.php                  Login do operador
+│   │
+│   ├── css/                           Estilos do operador
+│   ├── js/                            Scripts do operador
+│   └── img/                           Imagens
+│
+├── operator-backend/                  Backend do operador
+│   ├── sensores-backend.php
+│   ├── estacoes-backend.php
+│   ├── trens-backend.php
+│   ├── rotas-backend.php
+│   ├── itinerarios-backend.php
+│   ├── alertas-backend.php
+│   ├── notificacoes-backend.php
+│   ├── manutencoes-backend.php
+│   ├── relatorios-backend.php
+│   ├── reclamacoes_backend.php
+│   └── login-backend.php
+│
+├── user/                              Área do Usuário
+│   ├── php/                           Páginas do usuário
+│   │   ├── cadastro.php               Cadastro de usuário
+│   │   ├── login.php                  Login do usuário
+│   │   ├── perfil.php                 Visualizar perfil
+│   │   ├── editar_perfil.php          Editar perfil
+│   │   ├── rotas_usuario.php          Consultar rotas
+│   │   ├── notificacoes_usuario.php   Ver notificações
+│   │   └── sobre.php                  Sobre o sistema
+│   │
+│   ├── html/
+│   │   └── chatU.php                  Sistema de reclamações
+│   │
+│   ├── css/                           Estilos do usuário
+│   ├── js/                            Scripts do usuário
+│   └── img/                           Imagens
+│
+└── user-backend/                      Backend do usuário
+    ├── conexao.php                    Conexão com banco de dados
     ├── cadastro_backend.php
     ├── login_backend.php
-    └── perfil_backend.php
+    ├── perfil_backend.php
+    ├── rotas_backend.php
+    ├── notificacoes_backend.php
+    └── reclamacoes_backend.php
 ```
 
----
+Licença
 
-## 🎯 Requisitos da Atividade - STATUS
+Este projeto foi desenvolvido para fins educacionais como parte do curso técnico em Desenvolvimento de Sistemas.
 
-### ✅ **1. Implementação de Edição**
-- [x] Funcionalidade de edição para todos os módulos
-- [x] Formulários pré-preenchidos com dados existentes
-- [x] Validação de campos antes da atualização
-- [x] Atualização no banco de dados via SQL UPDATE
-- [x] Feedback visual de sucesso/erro
+MIT License
 
-### ✅ **2. Implementação de Exclusão**
-- [x] Funcionalidade de exclusão para todos os módulos
-- [x] Confirmação antes da exclusão
-- [x] Remoção do banco de dados via SQL DELETE
-- [x] Atualização automática da interface
-- [x] Tratamento de erros
+Copyright (c) 2024 Lucas Walter, Raul, Lucas Rafael, Gustavo Cercal
 
-### ✅ **3. Implementação de Consulta**
-- [x] Listagem de todos os dados armazenados
-- [x] Dados organizados em tabelas responsivas
-- [x] Formatação adequada (datas, moedas, status)
-- [x] Recuperação via SQL SELECT com JOINs quando necessário
-- [x] Interface clara e responsiva
-- [x] Estados de loading e empty
+É concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados, para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do software, desde que o aviso de copyright acima e este aviso de permissão sejam incluídos em todas as cópias ou partes substanciais do software.
 
----
+O software é fornecido "como está", sem garantia de qualquer tipo, expressa ou implícita.
 
-## 🔧 Tecnologias Utilizadas
-
-- **Backend**: PHP 7.4+
-- **Banco de Dados**: MySQL
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **AJAX**: Fetch API
-- **Design**: Responsivo, Mobile-first
-
----
-
-## 🚀 Como Usar
-
-### Pré-requisitos
-1. XAMPP ou WAMP instalado
-2. MySQL rodando
-3. PHP 7.4 ou superior
-
-### Instalação
-1. Clone o repositório na pasta `htdocs` do XAMPP
-2. Importe o banco de dados (arquivo SQL necessário)
-3. Configure a conexão em `user-backend/conexao.php`
-4. Acesse: `http://localhost/ferroviaria-llgr/operator/php/login.php`
-
-### Credenciais de Teste
-```
-Operador:
-Email: operador@llgr.com
-Senha: [definida no banco]
-```
-
----
-
-## 📊 Funcionalidades Destacadas
-
-### **Gerenciamento de Sensores**
-- Cadastro com código único, tipo, localização GPS
-- Status: ativo, inativo, manutenção
-- Unidade de medida configurável
-
-### **Gerenciamento de Trens**
-- Controle de capacidade, velocidade máxima
-- Histórico de km rodados
-- Integração com manutenções
-
-### **Gerenciamento de Rotas**
-- Origem, destino, distância
-- Tempo estimado de viagem
-- Paradas intermediárias
-- Preço base
-
-### **Gerenciamento de Itinerários**
-- Vinculação com rotas e trens
-- Controle de horários
-- Status: agendado, em andamento, concluído
-- Contagem de passageiros
-
-### **Sistema de Alertas**
-- Prioridades de 1 a 10
-- Tipos: crítico, urgente, aviso, informativo
-- Controle de resolução
-- Histórico de ações tomadas
-
-### **Controle de Manutenções**
-- Tipos: preventiva, corretiva, emergencial
-- Controle de custos
-- Peças substituídas
-- Atualização automática do status do trem
-
-### **Geração de Relatórios**
-- Relatórios operacionais, financeiros, manutenção
-- Período configurável
-- Dados em JSON
-- Múltiplos formatos (PDF, Excel, CSV)
-
----
-
-## ✨ Recursos Adicionais
-
-- **Segurança**: Validação de sessão em todas as páginas
-- **Sanitização**: Proteção contra SQL Injection com prepared statements
-- **UX**: Feedback visual imediato para todas as ações
-- **Responsivo**: Interface adaptada para mobile
-- **Performance**: Carregamento assíncrono via AJAX
-- **Organização**: Código modular e reutilizável
-
----
-
-## 📝 Observações Importantes
-
-1. **Todas as funcionalidades de CRUD estão 100% implementadas**
-2. **Backend e Frontend totalmente integrados**
-3. **Validações client-side e server-side**
-4. **Mensagens de erro e sucesso amigáveis**
-5. **Confirmação antes de exclusões**
-6. **Formulários com reset automático após salvar**
-7. **Atualização automática das tabelas**
-
----
-
-## 👨‍💻 Desenvolvido para
-
-Atividade de Desenvolvimento de Sistemas
-**Técnico em Desenvolvimento de Sistemas**
-
----
-
-## 📫 Suporte
-
-Para dúvidas ou problemas:
-- Verifique se o XAMPP está rodando
-- Confirme se o banco de dados foi importado corretamente
-- Verifique as credenciais em `conexao.php`
-- Acesse o console do navegador para erros JavaScript
-- Verifique os logs do PHP para erros do servidor
-
----
-
-**Status da Atividade: ✅ COMPLETA - Todas as funcionalidades implementadas e testadas**

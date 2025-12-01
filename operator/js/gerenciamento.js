@@ -56,36 +56,58 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
     const formData = new FormData(form);
     formData.append('acao', action);
     
+    console.log('=== SUBMITTING FORM ===');
+    console.log('Backend URL:', backendUrl);
+    console.log('Ação:', action);
+    console.log('FormData:', Object.fromEntries(formData));
+    
     const submitBtn = form.querySelector('.btn-primary');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Salvando...';
     
     try {
+        console.log('Enviando requisição para:', backendUrl);
+        
         const response = await fetch(backendUrl, {
             method: 'POST',
             body: formData
         });
         
-        const result = await response.json();
+        console.log('Response status:', response.status);
+        console.log('Response OK:', response.ok);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+        
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (e) {
+            console.error('Erro ao parsear JSON:', e);
+            throw new Error('Resposta inválida do servidor: ' + responseText.substring(0, 100));
+        }
+        
+        console.log('Resposta do servidor:', result);
         
         if (result.sucesso) {
             showAlert(result.mensagem, 'success');
-            form.reset();
-            document.getElementById('id').value = '';
-            
-            // Reset form title and button
-            const formTitle = document.getElementById('formTitle');
-            const submitBtn = document.getElementById('submitBtn');
-            if (formTitle && action === 'atualizar') {
-                formTitle.textContent = formTitle.textContent.replace('Editar', 'Cadastrar Novo').replace('Atualizar', 'Cadastrar');
-            }
-            if (submitBtn && action === 'atualizar') {
-                submitBtn.textContent = submitBtn.textContent.replace('Atualizar', 'Salvar');
-            }
             
             if (typeof loadDataTable === 'function') {
-                setTimeout(() => loadDataTable(), 1000);
+                setTimeout(() => loadDataTable(), 500);
+            }
+            
+            if (typeof resetForm === 'function') {
+                setTimeout(() => resetForm(), 500);
+            } else {
+                form.reset();
+                if (document.getElementById('id')) {
+                    document.getElementById('id').value = '';
+                }
             }
         } else {
             showAlert(result.mensagem || 'Erro ao salvar', 'error');

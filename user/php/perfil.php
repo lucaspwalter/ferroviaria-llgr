@@ -29,6 +29,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="rotas_usuario.php">Rotas</a></li>
                 <li><a href="notificacoes_usuario.php">Notificações</a></li>
                 <li><a href="../html/chatU.php">Reclame Aqui</a></li>

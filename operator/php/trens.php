@@ -47,7 +47,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Trem</h2>
-                <form id="tremForm" onsubmit="return submitForm('tremForm', '../../operator-backend/trens-backend.php')">
+                <form id="tremForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -131,7 +131,7 @@ if (!isset($_SESSION['operador_id'])) {
                             </tr>
                         </thead>
                         <tbody id="trensTableBody">
-                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
+                            <tr><td colspan="7" class="loading">Carregando dados...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -139,9 +139,25 @@ if (!isset($_SESSION['operador_id'])) {
         </section>
     </main>
     <script src="../js/mobile-navbar.js"></script>
-    <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/trens-backend.php';
+        const BACKEND_URL = '/ferroviaria-llgr/operator-backend/trens-backend.php';
+        
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.getElementById('alert');
+            alertDiv.className = `alert alert-${type} show`;
+            alertDiv.textContent = message;
+            setTimeout(() => alertDiv.classList.remove('show'), 5000);
+        }
+        
+        function getStatusBadge(status) {
+            const colors = {
+                'operacional': 'success',
+                'manutencao': 'warning',
+                'inativo': 'secondary',
+                'em_rota': 'info'
+            };
+            return `<span class="badge badge-${colors[status] || 'secondary'}">${status}</span>`;
+        }
         
         function createTableRow(trem) {
             const tr = document.createElement('tr');
@@ -153,26 +169,42 @@ if (!isset($_SESSION['operador_id'])) {
                 <td>${trem.velocidade_maxima ? trem.velocidade_maxima + ' km/h' : '-'}</td>
                 <td>${getStatusBadge(trem.status)}</td>
                 <td>
-                    <button class="btn-action btn-edit" onclick="editTrem(${trem.id})" title="Editar">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                    </button>
-                    <button class="btn-action btn-delete" onclick="deleteTrem(${trem.id})" title="Excluir">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                    </button>
+                    <button class="btn-action btn-edit" onclick="editTrem(${trem.id})" title="Editar">✏️</button>
+                    <button class="btn-action btn-delete" onclick="deleteTrem(${trem.id})" title="Excluir">🗑️</button>
                 </td>
             `;
             return tr;
         }
         
+        async function loadTrens() {
+            const tbody = document.getElementById('trensTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" class="loading">Carregando...</td></tr>';
+            
+            try {
+                const response = await fetch(BACKEND_URL + '?acao=listar');
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    tbody.innerHTML = '';
+                    if (result.dados.length > 0) {
+                        result.dados.forEach(trem => {
+                            tbody.appendChild(createTableRow(trem));
+                        });
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum trem cadastrado</td></tr>';
+                    }
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" class="error">Erro: ' + result.mensagem + '</td></tr>';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                tbody.innerHTML = '<tr><td colspan="7" class="error">Erro ao carregar</td></tr>';
+            }
+        }
+        
         async function editTrem(id) {
             try {
-                const response = await fetch(`${backendUrl}?acao=buscar&id=${id}`);
+                const response = await fetch(BACKEND_URL + '?acao=buscar&id=' + id);
                 const result = await response.json();
                 
                 if (result.sucesso) {
@@ -190,22 +222,38 @@ if (!isset($_SESSION['operador_id'])) {
                     
                     document.getElementById('formTitle').textContent = 'Editar Trem';
                     document.getElementById('submitBtn').textContent = 'Atualizar Trem';
-                    document.getElementById('tremForm').onsubmit = function() {
-                        return submitForm('tremForm', backendUrl, 'atualizar');
-                    };
-                    
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar dados do trem', 'error');
+                    showAlert('Erro ao carregar trem', 'error');
                 }
             } catch (error) {
-                console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showAlert('Erro ao comunicar com servidor', 'error');
             }
         }
         
-        function deleteTrem(id) {
-            deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este trem?');
+        async function deleteTrem(id) {
+            if (!confirm('Tem certeza que deseja excluir este trem?')) return;
+            
+            const formData = new FormData();
+            formData.append('acao', 'deletar');
+            formData.append('id', id);
+            
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    showAlert(result.mensagem, 'success');
+                    loadTrens();
+                } else {
+                    showAlert(result.mensagem, 'error');
+                }
+            } catch (error) {
+                showAlert('Erro ao excluir', 'error');
+            }
         }
         
         function resetForm() {
@@ -213,16 +261,44 @@ if (!isset($_SESSION['operador_id'])) {
             document.getElementById('id').value = '';
             document.getElementById('formTitle').textContent = 'Cadastrar Novo Trem';
             document.getElementById('submitBtn').textContent = 'Salvar Trem';
-            document.getElementById('tremForm').onsubmit = function() {
-                return submitForm('tremForm', backendUrl);
-            };
         }
         
-        function loadDataTable() {
-            loadData(backendUrl, 'trensTableBody');
-        }
+        document.getElementById('tremForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const id = document.getElementById('id').value;
+            formData.append('acao', id ? 'atualizar' : 'cadastrar');
+            
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Salvando...';
+            
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.sucesso) {
+                    showAlert(result.mensagem, 'success');
+                    resetForm();
+                    loadTrens();
+                } else {
+                    showAlert(result.mensagem, 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao salvar: ' + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = id ? 'Atualizar Trem' : 'Salvar Trem';
+            }
+        });
         
-        window.addEventListener('DOMContentLoaded', loadDataTable);
+        window.addEventListener('DOMContentLoaded', loadTrens);
     </script>
 </body>
 </html>

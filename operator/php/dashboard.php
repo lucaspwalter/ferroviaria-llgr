@@ -34,6 +34,7 @@ if (!isset($_SESSION['operador_id'])) {
         <ul class="nav-list">
           <li><a href="dashboard.php">Dashboard</a></li>
           <li><a href="sensores.php">Sensores</a></li>
+          <li><a href="estacoes.php">Estações</a></li>
           <li><a href="trens.php">Trens</a></li>
           <li><a href="rotas.php">Rotas</a></li>
           <li><a href="itinerarios.php">Itinerários</a></li>
