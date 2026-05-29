@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Itinerário</h2>
-                <form id="itinerarioForm" onsubmit="return submitForm('itinerarioForm', '../../operator-backend/itinerarios-backend.php')">
+                <form method="POST" id="itinerarioForm" onsubmit="return submitForm('itinerarioForm', '../../operator/api/itinerarios.php')">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -143,11 +145,11 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/itinerarios-backend.php';
+        const backendUrl = '../../operator/api/itinerarios.php';
         
         window.addEventListener('DOMContentLoaded', function() {
-            loadSelect('../../operator-backend/rotas-backend.php', 'rota_id', 'id', 'nome');
-            loadSelect('../../operator-backend/trens-backend.php', 'trem_id', 'id', 'codigo');
+            loadSelect('../../operator/api/rotas.php', 'rota_id', 'id', 'nome');
+            loadSelect('../../operator/api/trens.php', 'trem_id', 'id', 'codigo');
             loadDataTable();
         });
         
@@ -204,11 +206,11 @@ if (!isset($_SESSION['operador_id'])) {
                     
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar dados do itinerário', 'error');
+                    showToast('Erro ao carregar dados do itinerário', 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showToast('Erro ao comunicar com o servidor', 'error');
             }
         }
         
@@ -230,5 +232,6 @@ if (!isset($_SESSION['operador_id'])) {
             loadData(backendUrl, 'itinerariosTableBody');
         }
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

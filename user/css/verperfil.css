@@ -118,3 +118,17 @@ h2 {
 .profile-links a:hover {
     text-decoration: underline;
 }
+
+.perfil-loading {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.perfil-container-hidden {
+    display: none;
+}
+
+.perfil-container-visible {
+    display: block;
+}

@@ -1,0 +1,160 @@
+<?php
+session_start();
+header('Content-Type: application/json');
+require_once __DIR__ . '/../../config/database.php';
+if (!isset($_SESSION['operador_id'])) {
+    echo json_encode(['sucesso' => false, 'mensagem' => 'Usuário não autenticado']);
+    exit();
+}
+
+$acao = $_POST['acao'] ?? $_GET['acao'] ?? '';
+
+switch ($acao) {
+    case 'cadastrar':
+        cadastrarRota($conn);
+        break;
+    case 'listar':
+        listarRotas($conn);
+        break;
+    case 'buscar':
+        buscarRota($conn);
+        break;
+    case 'atualizar':
+        atualizarRota($conn);
+        break;
+    case 'deletar':
+        deletarRota($conn);
+        break;
+    default:
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Ação inválida']);
+}
+
+if (isset($conn) && $conn instanceof mysqli) {
+    $conn->close();
+}
+
+function cadastrarRota($conn) {
+    $codigo = trim($_POST['codigo'] ?? '');
+    $nome = trim($_POST['nome'] ?? '');
+    $origem = trim($_POST['origem'] ?? '');
+    $destino = trim($_POST['destino'] ?? '');
+    $distancia_km = $_POST['distancia_km'] ?? 0;
+    $tempo_estimado = $_POST['tempo_estimado'] ?? '';
+    $status = $_POST['status'] ?? 'ativa';
+    $preco_base = $_POST['preco_base'] ?? null;
+    $observacoes = trim($_POST['observacoes'] ?? '');
+    
+    if (empty($codigo) || empty($nome) || empty($origem) || empty($destino) || $distancia_km <= 0 || empty($tempo_estimado)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios']);
+        return;
+    }
+    
+    $sqlCheck = "SELECT id FROM rotas WHERE codigo = ?";
+    $stmtCheck = $conn->prepare($sqlCheck);
+    $stmtCheck->bind_param("s", $codigo);
+    $stmtCheck->execute();
+    
+    if ($stmtCheck->get_result()->num_rows > 0) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Código já cadastrado']);
+        return;
+    }
+    
+    $sql = "INSERT INTO rotas (codigo, nome, origem, destino, distancia_km, tempo_estimado, 
+            status, preco_base, observacoes) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssdssds", $codigo, $nome, $origem, $destino, $distancia_km, $tempo_estimado, 
+                      $status, $preco_base, $observacoes);
+    
+    if ($stmt->execute()) {
+        echo json_encode(['sucesso' => true, 'mensagem' => 'Rota cadastrada com sucesso!', 'id' => $stmt->insert_id]);
+    } else {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao cadastrar rota: ' . $conn->error]);
+    }
+}
+
+function listarRotas($conn) {
+    $sql = "SELECT * FROM rotas ORDER BY criado_em DESC";
+    $result = $conn->query($sql);
+    $rotas = [];
+    
+    while ($row = $result->fetch_assoc()) {
+        $rotas[] = $row;
+    }
+    
+    echo json_encode(['sucesso' => true, 'dados' => $rotas]);
+}
+
+function buscarRota($conn) {
+    $id = $_GET['id'] ?? 0;
+    
+    $sql = "SELECT * FROM rotas WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        echo json_encode(['sucesso' => true, 'dados' => $row]);
+    } else {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Rota não encontrada']);
+    }
+}
+
+function atualizarRota($conn) {
+    $id = $_POST['id'] ?? 0;
+    $codigo = trim($_POST['codigo'] ?? '');
+    $nome = trim($_POST['nome'] ?? '');
+    $origem = trim($_POST['origem'] ?? '');
+    $destino = trim($_POST['destino'] ?? '');
+    $distancia_km = $_POST['distancia_km'] ?? 0;
+    $tempo_estimado = $_POST['tempo_estimado'] ?? '';
+    $status = $_POST['status'] ?? 'ativa';
+    $preco_base = $_POST['preco_base'] ?? null;
+    $observacoes = trim($_POST['observacoes'] ?? '');
+    
+    if (empty($id)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'ID não informado']);
+        return;
+    }
+    
+    if (empty($codigo) || empty($nome) || empty($origem) || empty($destino) || $distancia_km <= 0) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios']);
+        return;
+    }
+    
+    if (empty($preco_base)) $preco_base = null;
+    
+    $sql = "UPDATE rotas 
+            SET codigo=?, nome=?, origem=?, destino=?, distancia_km=?, tempo_estimado=?, 
+                status=?, preco_base=?, observacoes=? 
+            WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssdssdsi", $codigo, $nome, $origem, $destino, $distancia_km, $tempo_estimado, 
+                      $status, $preco_base, $observacoes, $id);
+    
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(['sucesso' => true, 'mensagem' => 'Rota atualizada com sucesso!']);
+        } else {
+            echo json_encode(['sucesso' => false, 'mensagem' => 'Nenhuma alteração foi feita']);
+        }
+    } else {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao atualizar rota: ' . $stmt->error]);
+    }
+}
+
+function deletarRota($conn) {
+    $id = $_POST['id'] ?? 0;
+    
+    $sql = "DELETE FROM rotas WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    
+    if ($stmt->execute()) {
+        echo json_encode(['sucesso' => true, 'mensagem' => 'Rota deletada com sucesso!']);
+    } else {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao deletar rota']);
+    }
+}
+?>

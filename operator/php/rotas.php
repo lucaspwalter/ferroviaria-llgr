@@ -15,6 +15,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -36,6 +37,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -46,7 +48,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Nova Rota</h2>
-                <form id="rotaForm" onsubmit="return submitForm('rotaForm', '../../operator-backend/rotas-backend.php')">
+                <form method="POST" id="rotaForm" onsubmit="return submitForm('rotaForm', '../../operator/api/rotas.php')">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -154,7 +156,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/rotas-backend.php';
+        const backendUrl = '../../operator/api/rotas.php';
         
         function createTableRow(rota) {
             const tr = document.createElement('tr');
@@ -211,11 +213,11 @@ if (!isset($_SESSION['operador_id'])) {
                     
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar dados da rota', 'error');
+                    showToast('Erro ao carregar dados da rota', 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showToast('Erro ao comunicar com o servidor', 'error');
             }
         }
         
@@ -239,5 +241,6 @@ if (!isset($_SESSION['operador_id'])) {
         
         window.addEventListener('DOMContentLoaded', loadDataTable);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

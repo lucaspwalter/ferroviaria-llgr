@@ -17,6 +17,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../../user/css/sobre.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -39,6 +40,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -248,5 +250,6 @@ if (!isset($_SESSION['operador_id'])) {
     </main>
 
     <script src="../js/mobile-navbar.js"></script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

@@ -39,18 +39,6 @@ body {
     display: block;
 }
 
-.alert-success {
-    background-color: rgba(40, 167, 69, 0.2);
-    border: 1px solid #28a745;
-    color: #4caf50;
-}
-
-.alert-error {
-    background-color: rgba(220, 53, 69, 0.2);
-    border: 1px solid #dc3545;
-    color: #f44336;
-}
-
 @keyframes slideIn {
     from {
         opacity: 0;

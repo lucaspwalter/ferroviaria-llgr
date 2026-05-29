@@ -142,24 +142,13 @@ ferroviaria-llgr/
 │   │   ├── manutencoes.php            Gerenciar manutenções
 │   │   ├── relatorios.php             Gerenciar relatórios
 │   │   ├── reclamacoes.php            Gerenciar reclamações
+│   │   ├── perfil_operador.php        Perfil do operador
 │   │   └── login.php                  Login do operador
 │   │
+│   ├── api/                           APIs do operador
 │   ├── css/                           Estilos do operador
 │   ├── js/                            Scripts do operador
 │   └── img/                           Imagens
-│
-├── operator-backend/                  Backend do operador
-│   ├── sensores-backend.php
-│   ├── estacoes-backend.php
-│   ├── trens-backend.php
-│   ├── rotas-backend.php
-│   ├── itinerarios-backend.php
-│   ├── alertas-backend.php
-│   ├── notificacoes-backend.php
-│   ├── manutencoes-backend.php
-│   ├── relatorios-backend.php
-│   ├── reclamacoes_backend.php
-│   └── login-backend.php
 │
 ├── user/                              Área do Usuário
 │   ├── php/                           Páginas do usuário
@@ -169,23 +158,13 @@ ferroviaria-llgr/
 │   │   ├── editar_perfil.php          Editar perfil
 │   │   ├── rotas_usuario.php          Consultar rotas
 │   │   ├── notificacoes_usuario.php   Ver notificações
+│   │   ├── chat.php                   Sistema de reclamações
 │   │   └── sobre.php                  Sobre o sistema
 │   │
-│   ├── html/
-│   │   └── chatU.php                  Sistema de reclamações
-│   │
+│   ├── api/                           APIs do usuário
 │   ├── css/                           Estilos do usuário
 │   ├── js/                            Scripts do usuário
 │   └── img/                           Imagens
-│
-└── user-backend/                      Backend do usuário
-    ├── conexao.php                    Conexão com banco de dados
-    ├── cadastro_backend.php
-    ├── login_backend.php
-    ├── perfil_backend.php
-    ├── rotas_backend.php
-    ├── notificacoes_backend.php
-    └── reclamacoes_backend.php
 ```
 
 Licença
@@ -199,4 +178,3 @@ Copyright (c) 2024 Lucas Walter, Raul, Lucas Rafael, Gustavo Cercal
 É concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados, para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do software, desde que o aviso de copyright acima e este aviso de permissão sejam incluídos em todas as cópias ou partes substanciais do software.
 
 O software é fornecido "como está", sem garantia de qualquer tipo, expressa ou implícita.
-

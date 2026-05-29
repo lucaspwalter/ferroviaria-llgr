@@ -257,22 +257,40 @@ CREATE TABLE `rotas` (
   `distancia_km` decimal(8,2) NOT NULL,
   `tempo_estimado` time NOT NULL,
   `status` enum('ativa','inativa','manutenção') DEFAULT 'ativa',
-  `numero_paradas` int(11) DEFAULT 0,
-  `paradas` text DEFAULT NULL,
   `preco_base` decimal(10,2) DEFAULT NULL,
   `observacoes` text DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
   `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `rota_paradas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rota_id` int(11) NOT NULL,
+  `estacao_id` int(11) DEFAULT NULL,
+  `nome_parada` varchar(150) NOT NULL,
+  `ordem` int(11) NOT NULL,
+  `tempo_parada_minutos` int(11) DEFAULT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_rota_id` (`rota_id`),
+  KEY `idx_ordem` (`ordem`),
+  CONSTRAINT `fk_parada_rota` FOREIGN KEY (`rota_id`) REFERENCES `rotas` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_parada_estacao` FOREIGN KEY (`estacao_id`) REFERENCES `estacoes` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Despejando dados para a tabela `rotas`
 --
 
-INSERT INTO `rotas` (`id`, `codigo`, `nome`, `origem`, `destino`, `distancia_km`, `tempo_estimado`, `status`, `numero_paradas`, `paradas`, `preco_base`, `observacoes`, `criado_em`, `atualizado_em`) VALUES
-(1, 'ROTA-001', 'Linha Central', 'Estacao Norte', 'Estacao Sul', 45.50, '00:45:00', 'ativa', 0, NULL, 15.00, NULL, '2025-10-04 23:27:57', '2025-10-04 23:27:57'),
-(2, 'ROTA-002', 'Linha Expressa', 'Terminal A', 'Terminal B', 80.00, '01:20:00', 'ativa', 0, NULL, 25.00, NULL, '2025-10-04 23:27:57', '2025-10-04 23:27:57'),
-(3, 'ROTA-004', 'Linha Litorânea - Joinville a Florianópolis', 'Estação Central de Joinville', 'Estação Metropolitana de Florianópolis', 180.50, '14:30:00', 'ativa', 3, 'Estação Araquari, Estação Barra Velha, Estação Itajaí', 65.00, 'trem regional com trajeto costeiro, operando diariamente das 06:00 às 22:00.', '2025-10-04 23:46:25', '2025-10-04 23:46:25');
+INSERT INTO `rotas` (`id`, `codigo`, `nome`, `origem`, `destino`, `distancia_km`, `tempo_estimado`, `status`, `preco_base`, `observacoes`, `criado_em`, `atualizado_em`) VALUES
+(1, 'ROTA-001', 'Linha Central', 'Estacao Norte', 'Estacao Sul', 45.50, '00:45:00', 'ativa', 15.00, NULL, '2025-10-04 23:27:57', '2025-10-04 23:27:57'),
+(2, 'ROTA-002', 'Linha Expressa', 'Terminal A', 'Terminal B', 80.00, '01:20:00', 'ativa', 25.00, NULL, '2025-10-04 23:27:57', '2025-10-04 23:27:57'),
+(3, 'ROTA-004', 'Linha Litorânea - Joinville a Florianópolis', 'Estação Central de Joinville', 'Estação Metropolitana de Florianópolis', 180.50, '14:30:00', 'ativa', 65.00, 'trem regional com trajeto costeiro, operando diariamente das 06:00 às 22:00.', '2025-10-04 23:46:25', '2025-10-04 23:46:25');
+
+INSERT INTO `rota_paradas` (`rota_id`, `nome_parada`, `ordem`) VALUES
+(3, 'Estação Araquari', 1),
+(3, 'Estação Barra Velha', 2),
+(3, 'Estação Itajaí', 3);
 
 -- --------------------------------------------------------
 

@@ -1,16 +1,20 @@
 <?php
 session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <title>Notificações</title>
+    <title>Notificações - LLGR</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/navbar.css" />
-    <link rel="stylesheet" href="../css/notificaçõesU.css" />
-    <link rel="stylesheet" href="../css/notificacoes-usuario-extra.css" />
-  </head>
+    <link rel="stylesheet" href="../css/notificacoesU.css" />
+      <link rel="stylesheet" href="../css/toast.css" />
+</head>
   <body>
     <div class="app-bg">
       <div class="notificacoes-container">
@@ -26,7 +30,7 @@ session_start();
             <li><a href="sobre.php">Sobre</a></li>
             <li><a href="rotas_usuario.php">Rotas</a></li>
             <li><a href="notificacoes_usuario.php">Notificações</a></li>
-            <li><a href="../html/chatU.php">Reclame Aqui</a></li>
+            <li><a href="chat.php">Reclame Aqui</a></li>
             <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout_usuario.php">Sair</a></li>
             </ul>
@@ -38,7 +42,7 @@ session_start();
           </div>
         </div>
         <div class="reclamacao">
-          Faça sua <a href="../html/chatU.php" class="botao">reclamação</a> aqui
+          Faça sua <a href="chat.php" class="botao">reclamação</a> aqui
         </div>
       </div>
     </div>
@@ -47,7 +51,7 @@ session_start();
         async function carregarNotificacoes() {
             const container = document.getElementById('notificacoes-lista');
             try {
-                const response = await fetch('../../user-backend/notificacoes_backend.php?acao=listar_publicas');
+                const response = await fetch('../../user/api/notificacoes.php?acao=listar_publicas');
                 const result = await response.json();
                 if (result.sucesso && result.dados.length > 0) {
                     container.innerHTML = '';
@@ -115,5 +119,6 @@ session_start();
         }
         window.addEventListener('DOMContentLoaded', carregarNotificacoes);
     </script>
-  </body>
+      <script src="../js/toast.js"></script>
+</body>
 </html>

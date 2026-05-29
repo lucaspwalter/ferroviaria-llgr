@@ -1,13 +1,3 @@
-function showAlert(message, type = 'success') {
-    const alertDiv = document.getElementById('alert');
-    if (!alertDiv) return;
-    
-    alertDiv.className = `alert alert-${type} show`;
-    alertDiv.textContent = message;
-    
-    setTimeout(() => alertDiv.classList.remove('show'), 5000);
-}
-
 function validateForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return false;
@@ -48,7 +38,7 @@ function setupFieldValidation() {
 
 async function submitForm(formId, backendUrl, action = 'cadastrar') {
     if (!validateForm(formId)) {
-        showAlert('Por favor, preencha todos os campos obrigatórios', 'error');
+        showToast('Por favor, preencha todos os campos obrigatórios', 'error');
         return false;
     }
     
@@ -95,7 +85,7 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
         console.log('Resposta do servidor:', result);
         
         if (result.sucesso) {
-            showAlert(result.mensagem, 'success');
+            showToast(result.mensagem, 'success');
             
             if (typeof loadDataTable === 'function') {
                 setTimeout(() => loadDataTable(), 500);
@@ -110,11 +100,11 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
                 }
             }
         } else {
-            showAlert(result.mensagem || 'Erro ao salvar', 'error');
+            showToast(result.mensagem || 'Erro ao salvar', 'error');
         }
     } catch (error) {
         console.error('Erro:', error);
-        showAlert('Erro ao comunicar com o servidor', 'error');
+        showToast('Erro ao comunicar com o servidor', 'error');
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
@@ -214,16 +204,16 @@ async function deleteRecord(id, backendUrl, confirmMessage = 'Tem certeza que de
         const result = await response.json();
         
         if (result.sucesso) {
-            showAlert(result.mensagem, 'success');
+            showToast(result.mensagem, 'success');
             if (typeof loadDataTable === 'function') {
                 setTimeout(() => loadDataTable(), 1000);
             }
         } else {
-            showAlert(result.mensagem || 'Erro ao excluir', 'error');
+            showToast(result.mensagem || 'Erro ao excluir', 'error');
         }
     } catch (error) {
         console.error('Erro:', error);
-        showAlert('Erro ao comunicar com o servidor', 'error');
+        showToast('Erro ao comunicar com o servidor', 'error');
     }
 }
 

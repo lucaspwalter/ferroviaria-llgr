@@ -16,11 +16,12 @@ if (!isset($_SESSION['usuario_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
         <nav>
-            <a class="logo" href="../html/telainicialU.html">LLGR</a>
+            <a class="logo" href="../php/login.php">LLGR</a>
             <div class="mobile-menu">
                 <div class="line1"></div>
                 <div class="line2"></div>
@@ -28,10 +29,10 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
             <ul class="nav-list">
                 <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="../html/telainicialU.html">Início</a></li>
+                <li><a href="../php/login.php">Início</a></li>
                 <li><a href="rotas_usuario.php">Rotas</a></li>
                 <li><a href="notificacoes_usuario.php">Notificações</a></li>
-                <li><a href="../html/chatU.php">Reclame Aqui</a></li>
+                <li><a href="chat.php">Reclame Aqui</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout_usuario.php">Sair</a></li>
             </ul>
@@ -43,7 +44,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title">Informações Pessoais</h2>
-                <form id="perfilForm">
+                <form method="POST" id="perfilForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nome">Nome Completo <span class="required">*</span></label>
@@ -114,7 +115,7 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
             <div class="card">
                 <h2 class="card-title">Alterar Senha</h2>
-                <form id="senhaForm">
+                <form method="POST" id="senhaForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="senha_atual">Senha Atual <span class="required">*</span></label>
@@ -149,7 +150,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <script>
         async function carregarDados() {
             try {
-                const response = await fetch('../../user-backend/perfil_backend.php?acao=buscar_perfil');
+                const response = await fetch('../../user/api/perfil.php?acao=buscar_perfil');
                 const result = await response.json();
                 if (result.sucesso) {
                     const dados = result.dados;
@@ -165,16 +166,6 @@ if (!isset($_SESSION['usuario_id'])) {
             }
         }
 
-        function showAlert(message, type = 'success') {
-            const alertDiv = document.getElementById('alert');
-            if (!alertDiv) return;
-            alertDiv.className = `alert alert-${type} show`;
-            alertDiv.textContent = message;
-            window.scrollTo(0, 0);
-            setTimeout(() => {
-                alertDiv.classList.remove('show');
-            }, 5000);
-        }
 
         document.getElementById('perfilForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -186,17 +177,17 @@ if (!isset($_SESSION['usuario_id'])) {
             submitBtn.textContent = 'Salvando...';
 
             try {
-                const response = await fetch('../../user-backend/perfil_backend.php', {
+                const response = await fetch('../../user/api/perfil.php', {
                     method: 'POST',
                     body: formData
                 });
                 const result = await response.json();
-                showAlert(result.mensagem, result.sucesso ? 'success' : 'error');
+                showToast(result.mensagem, result.sucesso ? 'success' : 'error');
                 if (result.sucesso) {
                     setTimeout(() => window.location.href = 'perfil.php', 1500);
                 }
             } catch (error) {
-                showAlert('Erro ao comunicar com servidor', 'error');
+                showToast('Erro ao comunicar com servidor', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -209,7 +200,7 @@ if (!isset($_SESSION['usuario_id'])) {
             const senhaConfirma = document.getElementById('senha_confirma').value;
 
             if (senhaNova !== senhaConfirma) {
-                showAlert('As senhas não coincidem', 'error');
+                showToast('As senhas não coincidem', 'error');
                 return;
             }
 
@@ -221,17 +212,17 @@ if (!isset($_SESSION['usuario_id'])) {
             submitBtn.textContent = 'Alterando...';
 
             try {
-                const response = await fetch('../../user-backend/perfil_backend.php', {
+                const response = await fetch('../../user/api/perfil.php', {
                     method: 'POST',
                     body: formData
                 });
                 const result = await response.json();
-                showAlert(result.mensagem, result.sucesso ? 'success' : 'error');
+                showToast(result.mensagem, result.sucesso ? 'success' : 'error');
                 if (result.sucesso) {
                     this.reset();
                 }
             } catch (error) {
-                showAlert('Erro ao comunicar com servidor', 'error');
+                showToast('Erro ao comunicar com servidor', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -240,5 +231,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
         window.addEventListener('DOMContentLoaded', carregarDados);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

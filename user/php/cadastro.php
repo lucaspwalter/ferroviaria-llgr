@@ -18,7 +18,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
 <body>
 <header></header>
 <main class="login-container">
-    <form id="formCadastro" action="../../user-backend/cadastro_backend.php" method="POST">
+    <form method="POST" id="formCadastro" action="../../user/api/cadastro.php">
         <h1>Crie sua <span class="conta-vermelho">conta</span></h1>
         <?php if ($erro): ?>
             <div class="mensagem erro">
@@ -236,13 +236,13 @@ senhaInput.addEventListener('input', function() {
     if (/[a-z]/.test(senha) && /[A-Z]/.test(senha)) strength++;
     if (/[0-9]/.test(senha)) strength++;
     if (/[^A-Za-z0-9]/.test(senha)) strength++;
-    const colors = ['
+    const colors = ['#E50000', '#ff6b00', '#ffc107', '#8bc34a', '#4caf50'];
     const texts = ['Muito Fraca', 'Fraca', 'Média', 'Forte', 'Muito Forte'];
     const widths = ['20%', '40%', '60%', '80%', '100%'];
     strengthFill.style.width = widths[strength - 1] || '0%';
-    strengthFill.style.backgroundColor = colors[strength - 1] || '
+    strengthFill.style.backgroundColor = colors[strength - 1] || '#E50000';
     strengthText.textContent = texts[strength - 1] || 'Muito Fraca';
-    strengthText.style.color = colors[strength - 1] || '
+    strengthText.style.color = colors[strength - 1] || '#E50000';
 });
 document.getElementById('formCadastro').addEventListener('submit', function(e) {
     const senha = document.getElementById('senha').value;

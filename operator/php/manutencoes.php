@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Nova Manutenção</h2>
-                <form id="manutencaoForm" onsubmit="return submitForm('manutencaoForm', '../../operator-backend/manutencoes-backend.php')">
+                <form method="POST" id="manutencaoForm" onsubmit="return submitForm('manutencaoForm', '../../operator/api/manutencoes.php')">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -97,7 +99,7 @@ if (!isset($_SESSION['operador_id'])) {
                             <select id="status" name="status" class="form-control">
                                 <option value="agendada">Agendada</option>
                                 <option value="em_andamento">Em Andamento</option>
-                                <option value="concluida">Concluída</option>
+                                <option value="concluída">Concluída</option>
                                 <option value="cancelada">Cancelada</option>
                             </select>
                         </div>
@@ -132,6 +134,15 @@ if (!isset($_SESSION['operador_id'])) {
             </div>
             <div class="card">
                 <h2 class="card-title">Manutenções Cadastradas</h2>
+                <div class="table-toolbar">
+                    <select id="statusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="agendada">Agendada</option>
+                        <option value="em_andamento">Em Andamento</option>
+                        <option value="concluída">Concluída</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
+                </div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -156,15 +167,23 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/manutencoes-backend.php';
+        const backendUrl = '../../operator/api/manutencoes.php';
+        let todasManutencoes = [];
         
         window.addEventListener('DOMContentLoaded', function() {
-            loadSelect('../../operator-backend/trens-backend.php', 'trem_id', 'id', 'codigo');
+            loadSelect('../../operator/api/trens.php', 'trem_id', 'id', 'codigo');
             loadDataTable();
         });
         
         function createTableRow(manutencao) {
             const tr = document.createElement('tr');
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            const dataFim = manutencao.data_fim_prevista ? new Date(`${manutencao.data_fim_prevista}T00:00:00`) : null;
+            const concluida = manutencao.status === 'concluída';
+            if (dataFim && dataFim < hoje && !concluida) {
+                tr.classList.add('row-overdue');
+            }
             tr.innerHTML = `
                 <td>${manutencao.trem_codigo || '-'}</td>
                 <td><span class="badge badge-info">${manutencao.tipo}</span></td>
@@ -218,11 +237,11 @@ if (!isset($_SESSION['operador_id'])) {
                     
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar dados da manutenção', 'error');
+                    showToast('Erro ao carregar dados da manutenção', 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showToast('Erro ao comunicar com o servidor', 'error');
             }
         }
         
@@ -241,8 +260,37 @@ if (!isset($_SESSION['operador_id'])) {
         }
         
         function loadDataTable() {
-            loadData(backendUrl, 'manutencoesTableBody');
+            const tbody = document.getElementById('manutencoesTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" class="loading">Carregando dados</td></tr>';
+            fetch(`${backendUrl}?acao=listar`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.sucesso) {
+                        todasManutencoes = result.dados;
+                        renderManutencoes();
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><p>Erro ao carregar dados</p></td></tr>';
+                    }
+                })
+                .catch(() => {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><p>Erro ao carregar dados</p></td></tr>';
+                });
         }
+
+        function renderManutencoes() {
+            const tbody = document.getElementById('manutencoesTableBody');
+            const status = document.getElementById('statusFilter').value;
+            const filtradas = todasManutencoes.filter(item => !status || item.status === status);
+            tbody.innerHTML = '';
+            if (filtradas.length > 0) {
+                filtradas.forEach(item => tbody.appendChild(createTableRow(item)));
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma manutenção encontrada</td></tr>';
+            }
+        }
+
+        document.getElementById('statusFilter').addEventListener('change', renderManutencoes);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

@@ -10,14 +10,14 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Login - LLGR</title>
     <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/login.css" />
 </head>
 <body>
 <header></header>
 <main class="login-container">
-    <form action="../../user-backend/login_backend.php" method="POST">
+    <form action="../../user/api/login.php" method="POST">
         <h1>Entre na sua conta</h1>
         <div class="input-box">
             <input name="email" placeholder="E-mail" type="email" required />

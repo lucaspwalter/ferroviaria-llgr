@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Sensor</h2>
-                <form id="sensorForm">
+                <form method="POST" id="sensorForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -115,6 +117,10 @@ if (!isset($_SESSION['operador_id'])) {
             </div>
             <div class="card">
                 <h2 class="card-title">Sensores Cadastrados</h2>
+                <div class="table-toolbar">
+                    <button type="button" class="btn btn-primary" id="atualizarLeiturasBtn">Atualizar Leituras</button>
+                    <span id="ultimaAtualizacao">Última atualização: --:--:--</span>
+                </div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -139,15 +145,10 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script>
         // URL do backend - CAMINHO ABSOLUTO
-        const BACKEND_URL = '/ferroviaria-llgr/operator-backend/sensores-backend.php';
+        const BACKEND_URL = '../../operator/api/sensores.php';
+        let sensoresAtuais = [];
         
         // Função para mostrar alertas
-        function showAlert(message, type = 'success') {
-            const alertDiv = document.getElementById('alert');
-            alertDiv.className = `alert alert-${type} show`;
-            alertDiv.textContent = message;
-            setTimeout(() => alertDiv.classList.remove('show'), 5000);
-        }
         
         // Função para formatar data
         function formatDateTime(dateString) {
@@ -194,6 +195,7 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
+                    sensoresAtuais = result.dados;
                     tbody.innerHTML = '';
                     if (result.dados.length > 0) {
                         result.dados.forEach(sensor => {
@@ -208,6 +210,36 @@ if (!isset($_SESSION['operador_id'])) {
             } catch (error) {
                 console.error('Erro:', error);
                 tbody.innerHTML = '<tr><td colspan="7" class="error">Erro ao carregar dados</td></tr>';
+            }
+        }
+
+        async function atualizarLeituras() {
+            if (sensoresAtuais.length === 0) {
+                await loadSensores();
+            }
+
+            const btn = document.getElementById('atualizarLeiturasBtn');
+            btn.disabled = true;
+            btn.textContent = 'Atualizando...';
+
+            try {
+                await Promise.all(sensoresAtuais.map(sensor => {
+                    const formData = new FormData();
+                    formData.append('acao', 'simular_leitura');
+                    formData.append('sensor_id', sensor.id);
+                    return fetch(BACKEND_URL, {
+                        method: 'POST',
+                        body: formData
+                    }).then(response => response.json());
+                }));
+                await loadSensores();
+                document.getElementById('ultimaAtualizacao').textContent = 'Última atualização: ' + new Date().toLocaleTimeString('pt-BR');
+                showToast('Leituras atualizadas com sucesso', 'success');
+            } catch (error) {
+                showToast('Erro ao atualizar leituras', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Atualizar Leituras';
             }
         }
         
@@ -233,10 +265,10 @@ if (!isset($_SESSION['operador_id'])) {
                     document.getElementById('submitBtn').textContent = 'Atualizar Sensor';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar sensor', 'error');
+                    showToast('Erro ao carregar sensor', 'error');
                 }
             } catch (error) {
-                showAlert('Erro ao comunicar com servidor', 'error');
+                showToast('Erro ao comunicar com servidor', 'error');
             }
         }
         
@@ -256,13 +288,13 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
-                    showAlert(result.mensagem, 'success');
+                    showToast(result.mensagem, 'success');
                     loadSensores();
                 } else {
-                    showAlert(result.mensagem, 'error');
+                    showToast(result.mensagem, 'error');
                 }
             } catch (error) {
-                showAlert('Erro ao excluir', 'error');
+                showToast('Erro ao excluir', 'error');
             }
         }
         
@@ -295,15 +327,15 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
-                    showAlert(result.mensagem, 'success');
+                    showToast(result.mensagem, 'success');
                     resetForm();
                     loadSensores();
                 } else {
-                    showAlert(result.mensagem, 'error');
+                    showToast(result.mensagem, 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao salvar: ' + error.message, 'error');
+                showToast('Erro ao salvar: ' + error.message, 'error');
             } finally {
                 btn.disabled = false;
                 btn.textContent = id ? 'Atualizar Sensor' : 'Salvar Sensor';
@@ -311,7 +343,9 @@ if (!isset($_SESSION['operador_id'])) {
         });
         
         // Carregar ao iniciar
+        document.getElementById('atualizarLeiturasBtn').addEventListener('click', atualizarLeituras);
         window.addEventListener('DOMContentLoaded', loadSensores);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

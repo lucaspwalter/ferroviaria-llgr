@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title">Gerar Novo Relatório</h2>
-                <form id="relatorioForm" onsubmit="return submitForm('relatorioForm', '../../operator-backend/relatorios-backend.php')">
+                <form method="POST" id="relatorioForm" onsubmit="return submitForm('relatorioForm', '../../operator/api/relatorios.php')">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo">Tipo de Relatório <span class="required">*</span></label>
@@ -100,24 +102,13 @@ if (!isset($_SESSION['operador_id'])) {
                 </form>
             </div>
             <div class="card">
-                <h2 class="card-title">Relatórios Gerados</h2>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Tipo</th>
-                                <th>Período</th>
-                                <th>Formato</th>
-                                <th>Gerado em</th>
-                                <th>Gerado por</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="relatoriosTableBody">
-                            <tr><td colspan="7" class="loading">Carregando dados</td></tr>
-                        </tbody>
-                    </table>
+                <h2 class="card-title">Resumo Operacional</h2>
+                <div class="summary-grid" id="relatoriosResumo">
+                    <div class="summary-card"><span class="summary-value skeleton">&nbsp;</span><span class="summary-label">Total de Trens</span></div>
+                    <div class="summary-card"><span class="summary-value skeleton">&nbsp;</span><span class="summary-label">Rotas Ativas</span></div>
+                    <div class="summary-card"><span class="summary-value skeleton">&nbsp;</span><span class="summary-label">Manutenções no Mês</span></div>
+                    <div class="summary-card"><span class="summary-value skeleton">&nbsp;</span><span class="summary-label">Reclamações Pendentes</span></div>
+                    <div class="summary-card"><span class="summary-value skeleton">&nbsp;</span><span class="summary-label">Alertas Ativos</span></div>
                 </div>
             </div>
         </section>
@@ -125,7 +116,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/relatorios-backend.php';
+        const backendUrl = '../../operator/api/relatorios.php';
         
         function createTableRow(relatorio) {
             const tr = document.createElement('tr');
@@ -174,13 +165,13 @@ if (!isset($_SESSION['operador_id'])) {
                         <pre>${JSON.stringify(dados, null, 2)}</pre>
                     `;
                     
-                    showAlert(detalhes, 'info');
+                    showToast(detalhes, 'info');
                 } else {
-                    showAlert('Erro ao carregar relatório', 'error');
+                    showToast('Erro ao carregar relatório', 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao comunicar com o servidor', 'error');
+                showToast('Erro ao comunicar com o servidor', 'error');
             }
         }
         
@@ -188,11 +179,35 @@ if (!isset($_SESSION['operador_id'])) {
             deleteRecord(id, backendUrl, 'Tem certeza que deseja excluir este relatório?');
         }
         
-        function loadDataTable() {
-            loadData(backendUrl, 'relatoriosTableBody');
+        async function carregarResumo() {
+            const container = document.getElementById('relatoriosResumo');
+            try {
+                const response = await fetch(`${backendUrl}?acao=resumo`);
+                const result = await response.json();
+                if (!result.sucesso) {
+                    throw new Error(result.mensagem || 'Erro ao carregar resumo');
+                }
+                const dados = result.dados;
+                const cards = [
+                    ['total_trens', 'Total de Trens'],
+                    ['total_rotas_ativas', 'Rotas Ativas'],
+                    ['manutencoes_mes', 'Manutenções no Mês'],
+                    ['reclamacoes_pendentes', 'Reclamações Pendentes'],
+                    ['alertas_ativos', 'Alertas Ativos'],
+                ];
+                container.innerHTML = cards.map(([campo, label]) => `
+                    <div class="summary-card">
+                        <span class="summary-value">${dados[campo] ?? 0}</span>
+                        <span class="summary-label">${label}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                container.innerHTML = '<div class="empty-state"><p>Erro ao carregar resumo</p></div>';
+            }
         }
         
-        window.addEventListener('DOMContentLoaded', loadDataTable);
+        window.addEventListener('DOMContentLoaded', carregarResumo);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

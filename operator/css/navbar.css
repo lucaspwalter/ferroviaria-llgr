@@ -121,3 +121,9 @@ nav {
 .forget-pass {
     color: #696969;
 }
+
+.nav-list li a.active {
+    color: #E50000;
+    border-bottom: 2px solid #E50000;
+    padding-bottom: 2px;
+}

@@ -4,7 +4,7 @@ if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
 }
-require_once __DIR__ . '/../../user-backend/conexao.php';
+require_once __DIR__ . '/../../config/database.php';
 $filtro = $_GET['filtro'] ?? 'todas';
 
 $sql = "SELECT r.*, u.nome as usuario_nome, u.email as usuario_email 
@@ -35,6 +35,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -56,6 +57,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -67,18 +69,6 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             </h1>
             <p class="page-subtitle">Visualize e responda reclamações dos usuários</p>
         </div>
-        <?php if ($erro): ?>
-            <div class="alert alert-error">
-                <i class="fas fa-exclamation-circle"></i>
-                <?= htmlspecialchars($erro) ?>
-            </div>
-        <?php endif; ?>
-        <?php if ($sucesso): ?>
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                <?= htmlspecialchars($sucesso) ?>
-            </div>
-        <?php endif; ?>
         <div class="filters">
             <a href="?filtro=todas" class="filter-btn <?= $filtro == 'todas' ? 'active' : '' ?>">
                 Todas
@@ -95,7 +85,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                 </div>
             <?php else: ?>
                 <?php foreach ($reclamacoes as $rec): ?>
-                    <div class="reclamacao-card status-<?= $rec['status'] ?>">
+                    <div class="reclamacao-card status-<?= htmlspecialchars($rec['status']) ?>">
                         <div class="card-header">
                             <div class="user-info">
                                 <i class="fas fa-user-circle"></i>
@@ -104,7 +94,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                                     <small><?= htmlspecialchars($rec['usuario_email']) ?></small>
                                 </div>
                             </div>
-                            <span class="badge badge-<?= $rec['status'] ?>">
+                            <span class="badge badge-<?= htmlspecialchars($rec['status']) ?>">
                                 <?= $rec['status'] == 'pendente' ? 'Pendente' : ($rec['status'] == 'respondida' ? 'Respondida' : 'Resolvida') ?>
                             </span>
                         </div>
@@ -130,11 +120,11 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                         </div>
                         <div class="card-footer">
                             <?php if ($rec['status'] == 'pendente'): ?>
-                                <button class="btn btn-primary" onclick="abrirModal(<?= $rec['id'] ?>)">
+                                <button class="btn btn-primary" onclick="abrirModal(<?= intval($rec['id']) ?>)">
                                     <i class="fas fa-reply"></i> Responder
                                 </button>
                             <?php elseif ($rec['status'] == 'respondida'): ?>
-                                <button class="btn btn-success" onclick="marcarResolvida(<?= $rec['id'] ?>)">
+                                <button class="btn btn-success" onclick="marcarResolvida(<?= intval($rec['id']) ?>)">
                                     <i class="fas fa-check"></i> Marcar como Resolvida
                                 </button>
                             <?php else: ?>
@@ -152,7 +142,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
         <div class="modal-content">
             <span class="close" onclick="fecharModal()">&times;</span>
             <h2><i class="fas fa-reply"></i> Responder Reclamação</h2>
-            <form method="POST" action="../../operator-backend/reclamacoes_backend.php">
+            <form method="POST" action="../../operator/api/reclamacoes.php">
                 <input type="hidden" name="acao" value="responder">
                 <input type="hidden" name="reclamacao_id" id="reclamacao_id">
                 <textarea 
@@ -185,7 +175,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             if (confirm('Deseja marcar esta reclamação como resolvida?')) {
                 const form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '../../operator-backend/reclamacoes_backend.php';
+                form.action = '../../operator/api/reclamacoes.php';
                 const acaoInput = document.createElement('input');
                 acaoInput.type = 'hidden';
                 acaoInput.name = 'acao';
@@ -206,6 +196,15 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                 fecharModal();
             }
         }
+    </script>
+    <script src="../js/toast.js"></script>
+    <script>
+        <?php if ($erro): ?>
+            showToast(<?= json_encode($erro) ?>, 'error');
+        <?php endif; ?>
+        <?php if ($sucesso): ?>
+            showToast(<?= json_encode($sucesso) ?>, 'success');
+        <?php endif; ?>
     </script>
 </body>
 </html>

@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Trem</h2>
-                <form id="tremForm">
+                <form method="POST" id="tremForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -117,6 +119,18 @@ if (!isset($_SESSION['operador_id'])) {
             </div>
             <div class="card">
                 <h2 class="card-title">Trens Cadastrados</h2>
+                <div class="table-toolbar">
+                    <div class="search-box">
+                        <input type="search" id="searchInput" placeholder="Buscar por código ou modelo">
+                    </div>
+                    <select id="statusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="operacional">Operacional</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="inativo">Inativo</option>
+                        <option value="em_rota">Em Rota</option>
+                    </select>
+                </div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -135,19 +149,17 @@ if (!isset($_SESSION['operador_id'])) {
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination" id="trensPagination"></div>
             </div>
         </section>
     </main>
     <script src="../js/mobile-navbar.js"></script>
     <script>
-        const BACKEND_URL = '/ferroviaria-llgr/operator-backend/trens-backend.php';
+        const BACKEND_URL = '../../operator/api/trens.php';
+        let todosTrens = [];
+        let paginaAtual = 1;
+        const itensPorPagina = 10;
         
-        function showAlert(message, type = 'success') {
-            const alertDiv = document.getElementById('alert');
-            alertDiv.className = `alert alert-${type} show`;
-            alertDiv.textContent = message;
-            setTimeout(() => alertDiv.classList.remove('show'), 5000);
-        }
         
         function getStatusBadge(status) {
             const colors = {
@@ -175,6 +187,49 @@ if (!isset($_SESSION['operador_id'])) {
             `;
             return tr;
         }
+
+        function getTrensFiltrados() {
+            const busca = document.getElementById('searchInput').value.trim().toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            return todosTrens.filter(trem => {
+                const texto = `${trem.codigo || ''} ${trem.modelo || ''}`.toLowerCase();
+                const combinaBusca = !busca || texto.includes(busca);
+                const combinaStatus = !status || trem.status === status;
+                return combinaBusca && combinaStatus;
+            });
+        }
+
+        function renderPagination(totalItens) {
+            const pagination = document.getElementById('trensPagination');
+            const totalPaginas = Math.max(1, Math.ceil(totalItens / itensPorPagina));
+            if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
+            pagination.innerHTML = '';
+            for (let i = 1; i <= totalPaginas; i++) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = `page-btn ${i === paginaAtual ? 'active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    paginaAtual = i;
+                    renderTrens();
+                });
+                pagination.appendChild(button);
+            }
+        }
+
+        function renderTrens() {
+            const tbody = document.getElementById('trensTableBody');
+            const filtrados = getTrensFiltrados();
+            const inicio = (paginaAtual - 1) * itensPorPagina;
+            const pagina = filtrados.slice(inicio, inicio + itensPorPagina);
+            tbody.innerHTML = '';
+            if (pagina.length > 0) {
+                pagina.forEach(trem => tbody.appendChild(createTableRow(trem)));
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum trem encontrado</td></tr>';
+            }
+            renderPagination(filtrados.length);
+        }
         
         async function loadTrens() {
             const tbody = document.getElementById('trensTableBody');
@@ -185,14 +240,8 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
-                    tbody.innerHTML = '';
-                    if (result.dados.length > 0) {
-                        result.dados.forEach(trem => {
-                            tbody.appendChild(createTableRow(trem));
-                        });
-                    } else {
-                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum trem cadastrado</td></tr>';
-                    }
+                    todosTrens = result.dados;
+                    renderTrens();
                 } else {
                     tbody.innerHTML = '<tr><td colspan="7" class="error">Erro: ' + result.mensagem + '</td></tr>';
                 }
@@ -224,10 +273,10 @@ if (!isset($_SESSION['operador_id'])) {
                     document.getElementById('submitBtn').textContent = 'Atualizar Trem';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    showAlert('Erro ao carregar trem', 'error');
+                    showToast('Erro ao carregar trem', 'error');
                 }
             } catch (error) {
-                showAlert('Erro ao comunicar com servidor', 'error');
+                showToast('Erro ao comunicar com servidor', 'error');
             }
         }
         
@@ -246,13 +295,13 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
-                    showAlert(result.mensagem, 'success');
+                    showToast(result.mensagem, 'success');
                     loadTrens();
                 } else {
-                    showAlert(result.mensagem, 'error');
+                    showToast(result.mensagem, 'error');
                 }
             } catch (error) {
-                showAlert('Erro ao excluir', 'error');
+                showToast('Erro ao excluir', 'error');
             }
         }
         
@@ -283,22 +332,31 @@ if (!isset($_SESSION['operador_id'])) {
                 const result = await response.json();
                 
                 if (result.sucesso) {
-                    showAlert(result.mensagem, 'success');
+                    showToast(result.mensagem, 'success');
                     resetForm();
                     loadTrens();
                 } else {
-                    showAlert(result.mensagem, 'error');
+                    showToast(result.mensagem, 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                showAlert('Erro ao salvar: ' + error.message, 'error');
+                showToast('Erro ao salvar: ' + error.message, 'error');
             } finally {
                 btn.disabled = false;
                 btn.textContent = id ? 'Atualizar Trem' : 'Salvar Trem';
             }
         });
         
+        document.getElementById('searchInput').addEventListener('input', () => {
+            paginaAtual = 1;
+            renderTrens();
+        });
+        document.getElementById('statusFilter').addEventListener('change', () => {
+            paginaAtual = 1;
+            renderTrens();
+        });
         window.addEventListener('DOMContentLoaded', loadTrens);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

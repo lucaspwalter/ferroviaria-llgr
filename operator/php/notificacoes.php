@@ -16,6 +16,7 @@ if (!isset($_SESSION['operador_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <li><a href="notificacoes.php">Notificações</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="reclamacoes.php">Reclamações</a></li>
+                <li><a href="perfil_operador.php">Perfil</a></li>
                 <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div id="alert" class="alert"></div>
             <div class="card">
                 <h2 class="card-title">Cadastrar Nova Notificação</h2>
-                <form id="notificacaoForm" onsubmit="return submitForm('notificacaoForm', '../../operator-backend/notificacoes-backend.php')">
+                <form method="POST" id="notificacaoForm" onsubmit="return submitForm('notificacaoForm', '../../operator/api/notificacoes.php')">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo">Tipo <span class="required">*</span></label>
@@ -117,7 +119,7 @@ if (!isset($_SESSION['operador_id'])) {
     <script src="../js/mobile-navbar.js"></script>
     <script src="../js/gerenciamento.js"></script>
     <script>
-        const backendUrl = '../../operator-backend/notificacoes-backend.php';
+        const backendUrl = '../../operator/api/notificacoes.php';
         function createTableRow(notificacao) {
             const tr = document.createElement('tr');
             const statusBadge = notificacao.lida ? 
@@ -137,5 +139,6 @@ if (!isset($_SESSION['operador_id'])) {
         }
         window.addEventListener('DOMContentLoaded', loadDataTable);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

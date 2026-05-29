@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -12,7 +16,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/rotasUsuario.css">
-    <link rel="stylesheet" href="../css/rotas-usuario-extra.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -27,7 +31,7 @@ session_start();
                 <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="rotas_usuario.php">Rotas</a></li>
                 <li><a href="notificacoes_usuario.php">Notificações</a></li>
-                <li><a href="../html/chatU.php">Reclame Aqui</a></li>
+                <li><a href="chat.php">Reclame Aqui</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout_usuario.php">Sair</a></li>
             </ul>
@@ -35,24 +39,25 @@ session_start();
     </header>
     <main class="main-content">
         <h1 class="page-title">Rotas Disponíveis</h1>
+        <div class="rota-search">
+            <input type="search" id="rotaSearch" placeholder="Buscar por rota, origem ou destino">
+        </div>
         <div id="rotasContainer">
             <div class="loading">Carregando rotas...</div>
         </div>
     </main>
     <script src="../js/mobile-navbar.js"></script>
     <script>
+        let todasRotas = [];
+
         async function carregarRotas() {
             const container = document.getElementById('rotasContainer');
             try {
-                const response = await fetch('../../user-backend/rotas_backend.php?acao=listar_ativas');
+                const response = await fetch('../../user/api/rotas.php?acao=listar_ativas');
                 const result = await response.json();
                 if (result.sucesso && result.dados.length > 0) {
-                    container.innerHTML = '<div class="rotas-grid"></div>';
-                    const grid = container.querySelector('.rotas-grid');
-                    result.dados.forEach(rota => {
-                        const card = criarCardRota(rota);
-                        grid.appendChild(card);
-                    });
+                    todasRotas = result.dados;
+                    renderRotas();
                 } else {
                     container.innerHTML = `
                         <div class="empty-state">
@@ -71,6 +76,25 @@ session_start();
                 `;
             }
         }
+
+        function renderRotas() {
+            const container = document.getElementById('rotasContainer');
+            const busca = document.getElementById('rotaSearch').value.trim().toLowerCase();
+            const rotas = todasRotas.filter(rota => {
+                const texto = `${rota.nome || ''} ${rota.origem || ''} ${rota.destino || ''}`.toLowerCase();
+                return !busca || texto.includes(busca);
+            });
+
+            if (rotas.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Nenhuma rota encontrada</p></div>';
+                return;
+            }
+
+            container.innerHTML = '<div class="rotas-grid"></div>';
+            const grid = container.querySelector('.rotas-grid');
+            rotas.forEach(rota => grid.appendChild(criarCardRota(rota)));
+        }
+
         function criarCardRota(rota) {
             const card = document.createElement('div');
             card.className = 'rota-card';
@@ -98,23 +122,19 @@ session_start();
                     </div>
                     <div class="info-item">
                         <div class="info-label">Paradas</div>
-                        <div class="info-value">${rota.numero_paradas || 0}</div>
+                        <div class="info-value">0</div>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item preco-destaque">
                         <div class="info-label">Preço Base</div>
                         <div class="info-value">${rota.preco_base ? 'R$ ' + parseFloat(rota.preco_base).toFixed(2) : '-'}</div>
                     </div>
                 </div>
-                ${rota.paradas ? `
-                    <div class="rota-paradas">
-                        <div class="paradas-label">Estações:</div>
-                        <div class="paradas-lista">${rota.paradas}</div>
-                    </div>
-                ` : ''}
             `;
             return card;
         }
+        document.getElementById('rotaSearch').addEventListener('input', renderRotas);
         window.addEventListener('DOMContentLoaded', carregarRotas);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>

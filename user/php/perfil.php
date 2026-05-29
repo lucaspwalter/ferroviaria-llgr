@@ -16,8 +16,8 @@ if (!isset($_SESSION['usuario_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/verperfil.css">
-    <link rel="stylesheet" href="../css/perfil-extra.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/toast.css" />
 </head>
 <body>
     <header>
@@ -32,7 +32,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="rotas_usuario.php">Rotas</a></li>
                 <li><a href="notificacoes_usuario.php">Notificações</a></li>
-                <li><a href="../html/chatU.php">Reclame Aqui</a></li>
+                <li><a href="chat.php">Reclame Aqui</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout_usuario.php">Sair</a></li>
             </ul>
@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario_id'])) {
             const loading = document.getElementById('loading');
             const container = document.getElementById('perfilContainer');
             try {
-                const response = await fetch('../../user-backend/perfil_backend.php?acao=buscar_perfil');
+                const response = await fetch('../../user/api/perfil.php?acao=buscar_perfil');
                 const text = await response.text();
                 let result;
                 try {
@@ -134,5 +134,6 @@ if (!isset($_SESSION['usuario_id'])) {
         }
         window.addEventListener('DOMContentLoaded', carregarPerfil);
     </script>
+    <script src="../js/toast.js"></script>
 </body>
 </html>
