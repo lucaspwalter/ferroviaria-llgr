@@ -437,7 +437,6 @@ ALTER TABLE `alertas`
 -- Índices de tabela `estacoes`
 --
 ALTER TABLE `estacoes`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `codigo` (`codigo`),
   ADD KEY `idx_codigo` (`codigo`),
   ADD KEY `idx_cidade` (`cidade`),
@@ -456,7 +455,6 @@ ALTER TABLE `historico_solicitacoes`
 -- Índices de tabela `itinerarios`
 --
 ALTER TABLE `itinerarios`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `codigo` (`codigo`),
   ADD KEY `rota_id` (`rota_id`),
   ADD KEY `trem_id` (`trem_id`),
@@ -488,7 +486,6 @@ ALTER TABLE `notificacoes`
 -- Índices de tabela `operadores`
 --
 ALTER TABLE `operadores`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -514,7 +511,6 @@ ALTER TABLE `relatorios`
 -- Índices de tabela `rotas`
 --
 ALTER TABLE `rotas`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `codigo` (`codigo`),
   ADD KEY `idx_codigo` (`codigo`),
   ADD KEY `idx_status` (`status`),
@@ -534,7 +530,6 @@ ALTER TABLE `sensores`
 -- Índices de tabela `solicitacoes_manutencao`
 --
 ALTER TABLE `solicitacoes_manutencao`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `idx_trem_id` (`trem_id`),
   ADD KEY `idx_solicitante` (`solicitante_id`),
   ADD KEY `idx_responsavel` (`responsavel_manutencao_id`),
@@ -545,7 +540,6 @@ ALTER TABLE `solicitacoes_manutencao`
 -- Índices de tabela `trens`
 --
 ALTER TABLE `trens`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `codigo` (`codigo`),
   ADD KEY `idx_codigo` (`codigo`),
   ADD KEY `idx_status` (`status`);
@@ -554,7 +548,6 @@ ALTER TABLE `trens`
 -- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
