@@ -260,7 +260,8 @@ CREATE TABLE `rotas` (
   `preco_base` decimal(10,2) DEFAULT NULL,
   `observacoes` text DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
-  `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `rota_paradas` (
