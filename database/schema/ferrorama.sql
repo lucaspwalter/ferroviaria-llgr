@@ -558,85 +558,46 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `alertas`
 --
 ALTER TABLE `alertas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `estacoes`
 --
 ALTER TABLE `estacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT de tabela `historico_solicitacoes`
---
-ALTER TABLE `historico_solicitacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `itinerarios`
---
-ALTER TABLE `itinerarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `manutencoes`
---
-ALTER TABLE `manutencoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `notificacoes`
---
-ALTER TABLE `notificacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `operadores`
 --
 ALTER TABLE `operadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `reclamacoes`
 --
 ALTER TABLE `reclamacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT de tabela `relatorios`
---
-ALTER TABLE `relatorios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `rotas`
 --
 ALTER TABLE `rotas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `sensores`
 --
 ALTER TABLE `sensores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT de tabela `solicitacoes_manutencao`
---
-ALTER TABLE `solicitacoes_manutencao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `trens`
 --
 ALTER TABLE `trens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas
