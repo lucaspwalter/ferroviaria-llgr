@@ -36,6 +36,21 @@ function setupFieldValidation() {
     });
 }
 
+function escapeHTML(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    }[char]));
+}
+
+function getCsrfToken() {
+    const input = document.querySelector('input[name="csrf_token"]');
+    return input ? input.value : '';
+}
+
 async function submitForm(formId, backendUrl, action = 'cadastrar') {
     if (!validateForm(formId)) {
         showToast('Por favor, preencha todos os campos obrigatórios', 'error');
@@ -46,34 +61,23 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
     const formData = new FormData(form);
     formData.append('acao', action);
     
-    console.log('=== SUBMITTING FORM ===');
-    console.log('Backend URL:', backendUrl);
-    console.log('Ação:', action);
-    console.log('FormData:', Object.fromEntries(formData));
-    
     const submitBtn = form.querySelector('.btn-primary');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Salvando...';
     
     try {
-        console.log('Enviando requisição para:', backendUrl);
-        
         const response = await fetch(backendUrl, {
             method: 'POST',
             body: formData
         });
-        
-        console.log('Response status:', response.status);
-        console.log('Response OK:', response.ok);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const responseText = await response.text();
-        console.log('Response text:', responseText);
-        
+
         let result;
         try {
             result = JSON.parse(responseText);
@@ -81,8 +85,6 @@ async function submitForm(formId, backendUrl, action = 'cadastrar') {
             console.error('Erro ao parsear JSON:', e);
             throw new Error('Resposta inválida do servidor: ' + responseText.substring(0, 100));
         }
-        
-        console.log('Resposta do servidor:', result);
         
         if (result.sucesso) {
             showToast(result.mensagem, 'success');
@@ -185,7 +187,7 @@ function getStatusBadge(status) {
     };
     
     const badgeClass = statusClasses[status] || 'secondary';
-    return `<span class="badge badge-${badgeClass}">${status}</span>`;
+    return `<span class="badge badge-${badgeClass}">${escapeHTML(status)}</span>`;
 }
 
 async function deleteRecord(id, backendUrl, confirmMessage = 'Tem certeza que deseja excluir este registro?') {
@@ -194,6 +196,7 @@ async function deleteRecord(id, backendUrl, confirmMessage = 'Tem certeza que de
     const formData = new FormData();
     formData.append('acao', 'deletar');
     formData.append('id', id);
+    formData.append('csrf_token', getCsrfToken());
     
     try {
         const response = await fetch(backendUrl, {

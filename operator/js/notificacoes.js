@@ -29,7 +29,7 @@ function criarNotificacao(app, tempo, titulo, mensagem, temOpcaoEditar = true) {
         const btnEditar = notificacaoDiv.querySelector('.btn-operador-editar');
         if (btnEditar) {
             btnEditar.addEventListener('click', () => {
-                console.log(`Editar notificação: ${titulo}`);
+                showToast('Edição de notificação indisponível nesta tela', 'info');
             });
         }
     }

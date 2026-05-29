@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,8 +29,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -50,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title">Gerar Novo Relatório</h2>
                 <form method="POST" id="relatorioForm" onsubmit="return submitForm('relatorioForm', '../../operator/api/relatorios.php')">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo">Tipo de Relatório <span class="required">*</span></label>
@@ -121,12 +125,12 @@ if (!isset($_SESSION['operador_id'])) {
         function createTableRow(relatorio) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${relatorio.titulo}</td>
-                <td><span class="badge badge-info">${relatorio.tipo}</span></td>
+                <td>${escapeHTML(relatorio.titulo)}</td>
+                <td><span class="badge badge-info">${escapeHTML(relatorio.tipo)}</span></td>
                 <td>${formatDate(relatorio.periodo_inicio)} até ${formatDate(relatorio.periodo_fim)}</td>
-                <td><span class="badge badge-secondary">${relatorio.formato.toUpperCase()}</span></td>
+                <td><span class="badge badge-secondary">${escapeHTML(String(relatorio.formato || '').toUpperCase())}</span></td>
                 <td>${formatDateTime(relatorio.criado_em)}</td>
-                <td>${relatorio.operador_nome || '-'}</td>
+                <td>${escapeHTML(relatorio.operador_nome || '-')}</td>
                 <td>
                     <button class="btn-action btn-view" onclick="viewRelatorio(${relatorio.id})" title="Visualizar">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

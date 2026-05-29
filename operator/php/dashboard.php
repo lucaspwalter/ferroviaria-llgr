@@ -64,6 +64,7 @@ $itinerarios_atrasados = contarRegistros(
           <div class="line3"></div>
         </div>
         <ul class="nav-list">
+          <li><a href="sobre.php">Sobre</a></li>
           <li><a href="dashboard.php">Dashboard</a></li>
           <li><a href="sensores.php">Sensores</a></li>
           <li><a href="estacoes.php">Estações</a></li>
@@ -111,24 +112,26 @@ $itinerarios_atrasados = contarRegistros(
             <span class="kpi-label">Atrasos (Últimas 24h)</span>
           </div>
         </div>
-        <div class="card chart-card">
-          <h2 class="card-title">HISTÓRICO DE INCIDENTES RECENTES</h2>
-          <div class="chart-container">
-            <canvas id="graficoPizza"></canvas>
-            <div class="legenda-chartjs">
-              <ul>
-                <li><span class="legenda-color-critico"></span>Crítico</li>
-                <li><span class="legenda-color-urgente"></span>Urgente</li>
-                <li><span class="legenda-color-aviso"></span>Aviso</li>
-                <li><span class="legenda-color-informativo"></span>Informativo</li>
-              </ul>
+        <div class="charts-grid">
+          <div class="card chart-card pie-chart-card">
+            <h2 class="card-title">HISTÓRICO DE INCIDENTES RECENTES</h2>
+            <div class="chart-container pie-chart-container">
+              <canvas id="graficoPizza"></canvas>
+              <div class="legenda-chartjs">
+                <ul>
+                  <li><span class="legenda-color-critico"></span>Crítico</li>
+                  <li><span class="legenda-color-urgente"></span>Urgente</li>
+                  <li><span class="legenda-color-aviso"></span>Aviso</li>
+                  <li><span class="legenda-color-informativo"></span>Informativo</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card chart-card">
-          <h2 class="card-title">PASSAGEIROS POR CLASSE</h2>
-          <div class="chart-container">
-            <canvas id="barChart"></canvas>
+          <div class="card chart-card">
+            <h2 class="card-title">PASSAGEIROS POR CLASSE</h2>
+            <div class="chart-container">
+              <canvas id="barChart"></canvas>
+            </div>
           </div>
         </div>
       </section>

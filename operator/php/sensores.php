@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,8 +29,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -50,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Sensor</h2>
                 <form method="POST" id="sensorForm">
+                    <?= csrf_input() ?>
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -164,18 +168,33 @@ if (!isset($_SESSION['operador_id'])) {
                 'inativo': 'secondary',
                 'manutencao': 'warning'
             };
-            return `<span class="badge badge-${colors[status] || 'secondary'}">${status}</span>`;
+            return `<span class="badge badge-${colors[status] || 'secondary'}">${escapeHTML(status)}</span>`;
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function getCsrfToken() {
+            const input = document.querySelector('input[name="csrf_token"]');
+            return input ? input.value : '';
         }
         
         // Criar linha da tabela
         function createTableRow(sensor) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${sensor.codigo}</td>
-                <td>${sensor.tipo}</td>
-                <td>${sensor.localizacao}</td>
+                <td>${escapeHTML(sensor.codigo)}</td>
+                <td>${escapeHTML(sensor.tipo)}</td>
+                <td>${escapeHTML(sensor.localizacao)}</td>
                 <td>${getStatusBadge(sensor.status)}</td>
-                <td>${sensor.unidade_medida || '-'}</td>
+                <td>${escapeHTML(sensor.unidade_medida || '-')}</td>
                 <td>${formatDateTime(sensor.criado_em)}</td>
                 <td>
                     <button class="btn-action btn-edit" onclick="editSensor(${sensor.id})" title="Editar">✏️</button>
@@ -227,6 +246,7 @@ if (!isset($_SESSION['operador_id'])) {
                     const formData = new FormData();
                     formData.append('acao', 'simular_leitura');
                     formData.append('sensor_id', sensor.id);
+                    formData.append('csrf_token', getCsrfToken());
                     return fetch(BACKEND_URL, {
                         method: 'POST',
                         body: formData
@@ -279,6 +299,7 @@ if (!isset($_SESSION['operador_id'])) {
             const formData = new FormData();
             formData.append('acao', 'deletar');
             formData.append('id', id);
+            formData.append('csrf_token', getCsrfToken());
             
             try {
                 const response = await fetch(BACKEND_URL, {

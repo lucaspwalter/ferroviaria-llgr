@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario_id'])) {
             const loading = document.getElementById('loading');
             const container = document.getElementById('perfilContainer');
             try {
-                const response = await fetch('../../user/api/perfil.php?acao=buscar_perfil');
+                const response = await fetch('../api/perfil.php?acao=buscar_perfil');
                 const text = await response.text();
                 let result;
                 try {

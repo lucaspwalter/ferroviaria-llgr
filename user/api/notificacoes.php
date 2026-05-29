@@ -1,10 +1,14 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['usuario_id'])) {
     echo json_encode(['sucesso' => false, 'mensagem' => 'Usuário não autenticado']);
     exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf_token();
 }
 $acao = $_GET['acao'] ?? '';
 switch ($acao) {
@@ -36,7 +40,6 @@ function listarNotificacoesPublicas($conn) {
     echo json_encode(['sucesso' => true, 'dados' => $notificacoes]);
 }
 function marcarComoLida($conn) {
-    session_start();
     $id = $_POST['id'] ?? 0;
     $lida_em = date('Y-m-d H:i:s');
     $sql = "UPDATE notificacoes SET lida=TRUE, lida_em=? WHERE id=?";

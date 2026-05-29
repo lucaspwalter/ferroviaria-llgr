@@ -1,128 +1,101 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #1A1A1A;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    padding-top: 4vh;
+* {
+    box-sizing: border-box;
 }
 
-header {
-    width: 100%;
-    background-color: #242424;
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 92px;
+    background: #f4f4f4;
+    color: #1f1f1f;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .profile-view-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-grow: 1;
-    padding: 40px 20px;
-    box-sizing: border-box;
+    width: min(100% - 32px, 920px);
+    margin: 0 auto;
+    padding: 28px 0 48px;
 }
 
 .profile-view-box {
-    background-color: #242424;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
+    padding: 28px;
+    border: 1px solid #e2e2e2;
+    border-top: 4px solid #d71920;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 h2 {
-    color: #ffffff;
-    margin-bottom: 25px;
-    margin-top: 0;
-    font-size: 28px;
-    font-weight: 700;
+    margin: 0 0 22px;
+    color: #111111;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    line-height: 1.15;
 }
 
 .llgr-red {
-    color: #ff0000;
+    color: #d71920;
 }
 
 .profile-info-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0;
-    padding: 15px 20px;
-    background-color: #2a2a2a;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.profile-info-group:first-of-type {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
-.profile-info-group:last-of-type {
-    border-bottom: none;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    display: grid;
+    grid-template-columns: minmax(140px, 0.35fr) minmax(0, 1fr);
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eeeeee;
 }
 
 .info-label {
-    font-weight: 600;
-    color: #E0E0E0;
-    text-align: left;
-    flex-basis: 40%;
+    color: #555555;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-transform: uppercase;
 }
 
 .info-value {
-    color: #B0B0B0;
-    text-align: right;
-    flex-basis: 60%;
-    word-wrap: break-word;
+    min-width: 0;
+    color: #161616;
+    font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
 .btn-edit {
-    background-color: #ff0000;
-    color: #fff;
-    padding: 15px 0;
-    border: none;
-    border-radius: 8px;
     width: 100%;
-    font-size: 18px;
-    font-weight: 600;
+    min-height: 48px;
+    margin-top: 24px;
+    border: 0;
+    border-radius: 8px;
+    background: #d71920;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 30px;
-    margin-bottom: 20px;
 }
 
 .btn-edit:hover {
-    background-color: #cc0000;
+    background: #ff3434;
 }
 
 .profile-links {
-    margin-top: 20px;
-    font-size: 15px;
+    margin-top: 18px;
+    text-align: center;
 }
 
 .profile-links a {
-    color: #ff0000;
+    color: #d71920;
+    font-weight: 800;
     text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
 }
 
 .profile-links a:hover {
     text-decoration: underline;
 }
 
-.perfil-loading {
-    text-align: center;
-    padding: 20px;
-    color: #888;
+.perfil-loading,
+.perfil-container-hidden {
+    color: #666666;
 }
 
 .perfil-container-hidden {
@@ -131,4 +104,33 @@ h2 {
 
 .perfil-container-visible {
     display: block;
+}
+
+@media (max-width: 620px) {
+    body {
+        padding-top: 84px;
+    }
+
+    .profile-view-container {
+        width: min(100% - 24px, 920px);
+    }
+
+    .profile-view-box {
+        padding: 22px 18px;
+    }
+
+    .profile-info-group {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 420px) {
+    .profile-view-container {
+        width: min(100% - 16px, 920px);
+    }
+
+    .profile-view-box {
+        padding: 18px 12px;
+    }
 }

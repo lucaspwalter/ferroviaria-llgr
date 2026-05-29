@@ -4,10 +4,14 @@ header('Content-Type: application/json');
 error_reporting(E_ALL);
 ini_set('display_errors', 0); // Não exibir erros no output JSON
 
+require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['operador_id'])) {
     echo json_encode(['sucesso' => false, 'mensagem' => 'Usuário não autenticado']);
     exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf_token();
 }
 
 $acao = $_POST['acao'] ?? $_GET['acao'] ?? '';

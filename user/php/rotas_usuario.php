@@ -13,7 +13,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <title>Rotas Disponíveis - LLGR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/rotasUsuario.css">
     <link rel="stylesheet" href="../css/toast.css" />
@@ -38,11 +38,28 @@ if (!isset($_SESSION['usuario_id'])) {
         </nav>
     </header>
     <main class="main-content">
-        <h1 class="page-title">Rotas Disponíveis</h1>
-        <div class="rota-search">
-            <input type="search" id="rotaSearch" placeholder="Buscar por rota, origem ou destino">
-        </div>
-        <div id="rotasContainer">
+        <section class="routes-hero">
+            <div>
+                <span class="section-kicker">Malha ferroviária LLGR</span>
+                <h1 class="page-title">Rotas disponíveis</h1>
+                <p class="page-subtitle">Consulte linhas ativas, valores, tempo estimado e paradas intermediárias.</p>
+            </div>
+            <div class="routes-summary" aria-label="Resumo das rotas">
+                <strong id="totalRotas">0</strong>
+                <span>rotas ativas</span>
+            </div>
+        </section>
+
+        <section class="routes-toolbar" aria-label="Filtros de rotas">
+            <label class="search-field" for="rotaSearch">
+                <span>Buscar</span>
+                <input type="search" id="rotaSearch" placeholder="Digite rota, origem, destino, código ou parada">
+            </label>
+            <button type="button" class="clear-search" id="limparBusca">Limpar</button>
+        </section>
+
+        <div class="routes-meta" id="routesMeta">Carregando rotas...</div>
+        <div id="rotasContainer" aria-live="polite">
             <div class="loading">Carregando rotas...</div>
         </div>
     </main>
@@ -53,7 +70,7 @@ if (!isset($_SESSION['usuario_id'])) {
         async function carregarRotas() {
             const container = document.getElementById('rotasContainer');
             try {
-                const response = await fetch('../../user/api/rotas.php?acao=listar_ativas');
+                const response = await fetch('../api/rotas.php?acao=listar_ativas');
                 const result = await response.json();
                 if (result.sucesso && result.dados.length > 0) {
                     todasRotas = result.dados;
@@ -79,14 +96,26 @@ if (!isset($_SESSION['usuario_id'])) {
 
         function renderRotas() {
             const container = document.getElementById('rotasContainer');
+            const meta = document.getElementById('routesMeta');
             const busca = document.getElementById('rotaSearch').value.trim().toLowerCase();
             const rotas = todasRotas.filter(rota => {
-                const texto = `${rota.nome || ''} ${rota.origem || ''} ${rota.destino || ''}`.toLowerCase();
+                const paradas = Array.isArray(rota.paradas) ? rota.paradas.join(' ') : '';
+                const texto = `${rota.codigo || ''} ${rota.nome || ''} ${rota.origem || ''} ${rota.destino || ''} ${paradas}`.toLowerCase();
                 return !busca || texto.includes(busca);
             });
 
+            document.getElementById('totalRotas').textContent = todasRotas.length;
+            meta.textContent = busca
+                ? `${rotas.length} rota${rotas.length === 1 ? '' : 's'} encontrada${rotas.length === 1 ? '' : 's'} para "${document.getElementById('rotaSearch').value.trim()}"`
+                : `${rotas.length} rota${rotas.length === 1 ? '' : 's'} ativa${rotas.length === 1 ? '' : 's'} no momento`;
+
             if (rotas.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>Nenhuma rota encontrada</p></div>';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>Nenhuma rota encontrada</h2>
+                        <p>Revise a busca ou limpe o filtro para ver todas as rotas disponíveis.</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -100,16 +129,23 @@ if (!isset($_SESSION['usuario_id'])) {
             card.className = 'rota-card';
             const statusClass = rota.status === 'ativa' ? 'status-ativa' : 'status-inativa';
             const statusText = rota.status === 'ativa' ? 'Ativa' : 'Inativa';
+            const paradas = Array.isArray(rota.paradas) ? rota.paradas : [];
+            const totalParadas = Number(rota.total_paradas || paradas.length || 0);
+            const preco = rota.preco_base ? Number(rota.preco_base).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }) : 'Sob consulta';
             card.innerHTML = `
                 <div class="rota-header">
-                    <span class="rota-codigo">${rota.codigo}</span>
+                    <span class="rota-codigo">${escapeHTML(rota.codigo)}</span>
                     <span class="rota-status ${statusClass}">${statusText}</span>
                 </div>
-                <h2 class="rota-nome">${rota.nome}</h2>
+                <h2 class="rota-nome">${escapeHTML(rota.nome)}</h2>
+                ${rota.observacoes ? `<p class="rota-descricao">${escapeHTML(rota.observacoes)}</p>` : ''}
                 <div class="rota-trajeto">
-                    <span class="trajeto-origem">${rota.origem}</span>
+                    <span class="trajeto-origem">${escapeHTML(rota.origem)}</span>
                     <span class="trajeto-arrow">→</span>
-                    <span class="trajeto-destino">${rota.destino}</span>
+                    <span class="trajeto-destino">${escapeHTML(rota.destino)}</span>
                 </div>
                 <div class="rota-info">
                     <div class="info-item">
@@ -118,21 +154,53 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
                     <div class="info-item">
                         <div class="info-label">Tempo Estimado</div>
-                        <div class="info-value">${rota.tempo_estimado}</div>
+                        <div class="info-value">${formatarTempo(rota.tempo_estimado)}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Paradas</div>
-                        <div class="info-value">0</div>
+                        <div class="info-value">${totalParadas}</div>
                     </div>
                     <div class="info-item preco-destaque">
                         <div class="info-label">Preço Base</div>
-                        <div class="info-value">${rota.preco_base ? 'R$ ' + parseFloat(rota.preco_base).toFixed(2) : '-'}</div>
+                        <div class="info-value">${preco}</div>
                     </div>
                 </div>
+                ${paradas.length ? `
+                    <div class="rota-paradas">
+                        <div class="paradas-label">Paradas principais</div>
+                        <div class="paradas-lista">${paradas.map(parada => `<span>${escapeHTML(parada)}</span>`).join('')}</div>
+                    </div>
+                ` : ''}
             `;
             return card;
         }
+
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function formatarTempo(tempo) {
+            if (!tempo) return '-';
+            const [horas, minutos] = tempo.split(':');
+            const h = Number(horas);
+            const m = Number(minutos);
+            if (h > 0 && m > 0) return `${h}h ${m}min`;
+            if (h > 0) return `${h}h`;
+            return `${m}min`;
+        }
+
         document.getElementById('rotaSearch').addEventListener('input', renderRotas);
+        document.getElementById('limparBusca').addEventListener('click', () => {
+            document.getElementById('rotaSearch').value = '';
+            renderRotas();
+            document.getElementById('rotaSearch').focus();
+        });
         window.addEventListener('DOMContentLoaded', carregarRotas);
     </script>
     <script src="../js/toast.js"></script>

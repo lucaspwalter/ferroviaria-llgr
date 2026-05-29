@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 .toast-container {
     position: fixed;
     right: 24px;
@@ -10,40 +12,36 @@
 }
 
 .toast {
-    min-width: 280px;
-    max-width: 420px;
-    background: #242424;
-    color: #E0E0E0;
-    font-family: 'Poppins', sans-serif;
+    width: min(420px, calc(100vw - 32px));
     padding: 14px 44px 14px 16px;
-    border-radius: 6px;
-    border-left: 5px solid #17a2b8;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    border-left: 5px solid #176f8f;
+    border-radius: 8px;
+    background: #111111;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.45;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
     position: relative;
     pointer-events: auto;
-    animation: toast-slide-in 0.3s ease forwards;
+    animation: toast-slide-in 0.25s ease forwards;
 }
 
 .toast.toast-success {
-    border-left-color: #4caf50;
+    border-left-color: #17633a;
 }
 
 .toast.toast-error {
-    border-left-color: #E50000;
+    border-left-color: #d71920;
 }
 
 .toast.toast-warning {
-    border-left-color: #ffc107;
-}
-
-.toast.toast-info {
-    border-left-color: #17a2b8;
+    border-left-color: #c28300;
 }
 
 .toast-message {
     margin: 0;
-    line-height: 1.4;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    font-weight: 600;
 }
 
 .toast-close {
@@ -52,25 +50,21 @@
     right: 10px;
     border: 0;
     background: transparent;
-    color: #E0E0E0;
+    color: #ffffff;
     font-size: 1.2rem;
     line-height: 1;
     cursor: pointer;
     padding: 4px;
 }
 
-.toast-close:hover {
-    color: #ffffff;
-}
-
 .toast.toast-hide {
-    animation: toast-slide-out 0.25s ease forwards;
+    animation: toast-slide-out 0.2s ease forwards;
 }
 
 @keyframes toast-slide-in {
     from {
         opacity: 0;
-        transform: translateX(120%);
+        transform: translateX(24px);
     }
     to {
         opacity: 1;
@@ -85,7 +79,7 @@
     }
     to {
         opacity: 0;
-        transform: translateX(120%);
+        transform: translateX(24px);
     }
 }
 
@@ -94,11 +88,5 @@
         left: 12px;
         right: 12px;
         bottom: 12px;
-    }
-
-    .toast {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
     }
 }

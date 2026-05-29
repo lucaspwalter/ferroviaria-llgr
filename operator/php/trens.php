@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,8 +29,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -50,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Trem</h2>
                 <form method="POST" id="tremForm">
+                    <?= csrf_input() ?>
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -168,15 +172,30 @@ if (!isset($_SESSION['operador_id'])) {
                 'inativo': 'secondary',
                 'em_rota': 'info'
             };
-            return `<span class="badge badge-${colors[status] || 'secondary'}">${status}</span>`;
+            return `<span class="badge badge-${colors[status] || 'secondary'}">${escapeHTML(status)}</span>`;
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function getCsrfToken() {
+            const input = document.querySelector('input[name="csrf_token"]');
+            return input ? input.value : '';
         }
         
         function createTableRow(trem) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${trem.codigo}</td>
-                <td>${trem.modelo}</td>
-                <td>${trem.fabricante || '-'}</td>
+                <td>${escapeHTML(trem.codigo)}</td>
+                <td>${escapeHTML(trem.modelo)}</td>
+                <td>${escapeHTML(trem.fabricante || '-')}</td>
                 <td>${trem.capacidade_passageiros} passageiros</td>
                 <td>${trem.velocidade_maxima ? trem.velocidade_maxima + ' km/h' : '-'}</td>
                 <td>${getStatusBadge(trem.status)}</td>
@@ -286,6 +305,7 @@ if (!isset($_SESSION['operador_id'])) {
             const formData = new FormData();
             formData.append('acao', 'deletar');
             formData.append('id', id);
+            formData.append('csrf_token', getCsrfToken());
             
             try {
                 const response = await fetch(BACKEND_URL, {

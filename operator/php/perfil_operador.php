@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,6 +29,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
                 <li><a href="estacoes.php">Estações</a></li>
@@ -50,6 +52,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title">Dados Pessoais</h2>
                 <form method="POST" id="perfilForm">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nome">Nome</label>
@@ -76,6 +79,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title">Alterar Senha</h2>
                 <form method="POST" id="senhaForm">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="senha_atual">Senha Atual</label>

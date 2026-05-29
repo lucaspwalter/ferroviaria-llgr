@@ -8,6 +8,7 @@ if (ob_get_level()) {
 
 // Garantir que retornamos JSON
 header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/../../config/security.php';
 
 // Desabilitar exibição de erros (mas manter log)
 ini_set('display_errors', 0);
@@ -22,6 +23,9 @@ if (!isset($_SESSION['usuario_id'])) {
         'mensagem' => 'Usuário não autenticado'
     ]);
     exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf_token();
 }
 
 // Pegar ação

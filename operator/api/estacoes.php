@@ -1,10 +1,14 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 // Verifica se o operador está logado
 if (!isset($_SESSION['operador_id'])) {
     echo json_encode(['sucesso' => false, 'mensagem' => 'Não autorizado']);
     exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf_token();
 }
 
 $acao = $_POST['acao'] ?? $_GET['acao'] ?? 'listar';

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../php/login.php");
     exit();
@@ -31,7 +32,7 @@ $reclamacoes = $result->fetch_all(MYSQLI_ASSOC);
     <div class="chat-container">
         <header>
             <nav>
-                <a class="logo" href="../php/login.php">LLGR</a>
+                <a class="logo" href="rotas_usuario.php">LLGR</a>
                 <div class="mobile-menu">
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -71,7 +72,8 @@ $reclamacoes = $result->fetch_all(MYSQLI_ASSOC);
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <form class="chat-input-area" id="chat-form" method="POST" action="../../user/api/reclamacoes.php">
+        <form class="chat-input-area" id="chat-form" method="POST" action="../api/reclamacoes.php">
+            <?= csrf_input() ?>
             <input type="hidden" name="acao" value="enviar">
             <input
                 type="text"

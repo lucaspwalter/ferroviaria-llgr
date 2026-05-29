@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
@@ -21,7 +22,7 @@ if (!isset($_SESSION['usuario_id'])) {
 <body>
     <header>
         <nav>
-            <a class="logo" href="../php/login.php">LLGR</a>
+            <a class="logo" href="rotas_usuario.php">LLGR</a>
             <div class="mobile-menu">
                 <div class="line1"></div>
                 <div class="line2"></div>
@@ -29,7 +30,6 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
             <ul class="nav-list">
                 <li><a href="sobre.php">Sobre</a></li>
-                <li><a href="../php/login.php">Início</a></li>
                 <li><a href="rotas_usuario.php">Rotas</a></li>
                 <li><a href="notificacoes_usuario.php">Notificações</a></li>
                 <li><a href="chat.php">Reclame Aqui</a></li>
@@ -45,6 +45,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="card">
                 <h2 class="card-title">Informações Pessoais</h2>
                 <form method="POST" id="perfilForm">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nome">Nome Completo <span class="required">*</span></label>
@@ -116,6 +117,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="card">
                 <h2 class="card-title">Alterar Senha</h2>
                 <form method="POST" id="senhaForm">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="senha_atual">Senha Atual <span class="required">*</span></label>
@@ -150,7 +152,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <script>
         async function carregarDados() {
             try {
-                const response = await fetch('../../user/api/perfil.php?acao=buscar_perfil');
+                const response = await fetch('../api/perfil.php?acao=buscar_perfil');
                 const result = await response.json();
                 if (result.sucesso) {
                     const dados = result.dados;
@@ -177,7 +179,7 @@ if (!isset($_SESSION['usuario_id'])) {
             submitBtn.textContent = 'Salvando...';
 
             try {
-                const response = await fetch('../../user/api/perfil.php', {
+                const response = await fetch('../api/perfil.php', {
                     method: 'POST',
                     body: formData
                 });
@@ -212,7 +214,7 @@ if (!isset($_SESSION['usuario_id'])) {
             submitBtn.textContent = 'Alterando...';
 
             try {
-                const response = await fetch('../../user/api/perfil.php', {
+                const response = await fetch('../api/perfil.php', {
                     method: 'POST',
                     body: formData
                 });

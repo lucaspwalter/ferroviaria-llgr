@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
+require_csrf_token('../php/cadastro.php');
 require_once __DIR__ . '/../../config/database.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {

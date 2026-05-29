@@ -51,7 +51,7 @@ if (!isset($_SESSION['usuario_id'])) {
         async function carregarNotificacoes() {
             const container = document.getElementById('notificacoes-lista');
             try {
-                const response = await fetch('../../user/api/notificacoes.php?acao=listar_publicas');
+                const response = await fetch('../api/notificacoes.php?acao=listar_publicas');
                 const result = await response.json();
                 if (result.sucesso && result.dados.length > 0) {
                     container.innerHTML = '';
@@ -94,14 +94,23 @@ if (!isset($_SESSION['usuario_id'])) {
                 <div class="notificacao-header ${prioridadeClass}">
                     <span class="notificacao-icone">${icone}</span>
                     <div class="notificacao-info">
-                        <strong class="notificacao-titulo">${notif.titulo}</strong>
-                        <p class="notificacao-mensagem">${notif.mensagem}</p>
+                        <strong class="notificacao-titulo">${escapeHTML(notif.titulo)}</strong>
+                        <p class="notificacao-mensagem">${escapeHTML(notif.mensagem)}</p>
                         <small class="notificacao-data">${formatarDataHora(notif.criado_em)}</small>
                     </div>
                     ${notif.lida ? '<span class="status-lida">✓</span>' : '<span class="status-nova">●</span>'}
                 </div>
             `;
             return div;
+        }
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
         }
         function formatarDataHora(data) {
             if (!data) return '-';

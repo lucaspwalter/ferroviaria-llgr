@@ -1,10 +1,14 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['operador_id'])) {
     $_SESSION['erro'] = "Acesso negado.";
     header("Location: ../php/login.php");
     exit();
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    require_csrf_token('../php/reclamacoes.php');
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

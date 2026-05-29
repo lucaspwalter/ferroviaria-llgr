@@ -21,7 +21,7 @@ let chart = new Chart(ctxBar, {
         plugins: {
             legend: {
                 labels: {
-                    color: '#f0f0f0'
+                    color: '#1f1f1f'
                 }
             },
             tooltip: {
@@ -41,16 +41,16 @@ let chart = new Chart(ctxBar, {
         },
         scales: {
             x: {
-                ticks: { color: '#f0f0f0' },
+                ticks: { color: '#555555' },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)'
+                    color: 'rgba(0, 0, 0, 0.08)'
                 }
             },
             y: {
                 beginAtZero: true,
-                ticks: { color: '#f0f0f0' },
+                ticks: { color: '#555555' },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)'
+                    color: 'rgba(0, 0, 0, 0.08)'
                 }
             }
         }

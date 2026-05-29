@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['erro'] = "Você precisa estar logado.";
@@ -7,6 +8,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require_csrf_token('../php/chat.php');
     $acao = $_POST['acao'] ?? '';
     if ($acao == 'enviar') {
         $usuario_id = $_SESSION['usuario_id'];

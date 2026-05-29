@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 $erro = $_SESSION['erro'] ?? '';
 $sucesso = $_SESSION['sucesso'] ?? '';
 unset($_SESSION['erro'], $_SESSION['sucesso']);
@@ -17,7 +18,8 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
 <body>
 <header></header>
 <main class="login-container">
-    <form action="../../user/api/login.php" method="POST">
+    <form action="../api/login.php" method="POST">
+        <?= csrf_input() ?>
         <h1>Entre na sua conta</h1>
         <div class="input-box">
             <input name="email" placeholder="E-mail" type="email" required />
@@ -32,6 +34,8 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             <div class="mensagem sucesso"><?= htmlspecialchars($sucesso) ?></div>
         <?php endif; ?>
         <button type="submit" class="login">Entrar</button>
+        <a class="secondary-login-link" href="../../index.html">Voltar para escolha de acesso</a>
+        <a class="secondary-login-link" href="../../operator/php/login.php">Entrar como operador</a>
         <div class="register-link">
             <p>Não tem conta? <a href="cadastro.php">Cadastre-se</a></p>
         </div>

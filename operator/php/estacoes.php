@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,6 +29,7 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
                 <li><a href="estacoes.php">Estações</a></li>
@@ -51,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Nova Estação</h2>
                 <form method="POST" id="estacaoForm" onsubmit="return submitForm('estacaoForm', '../../operator/api/estacoes.php')">
+                    <?= csrf_input() ?>
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -214,9 +217,9 @@ if (!isset($_SESSION['operador_id'])) {
         function createTableRow(estacao) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${estacao.codigo}</td>
-                <td>${estacao.nome}</td>
-                <td>${estacao.cidade} - ${estacao.estado}</td>
+                <td>${escapeHTML(estacao.codigo)}</td>
+                <td>${escapeHTML(estacao.nome)}</td>
+                <td>${escapeHTML(estacao.cidade)} - ${escapeHTML(estacao.estado)}</td>
                 <td>${estacao.numero_plataformas || '-'}</td>
                 <td>${estacao.capacidade_passageiros ? estacao.capacidade_passageiros + ' passageiros' : '-'}</td>
                 <td>${getStatusBadge(estacao.status)}</td>

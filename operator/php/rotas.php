@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -27,8 +28,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -49,6 +52,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Nova Rota</h2>
                 <form method="POST" id="rotaForm" onsubmit="return submitForm('rotaForm', '../../operator/api/rotas.php')">
+                    <?= csrf_input() ?>
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -161,9 +165,9 @@ if (!isset($_SESSION['operador_id'])) {
         function createTableRow(rota) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${rota.codigo}</td>
-                <td>${rota.nome}</td>
-                <td>${rota.origem} → ${rota.destino}</td>
+                <td>${escapeHTML(rota.codigo)}</td>
+                <td>${escapeHTML(rota.nome)}</td>
+                <td>${escapeHTML(rota.origem)} → ${escapeHTML(rota.destino)}</td>
                 <td>${rota.distancia_km} km</td>
                 <td>${rota.preco_base ? formatCurrency(rota.preco_base) : '-'}</td>
                 <td>${getStatusBadge(rota.status)}</td>

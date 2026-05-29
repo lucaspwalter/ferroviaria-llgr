@@ -22,11 +22,20 @@ if (isset($conn) && $conn instanceof mysqli) {
 }
 
 function listarRotasAtivas($conn) {
-    $sql = "SELECT * FROM rotas WHERE status = 'ativa' ORDER BY nome ASC";
+    $sql = "SELECT
+                r.*,
+                COUNT(rp.id) AS total_paradas,
+                GROUP_CONCAT(rp.nome_parada ORDER BY rp.ordem SEPARATOR '||') AS paradas
+            FROM rotas r
+            LEFT JOIN rota_paradas rp ON rp.rota_id = r.id
+            WHERE r.status = 'ativa'
+            GROUP BY r.id
+            ORDER BY r.nome ASC";
     $result = $conn->query($sql);
     $rotas = [];
     if ($result) {
         while ($row = $result->fetch_assoc()) {
+            $row['paradas'] = $row['paradas'] ? explode('||', $row['paradas']) : [];
             $rotas[] = $row;
         }
     }
@@ -34,12 +43,20 @@ function listarRotasAtivas($conn) {
 }
 function buscarRota($conn) {
     $id = $_GET['id'] ?? 0;
-    $sql = "SELECT * FROM rotas WHERE id = ? AND status = 'ativa'";
+    $sql = "SELECT
+                r.*,
+                COUNT(rp.id) AS total_paradas,
+                GROUP_CONCAT(rp.nome_parada ORDER BY rp.ordem SEPARATOR '||') AS paradas
+            FROM rotas r
+            LEFT JOIN rota_paradas rp ON rp.rota_id = r.id
+            WHERE r.id = ? AND r.status = 'ativa'
+            GROUP BY r.id";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc()) {
+        $row['paradas'] = $row['paradas'] ? explode('||', $row['paradas']) : [];
         echo json_encode(['sucesso' => true, 'dados' => $row]);
     } else {
         echo json_encode(['sucesso' => false, 'mensagem' => 'Rota não encontrada']);

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -47,8 +48,10 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -143,6 +146,7 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
             <span class="close" onclick="fecharModal()">&times;</span>
             <h2><i class="fas fa-reply"></i> Responder Reclamação</h2>
             <form method="POST" action="../../operator/api/reclamacoes.php">
+                <?= csrf_input() ?>
                 <input type="hidden" name="acao" value="responder">
                 <input type="hidden" name="reclamacao_id" id="reclamacao_id">
                 <textarea 
@@ -184,8 +188,13 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
                 idInput.type = 'hidden';
                 idInput.name = 'reclamacao_id';
                 idInput.value = id;
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = 'csrf_token';
+                csrfInput.value = <?= json_encode(csrf_token()) ?>;
                 form.appendChild(acaoInput);
                 form.appendChild(idInput);
+                form.appendChild(csrfInput);
                 document.body.appendChild(form);
                 form.submit();
             }

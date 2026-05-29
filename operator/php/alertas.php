@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,8 +29,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -50,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title" id="formTitle">Cadastrar Novo Alerta</h2>
                 <form method="POST" id="alertaForm" onsubmit="return submitForm('alertaForm', '../../operator/api/alertas.php')">
+                    <?= csrf_input() ?>
                     <input type="hidden" id="id" name="id">
                     <div class="form-row">
                         <div class="form-group">
@@ -152,9 +156,9 @@ if (!isset($_SESSION['operador_id'])) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${getStatusBadge(alerta.tipo)}</td>
-                <td>${alerta.titulo}</td>
-                <td>${alerta.origem}</td>
-                <td><span class="badge badge-info">${alerta.prioridade}</span></td>
+                <td>${escapeHTML(alerta.titulo)}</td>
+                <td>${escapeHTML(alerta.origem)}</td>
+                <td><span class="badge badge-info">${escapeHTML(alerta.prioridade)}</span></td>
                 <td>${getStatusBadge(alerta.status)}</td>
                 <td>${formatDateTime(alerta.criado_em)}</td>
                 <td>

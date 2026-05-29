@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 $erro = $_SESSION['erro'] ?? '';
 $sucesso = $_SESSION['sucesso'] ?? '';
 unset($_SESSION['erro'], $_SESSION['sucesso']);
@@ -18,7 +19,8 @@ unset($_SESSION['erro'], $_SESSION['sucesso']);
 <body>
 <header></header>
 <main class="login-container">
-    <form method="POST" id="formCadastro" action="../../user/api/cadastro.php">
+    <form method="POST" id="formCadastro" action="../api/cadastro.php">
+        <?= csrf_input() ?>
         <h1>Crie sua <span class="conta-vermelho">conta</span></h1>
         <?php if ($erro): ?>
             <div class="mensagem erro">

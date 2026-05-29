@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['operador_id'])) {
     header("Location: login.php");
     exit();
@@ -28,8 +29,10 @@ if (!isset($_SESSION['operador_id'])) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li><a href="sobre.php">Sobre</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="sensores.php">Sensores</a></li>
+                <li><a href="estacoes.php">Estações</a></li>
                 <li><a href="trens.php">Trens</a></li>
                 <li><a href="rotas.php">Rotas</a></li>
                 <li><a href="itinerarios.php">Itinerários</a></li>
@@ -50,6 +53,7 @@ if (!isset($_SESSION['operador_id'])) {
             <div class="card">
                 <h2 class="card-title">Cadastrar Nova Notificação</h2>
                 <form method="POST" id="notificacaoForm" onsubmit="return submitForm('notificacaoForm', '../../operator/api/notificacoes.php')">
+                    <?= csrf_input() ?>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo">Tipo <span class="required">*</span></label>
@@ -126,9 +130,9 @@ if (!isset($_SESSION['operador_id'])) {
                 '<span class="badge badge-secondary">Lida</span>' : 
                 '<span class="badge badge-success">Não lida</span>';
             tr.innerHTML = `
-                <td><span class="badge badge-info">${notificacao.tipo}</span></td>
-                <td>${notificacao.titulo}</td>
-                <td><span class="badge badge-${notificacao.prioridade === 'alta' ? 'danger' : (notificacao.prioridade === 'média' ? 'warning' : 'secondary')}">${notificacao.prioridade}</span></td>
+                <td><span class="badge badge-info">${escapeHTML(notificacao.tipo)}</span></td>
+                <td>${escapeHTML(notificacao.titulo)}</td>
+                <td><span class="badge badge-${notificacao.prioridade === 'alta' ? 'danger' : (notificacao.prioridade === 'média' ? 'warning' : 'secondary')}">${escapeHTML(notificacao.prioridade)}</span></td>
                 <td>${statusBadge}</td>
                 <td>${formatDateTime(notificacao.criado_em)}</td>
             `;
