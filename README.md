@@ -124,13 +124,24 @@ Estrutura do Repositório
 ferroviaria-llgr/
 │
 ├── index.html                         Página inicial
-├── database.sql                       Script completo do banco de dados
-├── adicionar_tabela_estacoes.sql      Script da tabela de estações
 ├── README.md                          Este arquivo
+├── DEPLOY.md                          Guia para publicar em hospedagem PHP/MySQL
 ├── LICENSE                            Licença MIT
 │
+├── config/                            Configurações e helpers globais
+│   ├── database.php                   Conexão com o banco de dados
+│   └── security.php                   Helpers de segurança e CSRF
+│
+├── database/                          Arquivos de banco de dados
+│   ├── schema/                        Estrutura completa do banco
+│   │   └── ferrorama.sql
+│   ├── migrations/                    Alterações incrementais de schema
+│   │   └── migration_rota_paradas.sql
+│   └── seeds/                         Dados extras para popular o banco
+│       └── seed_rotas_extras.sql
+│
 ├── operator/                          Área do Operador
-│   ├── php/                           Páginas do operador
+│   ├── pages/                           Páginas do operador
 │   │   ├── dashboard.php              Painel principal
 │   │   ├── sensores.php               Gerenciar sensores
 │   │   ├── estacoes.php               Gerenciar estações
@@ -151,7 +162,7 @@ ferroviaria-llgr/
 │   └── img/                           Imagens
 │
 ├── user/                              Área do Usuário
-│   ├── php/                           Páginas do usuário
+│   ├── pages/                           Páginas do usuário
 │   │   ├── cadastro.php               Cadastro de usuário
 │   │   ├── login.php                  Login do usuário
 │   │   ├── perfil.php                 Visualizar perfil
@@ -166,6 +177,10 @@ ferroviaria-llgr/
 │   ├── js/                            Scripts do usuário
 │   └── img/                           Imagens
 ```
+
+Publicação
+
+Para colocar o projeto no ar, use uma hospedagem com Apache, PHP 7.4+ e MySQL/MariaDB. O passo a passo completo esta em `DEPLOY.md`, incluindo importacao do banco, criacao do arquivo `.env` e checklist de verificacao.
 
 Licença
 

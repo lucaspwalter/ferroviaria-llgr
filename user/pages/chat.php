@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../../config/security.php';
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: ../php/login.php");
+    header("Location: ../pages/login.php");
     exit();
 }
 require_once __DIR__ . '/../../config/database.php';
@@ -39,12 +39,12 @@ $reclamacoes = $result->fetch_all(MYSQLI_ASSOC);
                     <div class="line3"></div>
                 </div>
                 <ul class="nav-list">
-                    <li><a href="../php/sobre.php">Sobre</a></li>
-                    <li><a href="../php/rotas_usuario.php">Rotas</a></li>
-                    <li><a href="../php/notificacoes_usuario.php">Notificações</a></li>
+                    <li><a href="../pages/sobre.php">Sobre</a></li>
+                    <li><a href="../pages/rotas_usuario.php">Rotas</a></li>
+                    <li><a href="../pages/notificacoes_usuario.php">Notificações</a></li>
                     <li><a href="chat.php">Reclame Aqui</a></li>
-                    <li><a href="../php/perfil.php">Perfil</a></li>
-                    <li><a href="../php/logout_usuario.php">Sair</a></li>
+                    <li><a href="../pages/perfil.php">Perfil</a></li>
+                    <li><a href="../pages/logout_usuario.php">Sair</a></li>
                 </ul>
             </nav>
         </header>

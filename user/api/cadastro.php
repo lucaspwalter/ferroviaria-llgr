@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../config/security.php';
-require_csrf_token('../php/cadastro.php');
+require_csrf_token('../pages/cadastro.php');
 require_once __DIR__ . '/../../config/database.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
@@ -103,19 +103,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($stmt->execute()) {
             $_SESSION['sucesso'] = "Cadastro realizado com sucesso! Faça login para continuar.";
-            header("Location: ../php/login.php");
+            header("Location: ../pages/login.php");
             exit();
         } else {
             throw new Exception("Erro ao cadastrar: " . $stmt->error);
         }
     } catch (Exception $e) {
         $_SESSION['erro'] = $e->getMessage();
-        header("Location: ../php/cadastro.php");
+        header("Location: ../pages/cadastro.php");
         exit();
     }
 } else {
     $_SESSION['erro'] = "Método de requisição inválido.";
-    header("Location: ../php/cadastro.php");
+    header("Location: ../pages/cadastro.php");
     exit();
 }
 

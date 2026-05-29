@@ -43,13 +43,13 @@ if ($conn->connect_error) {
 
         if (substr($script, -strlen('/user/api/cadastro.php')) === '/user/api/cadastro.php') {
             $_SESSION['erro'] = 'Nao foi possivel conectar ao banco de dados. Confira as credenciais no arquivo .env.';
-            header('Location: ../php/cadastro.php');
+            header('Location: ../pages/cadastro.php');
             exit();
         }
 
         if (substr($script, -strlen('/user/api/login.php')) === '/user/api/login.php') {
             $_SESSION['erro'] = 'Nao foi possivel conectar ao banco de dados. Confira as credenciais no arquivo .env.';
-            header('Location: ../php/login.php');
+            header('Location: ../pages/login.php');
             exit();
         }
     }

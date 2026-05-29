@@ -4,11 +4,11 @@ require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['operador_id'])) {
     $_SESSION['erro'] = "Acesso negado.";
-    header("Location: ../php/login.php");
+    header("Location: ../pages/login.php");
     exit();
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    require_csrf_token('../php/reclamacoes.php');
+    require_csrf_token('../pages/reclamacoes.php');
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if (empty($resposta)) {
             $_SESSION['erro'] = "A resposta não pode estar vazia.";
-            header("Location: ../php/reclamacoes.php");
+            header("Location: ../pages/reclamacoes.php");
             exit();
         }
         
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['erro'] = "Erro ao enviar resposta.";
         }
         
-            header("Location: ../php/reclamacoes.php");
+            header("Location: ../pages/reclamacoes.php");
         exit();
     }
     
@@ -54,13 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['erro'] = "Erro ao atualizar reclamação.";
         }
         
-            header("Location: ../php/reclamacoes.php");
+            header("Location: ../pages/reclamacoes.php");
         exit();
     }
 }
 
 $_SESSION['erro'] = "Ação inválida.";
-header("Location: ../php/reclamacoes.php");
+header("Location: ../pages/reclamacoes.php");
 exit();
 ?>
 
