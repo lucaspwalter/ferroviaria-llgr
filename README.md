@@ -22,7 +22,17 @@ O sistema é dividido em dois módulos principais:
 
 ## Como rodar localmente
 
-A explicação de como rodar localmente a Ferroviária LLGR está no meu portfólio:
+Com Docker instalado:
+
+```bash
+git clone https://github.com/lucaspwalter/ferroviaria-llgr.git
+cd ferroviaria-llgr
+docker compose up --build
+```
+
+Acesse `http://localhost:8000`. O MySQL e o schema são configurados automaticamente.
+
+Instruções manuais para Linux, macOS e Windows também estão no portfólio:
 
 https://lucaspwalter.github.io/portfolio/setup-ferroviaria.html
 
