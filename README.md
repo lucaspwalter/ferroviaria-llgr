@@ -1,26 +1,28 @@
 # Ferroviária LLGR
 
-## What it is
+A web platform for managing railway operations, infrastructure, and itineraries.
+
+## Overview
 
 Ferroviária LLGR is a web system designed to digitize and optimize railway operations management, connecting operators and users with full control over trains, routes, stations, sensors, maintenance, and itineraries.
 
 - Portfolio: https://lucaspwalter.github.io/portfolio/
 - Repository: https://github.com/lucaspwalter/ferroviaria-llgr
 
-## How it works
+## Features
 
 The system is divided into two main modules:
 
 - Operator module: manages trains, routes, stations, sensors, and maintenance.
 - User module: searches itineraries and monitors operations in real time.
 
-## Technologies
+## Tech Stack
 
 - PHP
 - MySQL
 - Docker
 
-## Running locally
+## Getting Started
 
 With Docker installed:
 
@@ -36,7 +38,7 @@ Manual instructions for Linux, macOS, and Windows are also available in the port
 
 https://lucaspwalter.github.io/portfolio/setup-ferroviaria.html
 
-## Project structure
+## Project Structure
 
 ```text
 ferroviaria-llgr/
@@ -67,3 +69,7 @@ ferroviaria-llgr/
 - README.md
 - nixpacks.toml
 ```
+
+## License
+
+Licensed under the MIT License. See `LICENSE`.
