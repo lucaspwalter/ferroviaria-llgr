@@ -1,28 +1,28 @@
 # Ferroviária LLGR
 
-## O que é
+## What it is
 
-Ferroviária LLGR é um sistema web para digitalizar e otimizar a gestão de operações ferroviárias, conectando operadores e usuários com controle completo de trens, rotas, estações, sensores, manutenções e itinerários.
+Ferroviária LLGR is a web system designed to digitize and optimize railway operations management, connecting operators and users with full control over trains, routes, stations, sensors, maintenance, and itineraries.
 
-- Portfólio: https://lucaspwalter.github.io/portfolio/
-- Repositório: https://github.com/lucaspwalter/ferroviaria-llgr
+- Portfolio: https://lucaspwalter.github.io/portfolio/
+- Repository: https://github.com/lucaspwalter/ferroviaria-llgr
 
-## Como funciona
+## How it works
 
-O sistema é dividido em dois módulos principais:
+The system is divided into two main modules:
 
-- Módulo de operadores: gerencia trens, rotas, estações, sensores e manutenções.
-- Módulo de usuários: consulta itinerários e acompanha operações em tempo real.
+- Operator module: manages trains, routes, stations, sensors, and maintenance.
+- User module: searches itineraries and monitors operations in real time.
 
-## Tecnologias
+## Technologies
 
 - PHP
 - MySQL
 - Docker
 
-## Como rodar localmente
+## Running locally
 
-Com Docker instalado:
+With Docker installed:
 
 ```bash
 git clone https://github.com/lucaspwalter/ferroviaria-llgr.git
@@ -30,13 +30,13 @@ cd ferroviaria-llgr
 docker compose up --build
 ```
 
-Acesse `http://localhost:8000`. O MySQL e o schema são configurados automaticamente.
+Open `http://localhost:8000`. MySQL and its schema are configured automatically.
 
-Instruções manuais para Linux, macOS e Windows também estão no portfólio:
+Manual instructions for Linux, macOS, and Windows are also available in the portfolio:
 
 https://lucaspwalter.github.io/portfolio/setup-ferroviaria.html
 
-## Estrutura do projeto
+## Project structure
 
 ```text
 ferroviaria-llgr/
